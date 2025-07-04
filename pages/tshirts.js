@@ -4,11 +4,11 @@ import Link from "next/link";
 const Tshirts = () => {
     return (
         <div>
-            <section class="text-gray-600 body-font">
+            <section class="text-gray-600 body-font ml-20 mr-20">
                 <div class="container px-5 py-24 mx-auto">
                     <div class="flex flex-wrap -m-4">
                         <Link href={"/product/allen-solly"} legacyBehavior>
-                            <a class="lg:w-1/4 md:w-1/2 p-4 w-full cursor-pointer shadow-lg">
+                            <a class="lg:w-1/4 md:w-1/2 p-4 w-full cursor-pointer shadow-lg mb-10">
                                 <div>
                                     <a class="block relative h-48 rounded overflow-hidden">
                                         <img
@@ -22,7 +22,7 @@ const Tshirts = () => {
                                             T-Shirt
                                         </h3>
                                         <h2 class="text-gray-900 title-font text-lg font-medium">
-                                            Shooting Stars
+                                            Allen Solly
                                         </h2>
                                         <p class="mt-1">₹959</p>
                                         <p class="mt-1">S,M,L,XL</p>
@@ -31,7 +31,7 @@ const Tshirts = () => {
                             </a>
                         </Link>
                         <Link href={"/product/allen-solly"} legacyBehavior>
-                            <a class="lg:w-1/4 md:w-1/2 p-4 w-full cursor-pointer">
+                            <a class="lg:w-1/4 md:w-1/2 p-4 w-full cursor-pointer shadow-lg mb-10">
                                 <div>
                                     <a class="block relative h-48 rounded overflow-hidden">
                                         <img
@@ -45,7 +45,7 @@ const Tshirts = () => {
                                             T-Shirt
                                         </h3>
                                         <h2 class="text-gray-900 title-font text-lg font-medium">
-                                            Shooting Stars
+                                            Allen Solly
                                         </h2>
                                         <p class="mt-1">₹959</p>
                                         <p class="mt-1">S,M,L,XL</p>
@@ -54,7 +54,7 @@ const Tshirts = () => {
                             </a>
                         </Link>
                         <Link href={"/product/allen-solly"} legacyBehavior>
-                            <a class="lg:w-1/4 md:w-1/2 p-4 w-full cursor-pointer">
+                            <a class="lg:w-1/4 md:w-1/2 p-4 w-full cursor-pointer shadow-lg mb-10">
                                 <div>
                                     <a class="block relative h-48 rounded overflow-hidden">
                                         <img
@@ -68,7 +68,7 @@ const Tshirts = () => {
                                             T-Shirt
                                         </h3>
                                         <h2 class="text-gray-900 title-font text-lg font-medium">
-                                            Shooting Stars
+                                            Allen Solly
                                         </h2>
                                         <p class="mt-1">₹959</p>
                                         <p class="mt-1">S,M,L,XL</p>
@@ -77,7 +77,7 @@ const Tshirts = () => {
                             </a>
                         </Link>
                         <Link href={"/product/allen-solly"} legacyBehavior>
-                            <a class="lg:w-1/4 md:w-1/2 p-4 w-full cursor-pointer">
+                            <a class="lg:w-1/4 md:w-1/2 p-4 w-full cursor-pointer shadow-lg mb-10">
                                 <div>
                                     <a class="block relative h-48 rounded overflow-hidden">
                                         <img
@@ -91,7 +91,7 @@ const Tshirts = () => {
                                             T-Shirt
                                         </h3>
                                         <h2 class="text-gray-900 title-font text-lg font-medium">
-                                            Shooting Stars
+                                            Allen Solly
                                         </h2>
                                         <p class="mt-1">₹959</p>
                                         <p class="mt-1">S,M,L,XL</p>
@@ -100,7 +100,7 @@ const Tshirts = () => {
                             </a>
                         </Link>
                         <Link href={"/product/allen-solly"} legacyBehavior>
-                            <a class="lg:w-1/4 md:w-1/2 p-4 w-full cursor-pointer">
+                            <a class="lg:w-1/4 md:w-1/2 p-4 w-full cursor-pointer shadow-lg mb-10">
                                 <div>
                                     <a class="block relative h-48 rounded overflow-hidden">
                                         <img
@@ -114,7 +114,7 @@ const Tshirts = () => {
                                             T-Shirt
                                         </h3>
                                         <h2 class="text-gray-900 title-font text-lg font-medium">
-                                            Shooting Stars
+                                            Allen Solly
                                         </h2>
                                         <p class="mt-1">₹959</p>
                                         <p class="mt-1">S,M,L,XL</p>
@@ -123,7 +123,7 @@ const Tshirts = () => {
                             </a>
                         </Link>
                         <Link href={"/product/allen-solly"} legacyBehavior>
-                            <a class="lg:w-1/4 md:w-1/2 p-4 w-full cursor-pointer">
+                            <a class="lg:w-1/4 md:w-1/2 p-4 w-full cursor-pointer shadow-lg mb-10">
                                 <div>
                                     <a class="block relative h-48 rounded overflow-hidden">
                                         <img
@@ -137,7 +137,7 @@ const Tshirts = () => {
                                             T-Shirt
                                         </h3>
                                         <h2 class="text-gray-900 title-font text-lg font-medium">
-                                            Shooting Stars
+                                            Allen Solly
                                         </h2>
                                         <p class="mt-1">₹959</p>
                                         <p class="mt-1">S,M,L,XL</p>
@@ -146,7 +146,7 @@ const Tshirts = () => {
                             </a>
                         </Link>
                         <Link href={"/product/allen-solly"} legacyBehavior>
-                            <a class="lg:w-1/4 md:w-1/2 p-4 w-full cursor-pointer">
+                            <a class="lg:w-1/4 md:w-1/2 p-4 w-full cursor-pointer shadow-lg mb-10">
                                 <div>
                                     <a class="block relative h-48 rounded overflow-hidden">
                                         <img
@@ -160,7 +160,7 @@ const Tshirts = () => {
                                             T-Shirt
                                         </h3>
                                         <h2 class="text-gray-900 title-font text-lg font-medium">
-                                            Shooting Stars
+                                            Allen Solly
                                         </h2>
                                         <p class="mt-1">₹959</p>
                                         <p class="mt-1">S,M,L,XL</p>
@@ -169,7 +169,7 @@ const Tshirts = () => {
                             </a>
                         </Link>
                         <Link href={"/product/allen-solly"} legacyBehavior>
-                            <a class="lg:w-1/4 md:w-1/2 p-4 w-full cursor-pointer">
+                            <a class="lg:w-1/4 md:w-1/2 p-4 w-full cursor-pointer shadow-lg mb-10 ">
                                 <div>
                                     <a class="block relative h-48 rounded overflow-hidden">
                                         <img
@@ -183,7 +183,7 @@ const Tshirts = () => {
                                             T-Shirt
                                         </h3>
                                         <h2 class="text-gray-900 title-font text-lg font-medium">
-                                            Shooting Stars
+                                            Allen Solly
                                         </h2>
                                         <p class="mt-1">₹959</p>
                                         <p class="mt-1">S,M,L,XL</p>
