@@ -16,7 +16,7 @@ export default function Home() {
                     content="width=device-width, initial-scale=1"
                 />
             </Head>
-            <Navbar />
+
             <div>
                 <img src="/bg.png" alt="Background" />
             </div>
@@ -196,7 +196,6 @@ export default function Home() {
                     </button>
                 </div>
             </section>
-            <Footer />
         </>
     );
 }
