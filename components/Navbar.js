@@ -2,7 +2,7 @@ import React, { use } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { AiOutlineShoppingCart } from "react-icons/ai";
-import { FaMinus, FaPlus, FaWindowClose } from "react-icons/fa";
+import { FaMinusSquare, FaPlusSquare, FaWindowClose } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md";
 import { IoBagHandle } from "react-icons/io5";
 import { useRef } from "react";
@@ -20,7 +20,7 @@ const Navbar = ({ cart, addToCart, removeFromCart, clearCart, subTotal }) => {
     const ref = useRef();
 
     return (
-        <div className="flex flex-col md:flex-row md:justify-start  items-center py-2 shadow-md justify-center">
+        <div className="flex flex-col md:flex-row md:justify-start  items-center py-2 shadow-md justify-center sticky top-0 bg-white z-10">
             <div className="logo mx-5">
                 <Link href={"/"}>
                     <Image
@@ -55,7 +55,11 @@ const Navbar = ({ cart, addToCart, removeFromCart, clearCart, subTotal }) => {
             </div>
             <div
                 ref={ref}
-                className="fixed top-0 right-0 z-50 bg-[#f78787] h-full px-10 py-10 w-72 transition-transform transform translate-x-full"
+                className={`fixed top-0 border-l-2 rounded-l-3xl right-0 z-50 bg-[#f78787] h-[100vh] px-10 py-10 w-72 transition-transform transform ${
+                    Object.keys(cart).length == 0
+                        ? "translate-x-full"
+                        : "translate-x-0"
+                }`}
             >
                 <h2 className="font-bold mb-15 text-center text-xl">
                     Shopping Cart
@@ -82,7 +86,7 @@ const Navbar = ({ cart, addToCart, removeFromCart, clearCart, subTotal }) => {
                                         {cart[k].name}
                                     </div>
                                     <div className="flex font-semibold items-center justify-center w-1/3 text-md ">
-                                        <FaMinus
+                                        <FaMinusSquare
                                             onClick={() =>
                                                 removeFromCart(
                                                     k,
@@ -96,7 +100,7 @@ const Navbar = ({ cart, addToCart, removeFromCart, clearCart, subTotal }) => {
                                             className="mx-2 cursor-pointer "
                                         />
                                         {cart[k].qty}
-                                        <FaPlus
+                                        <FaPlusSquare
                                             onClick={() =>
                                                 addToCart(
                                                     k,
@@ -115,11 +119,14 @@ const Navbar = ({ cart, addToCart, removeFromCart, clearCart, subTotal }) => {
                         );
                     })}
                 </ol>
+                <div className="font-bold my-2">Subtotal: ₹{subTotal}</div>
                 <div className="flex flex-col items-center">
-                    <button className="flex mr-2 items-center justify-center mt-16 cursor-pointer font-semibold bg-[#ff8080] border-2 border-black py-2 px-8 focus:outline-none hover:bg-[#f05e5e] rounded text-lg">
-                        <IoBagHandle className="mx-1" />
-                        Checkout
-                    </button>
+                    <Link href={"/checkout"}>
+                        <button className="flex mr-2 items-center justify-center mt-16 cursor-pointer font-semibold bg-[#ff8080] border-2 border-black py-2 px-8 focus:outline-none hover:bg-[#f05e5e] rounded text-lg">
+                            <IoBagHandle className="mx-1" />
+                            Checkout
+                        </button>
+                    </Link>
                     <button
                         onClick={clearCart}
                         className="flex mr-2 items-center justify-center mt-4 cursor-pointer font-semibold bg-[#ff8080] border-2 border-black py-2 px-8 focus:outline-none hover:bg-[#f05e5e] rounded text-lg"
