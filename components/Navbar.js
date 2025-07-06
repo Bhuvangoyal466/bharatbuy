@@ -55,7 +55,7 @@ const Navbar = () => {
             </div>
             <div
                 ref={ref}
-                className="w-72 h-full   sideCart absolute top-0 right-0 bg-[#f78787] px-10 py-10 transition-transform translate-x-full transform"
+                className="fixed top-0 right-0 z-50 bg-[#f78787] h-full px-10 py-10 w-72 transition-transform transform translate-x-full"
             >
                 <h2 className="font-bold mb-15 text-center text-xl">
                     Shopping Cart

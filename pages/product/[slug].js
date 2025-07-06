@@ -1,8 +1,24 @@
 import { useRouter } from "next/router";
+import { useState } from "react";
 
 const Post = () => {
     const router = useRouter();
     const { slug } = router.query;
+    const [pin, setPin] = useState("");
+    const [service, setService] = useState();
+    const checkServiceability = async () => {
+        let pins = await fetch("http://localhost:3000/api/pincode");
+        let pinJson = await pins.json();
+        if (pinJson.includes(parseInt(pin))) {
+            setService(true);
+        } else {
+            setService(false);
+        }
+    };
+
+    const onChangePin = (e) => {
+        setPin(e.target.value);
+    };
 
     return (
         <>
@@ -164,7 +180,10 @@ const Post = () => {
                                 <span class="title-font font-medium text-2xl text-gray-900">
                                     ₹959
                                 </span>
-                                <button class="flex cursor-pointer ml-15 text-white bg-[#f05e5e] border-0 py-2 px-6 focus:outline-none hover:bg-red-500 rounded">
+                                <button class="flex cursor-pointer ml-3 text-white bg-[#f05e5e] border-0 py-2 px-6 focus:outline-none hover:bg-red-500 rounded">
+                                    Buy Now
+                                </button>
+                                <button class="flex cursor-pointer ml-4 text-white bg-[#f05e5e] border-0 py-2 px-6 focus:outline-none hover:bg-red-500 rounded">
                                     Add to Cart
                                 </button>
                                 <button class="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-4">
@@ -180,6 +199,30 @@ const Post = () => {
                                     </svg>
                                 </button>
                             </div>
+                            <div className="pin mt-6 flex space-x-2 text-sm">
+                                <input
+                                    type="text"
+                                    placeholder="Enter your pincode"
+                                    onChange={onChangePin}
+                                    className="border-2 px-2 border-[#f05e5e] rounded-md"
+                                />
+                                <button
+                                    onClick={checkServiceability}
+                                    className="flex cursor-pointer text-white bg-[#f05e5e] border-0 py-2 px-6 focus:outline-none hover:bg-red-500 rounded"
+                                >
+                                    Check
+                                </button>
+                            </div>
+                            {!service && service != null && (
+                                <div className="text-red-700 text-sm mt-3">
+                                    We don't deliver to this pincode yet.
+                                </div>
+                            )}
+                            {service && service != null && (
+                                <div className="text-green-700 text-sm mt-3">
+                                    We deliver to this pincode.
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>
