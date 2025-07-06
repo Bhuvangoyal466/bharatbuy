@@ -7,7 +7,7 @@ import { MdDeleteForever } from "react-icons/md";
 import { IoBagHandle } from "react-icons/io5";
 import { useRef } from "react";
 
-const Navbar = () => {
+const Navbar = ({ cart, addToCart, removeFromCart, clearCart, subTotal }) => {
     const toggleCart = () => {
         if (ref.current.classList.contains("translate-x-full")) {
             ref.current.classList.remove("translate-x-full");
@@ -67,47 +67,64 @@ const Navbar = () => {
                     <FaWindowClose />
                 </span>
                 <ol className="list-decimal font-semibold">
-                    <li>
-                        <div className="item flex my-5">
-                            <div className="font-semibold w-2/3">
-                                T Shirt - Allen Solly
-                            </div>
-                            <div className="flex font-semibold items-center justify-center w-1/3 text-md ">
-                                <FaMinus className="mx-2 " />1
-                                <FaPlus className="mx-2 " />
-                            </div>
+                    {Object.keys(cart).length == 0 && (
+                        <div className="my-4 font-semibold text-center">
+                            Your cart is empty! <br />
+                            <br />
+                            Please add a few items to place your order.
                         </div>
-                    </li>
-                    <li>
-                        <div className="item flex my-5">
-                            <div className="font-semibold w-2/3">
-                                T Shirt - Allen Solly
-                            </div>
-                            <div className="flex font-semibold items-center justify-center w-1/3 text-md ">
-                                <FaMinus className="mx-2 " />1
-                                <FaPlus className="mx-2 " />
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div className="item flex my-5">
-                            <div className="font-semibold w-2/3">
-                                T Shirt - Allen Solly
-                            </div>
-                            <div className="flex font-semibold items-center justify-center w-1/3 text-md ">
-                                <FaMinus className="mx-2 " />1
-                                <FaPlus className="mx-2 " />
-                            </div>
-                        </div>
-                    </li>
+                    )}
+                    {Object.keys(cart).map((k) => {
+                        return (
+                            <li key={k}>
+                                <div className="item flex my-5">
+                                    <div className="font-semibold w-2/3">
+                                        {cart[k].name}
+                                    </div>
+                                    <div className="flex font-semibold items-center justify-center w-1/3 text-md ">
+                                        <FaMinus
+                                            onClick={() =>
+                                                removeFromCart(
+                                                    k,
+                                                    1,
+                                                    cart[k].price,
+                                                    cart[k].name,
+                                                    cart[k].size,
+                                                    cart[k].variant
+                                                )
+                                            }
+                                            className="mx-2 cursor-pointer "
+                                        />
+                                        {cart[k].qty}
+                                        <FaPlus
+                                            onClick={() =>
+                                                addToCart(
+                                                    k,
+                                                    1,
+                                                    cart[k].price,
+                                                    cart[k].name,
+                                                    cart[k].size,
+                                                    cart[k].variant
+                                                )
+                                            }
+                                            className="mx-2 cursor-pointer "
+                                        />
+                                    </div>
+                                </div>
+                            </li>
+                        );
+                    })}
                 </ol>
                 <div className="flex flex-col items-center">
-                    <button className="flex mr-2 items-center justify-center mt-16 cursor-pointer font-semibold bg-[#f05e5e] border-2 border-black py-2 px-8 focus:outline-none hover:bg-[#ff8080] rounded text-lg">
+                    <button className="flex mr-2 items-center justify-center mt-16 cursor-pointer font-semibold bg-[#ff8080] border-2 border-black py-2 px-8 focus:outline-none hover:bg-[#f05e5e] rounded text-lg">
                         <IoBagHandle className="mx-1" />
                         Checkout
                     </button>
-                    <button className="flex mr-2 items-center justify-center mt-4 cursor-pointer font-semibold bg-[#f05e5e] border-2 border-black py-2 px-8 focus:outline-none hover:bg-[#ff8080] rounded text-lg">
-                        <MdDeleteForever className="mx-1 text-2xl" /> Clear All
+                    <button
+                        onClick={clearCart}
+                        className="flex mr-2 items-center justify-center mt-4 cursor-pointer font-semibold bg-[#ff8080] border-2 border-black py-2 px-8 focus:outline-none hover:bg-[#f05e5e] rounded text-lg"
+                    >
+                        <MdDeleteForever className="mx-1 text-2xl" /> Clear Cart
                     </button>
                 </div>
             </div>
