@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { FaMinus, FaPlus, FaWindowClose } from "react-icons/fa";
+import { MdDeleteForever } from "react-icons/md";
 import { IoBagHandle } from "react-icons/io5";
 import { useRef } from "react";
 
@@ -100,10 +101,15 @@ const Navbar = () => {
                         </div>
                     </li>
                 </ol>
-                <button className="flex items-center justify-center mt-16 cursor-pointer font-semibold bg-[#f05e5e] border-2 border-black py-2 px-8 focus:outline-none hover:bg-[#ff8080] rounded text-lg">
-                    <IoBagHandle className="mx-2" />
-                    Checkout
-                </button>
+                <div className="flex flex-col items-center">
+                    <button className="flex mr-2 items-center justify-center mt-16 cursor-pointer font-semibold bg-[#f05e5e] border-2 border-black py-2 px-8 focus:outline-none hover:bg-[#ff8080] rounded text-lg">
+                        <IoBagHandle className="mx-1" />
+                        Checkout
+                    </button>
+                    <button className="flex mr-2 items-center justify-center mt-4 cursor-pointer font-semibold bg-[#f05e5e] border-2 border-black py-2 px-8 focus:outline-none hover:bg-[#ff8080] rounded text-lg">
+                        <MdDeleteForever className="mx-1 text-2xl" /> Clear All
+                    </button>
+                </div>
             </div>
         </div>
     );
