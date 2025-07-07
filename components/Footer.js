@@ -20,7 +20,7 @@ const Footer = () => {
                             />
                         </Link>
                         <p className="mt-2 px-10 text-sm text-gray-500">
-                            Air plant banjo lyft occupy retro adaptogen indego
+                            India's own shopping gully
                         </p>
                     </div>
                     <div className="flex-grow flex flex-wrap md:pl-20 -mb-10 md:mt-0 mt-10 md:text-left text-center">
