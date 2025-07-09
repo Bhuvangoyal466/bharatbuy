@@ -1,7 +1,10 @@
 import { useRouter } from "next/router";
 import { useState } from "react";
+import React from "react";
+import mongoose from "mongoose";
+import Product from "../../models/Product";
 
-const Post = ({ addToCart }) => {
+const Post = ({ addToCart, product, variants }) => {
     const router = useRouter();
     const { slug } = router.query;
     const [pin, setPin] = useState("");
@@ -18,6 +21,26 @@ const Post = ({ addToCart }) => {
 
     const onChangePin = (e) => {
         setPin(e.target.value);
+    };
+
+    const [color, setColor] = useState(product.color);
+    const [size, setSize] = useState(product.size);
+
+    // Initialize color state with first available color if product.color doesn't exist in variants
+    React.useEffect(() => {
+        if (variants && Object.keys(variants).length > 0) {
+            const availableColors = Object.keys(variants);
+            if (!availableColors.includes(color)) {
+                setColor(availableColors[0]);
+            }
+        }
+    }, [variants, color]);
+
+    const refreshVariant = (newsize, newcolor) => {
+        if (variants && variants[newcolor] && variants[newcolor][newsize]) {
+            let url = `http://localhost:3000/product/${variants[newcolor][newsize].slug}`;
+            window.location = url;
+        }
     };
 
     return (
@@ -147,18 +170,57 @@ const Post = ({ addToCart }) => {
                             <div className="flex mt-6 items-center pb-5 border-b-2 border-gray-100 mb-5">
                                 <div className="flex">
                                     <span className="mr-3">Color</span>
-                                    <button className="border-2 border-gray-300 rounded-full w-6 h-6 focus:outline-none"></button>
-                                    <button className="border-2 border-gray-300 ml-1 bg-gray-700 rounded-full w-6 h-6 focus:outline-none"></button>
-                                    <button className="border-2 border-gray-300 ml-1 bg-[#f05e5e] rounded-full w-6 h-6 focus:outline-none"></button>
+                                    {Object.keys(variants).map(
+                                        (colorOption) => {
+                                            return (
+                                                <button
+                                                    key={colorOption}
+                                                    onClick={() => {
+                                                        refreshVariant(
+                                                            size,
+                                                            colorOption
+                                                        );
+                                                    }}
+                                                    className={`border-2 ml-1 cursor-pointer rounded-full w-6 h-6 ${
+                                                        color === colorOption
+                                                            ? "border-black"
+                                                            : "border-gray-600"
+                                                    }`}
+                                                    style={{
+                                                        backgroundColor:
+                                                            colorOption,
+                                                    }}
+                                                    title={colorOption}
+                                                ></button>
+                                            );
+                                        }
+                                    )}
                                 </div>
                                 <div className="flex ml-6 items-center">
                                     <span className="mr-3">Size</span>
                                     <div className="relative">
-                                        <select className="rounded border appearance-none border-gray-300 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-200 focus:border-indigo-500 text-base pl-3 pr-10">
-                                            <option>S</option>
-                                            <option>M</option>
-                                            <option>L</option>
-                                            <option>XL</option>
+                                        <select
+                                            value={size}
+                                            onChange={(e) => {
+                                                refreshVariant(
+                                                    e.target.value,
+                                                    color
+                                                );
+                                            }}
+                                            className="rounded border appearance-none border-gray-300 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-200 focus:border-indigo-500 text-base pl-3 pr-10"
+                                        >
+                                            {color &&
+                                                variants[color] &&
+                                                Object.keys(
+                                                    variants[color]
+                                                ).map((size) => (
+                                                    <option
+                                                        key={size}
+                                                        value={size}
+                                                    >
+                                                        {size}
+                                                    </option>
+                                                ))}
                                         </select>
                                         <span className="absolute right-0 top-0 h-full w-10 text-center text-gray-600 pointer-events-none flex items-center justify-center">
                                             <svg
@@ -242,5 +304,38 @@ const Post = ({ addToCart }) => {
         </>
     );
 };
+
+export async function getServerSideProps(context) {
+    if (!mongoose.connections[0].readyState) {
+        await mongoose.connect(process.env.MONGO_URI);
+    }
+    let product = await Product.findOne({ slug: context.query.slug });
+    let variants = await Product.find({ title: product.title });
+    let colorSizeSlug = {}; // {red:{XL:'abc'}}
+
+    for (let item of variants) {
+        // Handle colors array - convert each color to individual entries
+        const colors = Array.isArray(item.color) ? item.color : [item.color];
+        const sizes = Array.isArray(item.size) ? item.size : [item.size];
+
+        colors.forEach((color) => {
+            sizes.forEach((size) => {
+                if (Object.keys(colorSizeSlug).includes(color)) {
+                    colorSizeSlug[color][size] = { slug: item.slug };
+                } else {
+                    colorSizeSlug[color] = {};
+                    colorSizeSlug[color][size] = { slug: item.slug };
+                }
+            });
+        });
+    }
+    console.log(colorSizeSlug);
+    return {
+        props: {
+            product: JSON.parse(JSON.stringify(product)),
+            variants: JSON.parse(JSON.stringify(colorSizeSlug)),
+        },
+    };
+}
 
 export default Post;

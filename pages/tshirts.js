@@ -9,11 +9,11 @@ const Tshirts = ({ products }) => {
             <section className="text-gray-600 body-font">
                 <div className="container px-30 py-24 mx-auto">
                     <div className="flex flex-wrap -m-4 justify-center">
-                        {products.map((product) => (
+                        {Object.keys(products).map((product) => (
                             <Link
-                                href={`/product/${product.slug}`}
+                                href={`/product/${products[product].slug}`}
                                 legacyBehavior
-                                key={product._id}
+                                key={products[product]._id}
                             >
                                 <a className="lg:w-1/4 md:w-1/2 p-4 w-full cursor-pointer shadow-lg mb-10">
                                     <div>
@@ -21,7 +21,7 @@ const Tshirts = ({ products }) => {
                                             <img
                                                 alt="ecommerce"
                                                 className="m-auto md:m-0 object-cover object-center w-full h-full block"
-                                                src={product.img}
+                                                src={products[product].img}
                                             />
                                         </div>
                                         <div className="mt-4 text-center">
@@ -29,12 +29,45 @@ const Tshirts = ({ products }) => {
                                                 T-Shirt
                                             </h3>
                                             <h2 className="text-gray-900 title-font text-lg font-medium">
-                                                {product.title}
+                                                {products[product].title}
                                             </h2>
                                             <p className="mt-1">
-                                                ₹{product.price}
+                                                ₹{products[product].price}
                                             </p>
-                                            <p className="mt-1">S,M,L,XL</p>
+                                            <div className="mt-4">
+                                                {products[product].size &&
+                                                    Array.isArray(
+                                                        products[product].size
+                                                    ) &&
+                                                    products[product].size.map(
+                                                        (size) => (
+                                                            <span
+                                                                key={size}
+                                                                className="border border-gray-500 px-2 mx-1 rounded-lg"
+                                                            >
+                                                                {size}
+                                                            </span>
+                                                        )
+                                                    )}
+                                            </div>
+                                            <div className="mt-4">
+                                                {products[product].color &&
+                                                    Array.isArray(
+                                                        products[product].color
+                                                    ) &&
+                                                    products[product].color.map(
+                                                        (color) => (
+                                                            <button
+                                                                key={color}
+                                                                className="border-1 border-black ml-1 rounded-full w-6 h-6 focus:outline-none"
+                                                                style={{
+                                                                    backgroundColor:
+                                                                        color,
+                                                                }}
+                                                            ></button>
+                                                        )
+                                                    )}
+                                            </div>
                                         </div>
                                     </div>
                                 </a>
@@ -52,8 +85,46 @@ export async function getServerSideProps() {
         await mongoose.connect(process.env.MONGO_URI);
     }
     let products = await Product.find({ category: "tshirt" });
+    let tshirts = {};
+    for (let item of products) {
+        if (item.title in tshirts) {
+            if (item.color && Array.isArray(item.color)) {
+                item.color.forEach((color) => {
+                    if (
+                        !tshirts[item.title].color.includes(color) &&
+                        item.availableQty > 0
+                    ) {
+                        tshirts[item.title].color.push(color);
+                    }
+                });
+            }
+            if (item.size && Array.isArray(item.size)) {
+                item.size.forEach((size) => {
+                    if (
+                        !tshirts[item.title].size.includes(size) &&
+                        item.availableQty > 0
+                    ) {
+                        tshirts[item.title].size.push(size);
+                    }
+                });
+            }
+        } else {
+            tshirts[item.title] = JSON.parse(JSON.stringify(item));
+            if (item.availableQty > 0) {
+                tshirts[item.title].color = Array.isArray(item.color)
+                    ? [...item.color]
+                    : [item.color];
+                tshirts[item.title].size = Array.isArray(item.size)
+                    ? [...item.size]
+                    : [item.size];
+            } else {
+                tshirts[item.title].color = [];
+                tshirts[item.title].size = [];
+            }
+        }
+    }
     return {
-        props: { products: JSON.parse(JSON.stringify(products)) },
+        props: { products: JSON.parse(JSON.stringify(tshirts)) },
     };
 }
 
