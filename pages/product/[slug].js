@@ -23,8 +23,12 @@ const Post = ({ addToCart, product, variants }) => {
         setPin(e.target.value);
     };
 
-    const [color, setColor] = useState(product.color);
-    const [size, setSize] = useState(product.size);
+    const [color, setColor] = useState(
+        Array.isArray(product.color) ? product.color[0] : product.color
+    );
+    const [size, setSize] = useState(
+        Array.isArray(product.size) ? product.size[0] : product.size
+    );
 
     // Initialize color state with first available color if product.color doesn't exist in variants
     React.useEffect(() => {
@@ -32,9 +36,18 @@ const Post = ({ addToCart, product, variants }) => {
             const availableColors = Object.keys(variants);
             if (!availableColors.includes(color)) {
                 setColor(availableColors[0]);
+                // Also set the first available size for the first color
+                if (variants[availableColors[0]]) {
+                    const availableSizes = Object.keys(
+                        variants[availableColors[0]]
+                    );
+                    if (availableSizes.length > 0) {
+                        setSize(availableSizes[0]);
+                    }
+                }
             }
         }
-    }, [variants, color]);
+    }, [variants]);
 
     const refreshVariant = (newsize, newcolor) => {
         if (variants && variants[newcolor] && variants[newcolor][newsize]) {
@@ -51,15 +64,23 @@ const Post = ({ addToCart, product, variants }) => {
                         <img
                             alt="ecommerce"
                             className="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-top rounded"
-                            src="https://m.media-amazon.com/images/I/61-BZ6fzn6L._SX569_.jpg"
+                            src={product.img}
                         />
                         <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
                             <h2 className="text-sm title-font text-gray-500 tracking-widest">
-                                Allen Solly
+                                {product.category}
                             </h2>
                             <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">
-                                Casual polo T-shirt
+                                {product.title}
                             </h1>
+                            <h2 className="text-sm title-font text-gray-500 tracking-widest flex items-center">
+                                {size} /
+                                <span
+                                    className="ml-2 border-2 border-gray-600 rounded-full w-6 h-6 inline-block"
+                                    style={{ backgroundColor: color }}
+                                    title={color}
+                                ></span>
+                            </h2>
                             <div className="flex mb-4">
                                 <span className="flex items-center">
                                     <svg
@@ -160,13 +181,7 @@ const Post = ({ addToCart, product, variants }) => {
                                     </a>
                                 </span>
                             </div>
-                            <p className="leading-relaxed">
-                                This is a casual polo T-shirt from Allen Solly,
-                                made with high-quality fabric that ensures
-                                comfort and style. Perfect for everyday wear, it
-                                features a classNameic design that can be paired
-                                with jeans or shorts for a relaxed look.
-                            </p>
+                            <p className="leading-relaxed">{product.desc}</p>
                             <div className="flex mt-6 items-center pb-5 border-b-2 border-gray-100 mb-5">
                                 <div className="flex">
                                     <span className="mr-3">Color</span>
@@ -176,10 +191,28 @@ const Post = ({ addToCart, product, variants }) => {
                                                 <button
                                                     key={colorOption}
                                                     onClick={() => {
-                                                        refreshVariant(
-                                                            size,
-                                                            colorOption
-                                                        );
+                                                        setColor(colorOption);
+                                                        // Set the first available size for the new color
+                                                        if (
+                                                            variants[
+                                                                colorOption
+                                                            ]
+                                                        ) {
+                                                            const availableSizes =
+                                                                Object.keys(
+                                                                    variants[
+                                                                        colorOption
+                                                                    ]
+                                                                );
+                                                            if (
+                                                                availableSizes.length >
+                                                                0
+                                                            ) {
+                                                                setSize(
+                                                                    availableSizes[0]
+                                                                );
+                                                            }
+                                                        }
                                                     }}
                                                     className={`border-2 ml-1 cursor-pointer rounded-full w-6 h-6 ${
                                                         color === colorOption
@@ -202,10 +235,7 @@ const Post = ({ addToCart, product, variants }) => {
                                         <select
                                             value={size}
                                             onChange={(e) => {
-                                                refreshVariant(
-                                                    e.target.value,
-                                                    color
-                                                );
+                                                setSize(e.target.value);
                                             }}
                                             className="rounded border appearance-none border-gray-300 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-200 focus:border-indigo-500 text-base pl-3 pr-10"
                                         >
@@ -240,20 +270,23 @@ const Post = ({ addToCart, product, variants }) => {
                             </div>
                             <div className="flex">
                                 <span className="title-font font-medium text-2xl text-gray-900">
-                                    ₹959
+                                    ₹{product.price}
                                 </span>
                                 <button className="flex cursor-pointer ml-3 text-white bg-[#f05e5e] border-0 py-2 px-6 focus:outline-none hover:bg-red-500 rounded">
                                     Buy Now
                                 </button>
                                 <button
                                     onClick={() => {
+                                        // Create a unique key for each color-size combination
+                                        const uniqueKey = `${product.slug}-${size}-${color}`;
+
                                         addToCart(
-                                            "slug",
+                                            uniqueKey,
                                             1,
-                                            959,
-                                            "Casual polo T-shirt",
-                                            "M",
-                                            "Red"
+                                            product.price,
+                                            product.title,
+                                            size,
+                                            color
                                         );
                                     }}
                                     className="flex cursor-pointer ml-4 text-white bg-[#f05e5e] border-0 py-2 px-6 focus:outline-none hover:bg-red-500 rounded"
@@ -329,7 +362,7 @@ export async function getServerSideProps(context) {
             });
         });
     }
-    console.log(colorSizeSlug);
+    // console.log(colorSizeSlug);
     return {
         props: {
             product: JSON.parse(JSON.stringify(product)),

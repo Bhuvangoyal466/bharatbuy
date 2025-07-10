@@ -34,16 +34,16 @@ const Navbar = ({ cart, addToCart, removeFromCart, clearCart, subTotal }) => {
             </div>
             <div className="nav">
                 <ul className="flex items-center space-x-6 font-bold md:text-lg">
-                    <Link href={"/tshirts"}>
+                    <Link href={"/tshirts"} className="hover:text-[#f05e5e]">
                         <li>Tshirts</li>
                     </Link>
-                    <Link href={"/hoodies"}>
+                    <Link href={"/hoodies"} className="hover:text-[#f05e5e]">
                         <li>Hoodies</li>
                     </Link>
-                    <Link href={"/stickers"}>
+                    <Link href={"/stickers"} className="hover:text-[#f05e5e]">
                         <li>Stickers</li>
                     </Link>
-                    <Link href={"/mugs"}>
+                    <Link href={"/mugs"} className="hover:text-[#f05e5e]">
                         <li>Mugs</li>
                     </Link>
                 </ul>
@@ -88,7 +88,11 @@ const Navbar = ({ cart, addToCart, removeFromCart, clearCart, subTotal }) => {
                             <li key={k}>
                                 <div className="item flex my-5">
                                     <div className="font-semibold w-2/3">
-                                        {cart[k].name}
+                                        <div className="flex items-center">
+                                            <span>
+                                                {cart[k].name}({cart[k].size})
+                                            </span>
+                                        </div>
                                     </div>
                                     <div className="flex font-semibold items-center justify-center w-1/3 text-md ">
                                         <FaMinusSquare
@@ -99,7 +103,7 @@ const Navbar = ({ cart, addToCart, removeFromCart, clearCart, subTotal }) => {
                                                     cart[k].price,
                                                     cart[k].name,
                                                     cart[k].size,
-                                                    cart[k].variant
+                                                    cart[k].color
                                                 )
                                             }
                                             className="mx-2 cursor-pointer "
@@ -113,7 +117,7 @@ const Navbar = ({ cart, addToCart, removeFromCart, clearCart, subTotal }) => {
                                                     cart[k].price,
                                                     cart[k].name,
                                                     cart[k].size,
-                                                    cart[k].variant
+                                                    cart[k].color
                                                 )
                                             }
                                             className="mx-2 cursor-pointer "
