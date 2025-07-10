@@ -145,8 +145,8 @@ const Checkout = ({ cart, clearCart, subTotal, addToCart, removeFromCart }) => {
                         return (
                             <li key={k}>
                                 <div className="item flex my-5">
-                                    <div className="font-semibold">
-                                        {cart[k].name}
+                                    <div className="font-semibold flex items-center justify-center">
+                                        {cart[k].name}({cart[k].size})
                                     </div>
                                     <div className="flex font-semibold items-center justify-center w-1/3 text-md ">
                                         <FaMinusSquare

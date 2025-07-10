@@ -60,7 +60,7 @@ const Navbar = ({ cart, addToCart, removeFromCart, clearCart, subTotal }) => {
             </div>
             <div
                 ref={ref}
-                className={`fixed top-0 border-l-2 rounded-l-3xl right-0 z-50 bg-[#f78787] h-[100vh] px-10 py-10 w-72 transition-transform transform ${
+                className={`fixed top-0 border-l-2 overflow-y-scroll rounded-l-3xl right-0 z-50 bg-[#f78787] h-[100vh] px-10 py-10 w-72 transition-transform transform ${
                     Object.keys(cart).length == 0
                         ? "translate-x-full"
                         : "translate-x-0"

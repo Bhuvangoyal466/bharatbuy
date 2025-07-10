@@ -4,7 +4,7 @@ import React from "react";
 import mongoose from "mongoose";
 import Product from "../../models/Product";
 
-const Post = ({ addToCart, product, variants }) => {
+const Post = ({ buyNow, addToCart, product, variants }) => {
     const router = useRouter();
     const { slug } = router.query;
     const [pin, setPin] = useState("");
@@ -272,7 +272,20 @@ const Post = ({ addToCart, product, variants }) => {
                                 <span className="title-font font-medium text-2xl text-gray-900">
                                     ₹{product.price}
                                 </span>
-                                <button className="flex cursor-pointer ml-3 text-white bg-[#f05e5e] border-0 py-2 px-6 focus:outline-none hover:bg-red-500 rounded">
+                                <button
+                                    onClick={() => {
+                                        const uniqueKey = `${product.slug}-${size}-${color}`;
+                                        buyNow(
+                                            uniqueKey,
+                                            1,
+                                            product.price,
+                                            product.title,
+                                            size,
+                                            color
+                                        );
+                                    }}
+                                    className="flex cursor-pointer ml-3 text-white bg-[#f05e5e] border-0 py-2 px-6 focus:outline-none hover:bg-red-500 rounded"
+                                >
                                     Buy Now
                                 </button>
                                 <button
