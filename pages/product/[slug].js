@@ -107,14 +107,17 @@ const Post = ({ buyNow, addToCart, product, variants }) => {
                             <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">
                                 {product.title}
                             </h1>
-                            <h2 className="text-sm title-font text-gray-500 tracking-widest flex items-center">
-                                {size} /
-                                <span
-                                    className="ml-2 border-2 border-gray-600 rounded-full w-6 h-6 inline-block"
-                                    style={{ backgroundColor: color }}
-                                    title={color}
-                                ></span>
-                            </h2>
+                            {product.category !== "mug" &&
+                                product.category !== "sticker" && (
+                                    <h2 className="text-sm title-font text-gray-500 tracking-widest flex items-center">
+                                        {size} /
+                                        <span
+                                            className="ml-2 border-2 border-gray-600 rounded-full w-6 h-6 inline-block"
+                                            style={{ backgroundColor: color }}
+                                            title={color}
+                                        ></span>
+                                    </h2>
+                                )}
                             <div className="flex mb-4">
                                 <span className="flex items-center">
                                     <svg
@@ -216,92 +219,98 @@ const Post = ({ buyNow, addToCart, product, variants }) => {
                                 </span>
                             </div>
                             <p className="leading-relaxed">{product.desc}</p>
-                            <div className="flex mt-6 items-center pb-5 border-b-2 border-gray-100 mb-5">
-                                <div className="flex">
-                                    <span className="mr-3">Color</span>
-                                    {Object.keys(variants).map(
-                                        (colorOption) => {
-                                            return (
-                                                <button
-                                                    key={colorOption}
-                                                    onClick={() => {
-                                                        setColor(colorOption);
-                                                        // Set the first available size for the new color
-                                                        if (
-                                                            variants[
-                                                                colorOption
-                                                            ]
-                                                        ) {
-                                                            const availableSizes =
-                                                                Object.keys(
+                            {product.category !== "mug" &&
+                                product.category !== "sticker" && (
+                                    <div className="flex mt-6 items-center pb-5 border-b-2 border-gray-100 mb-5">
+                                        <div className="flex">
+                                            <span className="mr-3">Color</span>
+                                            {Object.keys(variants).map(
+                                                (colorOption) => {
+                                                    return (
+                                                        <button
+                                                            key={colorOption}
+                                                            onClick={() => {
+                                                                setColor(
+                                                                    colorOption
+                                                                );
+                                                                // Set the first available size for the new color
+                                                                if (
                                                                     variants[
                                                                         colorOption
                                                                     ]
-                                                                );
-                                                            if (
-                                                                availableSizes.length >
-                                                                0
-                                                            ) {
-                                                                setSize(
-                                                                    availableSizes[0]
-                                                                );
-                                                            }
-                                                        }
+                                                                ) {
+                                                                    const availableSizes =
+                                                                        Object.keys(
+                                                                            variants[
+                                                                                colorOption
+                                                                            ]
+                                                                        );
+                                                                    if (
+                                                                        availableSizes.length >
+                                                                        0
+                                                                    ) {
+                                                                        setSize(
+                                                                            availableSizes[0]
+                                                                        );
+                                                                    }
+                                                                }
+                                                            }}
+                                                            className={`border-2 ml-1 cursor-pointer rounded-full w-6 h-6 ${
+                                                                color ===
+                                                                colorOption
+                                                                    ? "border-black"
+                                                                    : "border-gray-600"
+                                                            }`}
+                                                            style={{
+                                                                backgroundColor:
+                                                                    colorOption,
+                                                            }}
+                                                            title={colorOption}
+                                                        ></button>
+                                                    );
+                                                }
+                                            )}
+                                        </div>
+                                        <div className="flex ml-6 items-center">
+                                            <span className="mr-3">Size</span>
+                                            <div className="relative">
+                                                <select
+                                                    value={size}
+                                                    onChange={(e) => {
+                                                        setSize(e.target.value);
                                                     }}
-                                                    className={`border-2 ml-1 cursor-pointer rounded-full w-6 h-6 ${
-                                                        color === colorOption
-                                                            ? "border-black"
-                                                            : "border-gray-600"
-                                                    }`}
-                                                    style={{
-                                                        backgroundColor:
-                                                            colorOption,
-                                                    }}
-                                                    title={colorOption}
-                                                ></button>
-                                            );
-                                        }
-                                    )}
-                                </div>
-                                <div className="flex ml-6 items-center">
-                                    <span className="mr-3">Size</span>
-                                    <div className="relative">
-                                        <select
-                                            value={size}
-                                            onChange={(e) => {
-                                                setSize(e.target.value);
-                                            }}
-                                            className="rounded border appearance-none border-gray-300 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-200 focus:border-indigo-500 text-base pl-3 pr-10"
-                                        >
-                                            {color &&
-                                                variants[color] &&
-                                                Object.keys(
-                                                    variants[color]
-                                                ).map((size) => (
-                                                    <option
-                                                        key={size}
-                                                        value={size}
+                                                    className="rounded border appearance-none border-gray-300 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-200 focus:border-indigo-500 text-base pl-3 pr-10"
+                                                >
+                                                    {color &&
+                                                        variants[color] &&
+                                                        Object.keys(
+                                                            variants[color]
+                                                        ).map((size) => (
+                                                            <option
+                                                                key={size}
+                                                                value={size}
+                                                            >
+                                                                {size}
+                                                            </option>
+                                                        ))}
+                                                </select>
+                                                <span className="absolute right-0 top-0 h-full w-10 text-center text-gray-600 pointer-events-none flex items-center justify-center">
+                                                    <svg
+                                                        fill="none"
+                                                        stroke="currentColor"
+                                                        strokeLinecap="round"
+                                                        strokeLinejoin="round"
+                                                        strokeWidth="2"
+                                                        className="w-4 h-4"
+                                                        viewBox="0 0 24 24"
                                                     >
-                                                        {size}
-                                                    </option>
-                                                ))}
-                                        </select>
-                                        <span className="absolute right-0 top-0 h-full w-10 text-center text-gray-600 pointer-events-none flex items-center justify-center">
-                                            <svg
-                                                fill="none"
-                                                stroke="currentColor"
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                                strokeWidth="2"
-                                                className="w-4 h-4"
-                                                viewBox="0 0 24 24"
-                                            >
-                                                <path d="M6 9l6 6 6-6"></path>
-                                            </svg>
-                                        </span>
+                                                        <path d="M6 9l6 6 6-6"></path>
+                                                    </svg>
+                                                </span>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
+                                )}
                             <div className="flex">
                                 <span className="title-font font-medium text-2xl text-gray-900">
                                     ₹{product.price}
