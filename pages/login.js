@@ -1,10 +1,81 @@
 import React from "react";
+import { useState } from "react";
+import { useRouter } from "next/router";
 import Link from "next/link";
+import { ToastContainer, toast, Bounce } from "react-toastify";
 
 const Login = () => {
+    const router = useRouter();
+    const [email, setEmail] = useState();
+    const [password, setPassword] = useState();
+
+    const handleChange = (e) => {
+        if (e.target.name === "email") {
+            setEmail(e.target.value);
+        } else if (e.target.name === "password") {
+            setPassword(e.target.value);
+        }
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const data = { email, password };
+        let res = await fetch("http://localhost:3000/api/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+        });
+        let response = await res.json();
+        console.log(response);
+        setEmail("");
+        setPassword("");
+        if (response.success) {
+            toast.success("Log in succesfull!", {
+                position: "bottom-left",
+                autoClose: 1700,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                transition: Bounce,
+            });
+            setTimeout(() => {
+                router.push("http://localhost:3000");
+            }, 1000);
+        } else {
+            toast.error(response.error || "Login failed", {
+                position: "bottom-left",
+                autoClose: 1700,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                transition: Bounce,
+            });
+        }
+    };
     return (
         <>
             <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+                <ToastContainer
+                    position="bottom-left"
+                    autoClose={1700}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick={false}
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                    theme="light"
+                    transition={Bounce}
+                />
                 <div className="sm:mx-auto sm:w-full sm:max-w-sm">
                     <img
                         className="mx-auto h-40 w-auto"
@@ -17,7 +88,11 @@ const Login = () => {
                 </div>
 
                 <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-                    <form className="space-y-6" action="#" method="POST">
+                    <form
+                        onSubmit={handleSubmit}
+                        className="space-y-6"
+                        method="POST"
+                    >
                         <div>
                             <label
                                 htmlFor="email"
@@ -27,6 +102,8 @@ const Login = () => {
                             </label>
                             <div className="mt-2">
                                 <input
+                                    value={email}
+                                    onChange={handleChange}
                                     type="email"
                                     name="email"
                                     id="email"
@@ -58,6 +135,8 @@ const Login = () => {
                             </div>
                             <div className="mt-2">
                                 <input
+                                    value={password}
+                                    onChange={handleChange}
                                     type="password"
                                     name="password"
                                     id="password"
@@ -71,7 +150,7 @@ const Login = () => {
                         <div>
                             <button
                                 type="submit"
-                                className="flex w-full justify-center rounded-md bg-red-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-red-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600"
+                                className="flex w-full cursor-pointer justify-center rounded-md bg-red-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-red-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600"
                             >
                                 Sign in
                             </button>
