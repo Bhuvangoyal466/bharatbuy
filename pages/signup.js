@@ -1,11 +1,13 @@
 import React from "react";
 import { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { ToastContainer, toast, Bounce } from "react-toastify";
 
 const Signup = () => {
     const [name, setName] = useState();
     const [email, setEmail] = useState();
+    const router = useRouter();
     const [password, setPassword] = useState();
 
     const handleChange = (e) => {
@@ -44,6 +46,9 @@ const Signup = () => {
             theme: "light",
             transition: Bounce,
         });
+        setTimeout(() => {
+            router.push("http://localhost:3000/login");
+        }, 1000);
     };
     return (
         <>
