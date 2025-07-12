@@ -68,7 +68,7 @@ const Navbar = ({
                     >
                         <MdAccountCircle className="text-xl md:text-3xl mx-2" />
                         {dropdown && (
-                            <div className="absolute right-0 w-40 top-8 rounded-md px-5 bg-blue-100 shadow-lg">
+                            <div className="absolute right-0 w-40 top-8 rounded-md px-5 bg-white border-1 border-black shadow-lg">
                                 <ul>
                                     <Link href={"/myaccount"}>
                                         <li className="py-2 text-md hover:font-semibold cursor-pointer">
