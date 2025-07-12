@@ -1,6 +1,7 @@
 import React, { use } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { FaMinusSquare, FaPlusSquare, FaWindowClose } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md";
@@ -8,7 +9,17 @@ import { IoBagHandle } from "react-icons/io5";
 import { useRef } from "react";
 import { MdAccountCircle } from "react-icons/md";
 
-const Navbar = ({ cart, addToCart, removeFromCart, clearCart, subTotal }) => {
+const Navbar = ({
+    logout,
+    user,
+    cart,
+    addToCart,
+    removeFromCart,
+    clearCart,
+    subTotal,
+}) => {
+    const [dropdown, setDropdown] = useState(false);
+
     const toggleCart = () => {
         if (ref.current.classList.contains("translate-x-full")) {
             ref.current.classList.remove("translate-x-full");
@@ -22,7 +33,7 @@ const Navbar = ({ cart, addToCart, removeFromCart, clearCart, subTotal }) => {
 
     return (
         <div className="flex flex-col md:flex-row md:justify-start  items-center py-2 shadow-md justify-center sticky top-0 bg-white z-10">
-            <div className="logo mx-5">
+            <div className="logo mr-auto lg:mr-0  md:mr-0 mx-5">
                 <Link href={"/"}>
                     <Image
                         src="/flogo.png"
@@ -32,7 +43,7 @@ const Navbar = ({ cart, addToCart, removeFromCart, clearCart, subTotal }) => {
                     />
                 </Link>
             </div>
-            <div className="nav">
+            <div className="nav mt-4 lg:ml-10 lg:mt-0 md:mt-0">
                 <ul className="flex items-center space-x-6 font-bold md:text-lg">
                     <Link href={"/tshirts"} className="hover:text-[#f05e5e]">
                         <li>Tshirts</li>
@@ -48,10 +59,44 @@ const Navbar = ({ cart, addToCart, removeFromCart, clearCart, subTotal }) => {
                     </Link>
                 </ul>
             </div>
-            <div className="cursor-pointer cart absolute right-0 top-4 mx-5 flex">
-                <Link href={"/login"}>
-                    <MdAccountCircle className="text-xl md:text-3xl mx-2" />
-                </Link>
+            <div className="cursor-pointer items-center cart absolute right-0 top-4 mx-5 flex">
+                {user.value && (
+                    <div
+                        className="relative"
+                        onMouseEnter={() => setDropdown(true)}
+                        onMouseLeave={() => setDropdown(false)}
+                    >
+                        <MdAccountCircle className="text-xl md:text-3xl mx-2" />
+                        {dropdown && (
+                            <div className="absolute right-0 w-40 top-8 rounded-md px-5 bg-blue-100 shadow-lg">
+                                <ul>
+                                    <Link href={"/myaccount"}>
+                                        <li className="py-2 text-md hover:font-semibold cursor-pointer">
+                                            My Account
+                                        </li>
+                                    </Link>
+                                    <Link href={"/orders"}>
+                                        <li className="py-2 text-md hover:font-semibold cursor-pointer">
+                                            Orders
+                                        </li>
+                                    </Link>
+                                    <Link onClick={logout} href={""}>
+                                        <li className="py-2 text-md hover:font-semibold cursor-pointer">
+                                            Logout
+                                        </li>
+                                    </Link>
+                                </ul>
+                            </div>
+                        )}
+                    </div>
+                )}
+                {!user.value && (
+                    <Link href={"/login"}>
+                        <button className="bg-[#f05e5e] cursor-pointer mr-4 text-white px-7 py-2 rounded-md">
+                            Login
+                        </button>
+                    </Link>
+                )}
 
                 <AiOutlineShoppingCart
                     onClick={toggleCart}

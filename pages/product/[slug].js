@@ -81,18 +81,6 @@ const Post = ({ buyNow, addToCart, product, variants }) => {
     return (
         <>
             <section className="text-gray-600 body-font overflow-hidden">
-                <ToastContainer
-                    position="bottom-center"
-                    autoClose={1500}
-                    hideProgressBar={false}
-                    newestOnTop={false}
-                    closeOnClick={false}
-                    rtl={false}
-                    pauseOnFocusLoss
-                    draggable
-                    pauseOnHover
-                    theme="light"
-                />
                 <div className="container px-5 py-16 mx-auto">
                     <div className="lg:w-4/5 mx-auto flex flex-wrap">
                         <img
