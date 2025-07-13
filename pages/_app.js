@@ -104,7 +104,7 @@ export default function App({ Component, pageProps }) {
 
         // Add a small delay before redirecting to allow toast to show
         setTimeout(() => {
-            router.push("http://localhost:3000");
+            router.push(`${process.env.NEXT_PUBLIC_HOST}`);
         }, 500);
     };
 
@@ -118,16 +118,18 @@ export default function App({ Component, pageProps }) {
                     setProgress(0);
                 }}
             />
-            <Navbar
-                logout={logout}
-                user={user}
-                key={key}
-                cart={cart}
-                addToCart={addToCart}
-                removeFromCart={removeFromCart}
-                clearCart={clearCart}
-                subTotal={subTotal}
-            />
+            {key && (
+                <Navbar
+                    logout={logout}
+                    user={user}
+                    key={key}
+                    cart={cart}
+                    addToCart={addToCart}
+                    removeFromCart={removeFromCart}
+                    clearCart={clearCart}
+                    subTotal={subTotal}
+                />
+            )}
             <Component
                 buyNow={buyNow}
                 cart={cart}
