@@ -5,10 +5,10 @@ import { useRouter } from "next/router";
 import { ToastContainer, toast, Bounce } from "react-toastify";
 
 const Signup = () => {
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
     const router = useRouter();
-    const [password, setPassword] = useState('');
+    const [password, setPassword] = useState("");
 
     const handleChange = (e) => {
         if (e.target.name === "name") {
@@ -31,7 +31,6 @@ const Signup = () => {
             body: JSON.stringify(data),
         });
         let response = await res.json();
-        console.log(response);
         setName("");
         setEmail("");
         setPassword("");
@@ -47,7 +46,7 @@ const Signup = () => {
             transition: Bounce,
         });
         setTimeout(() => {
-            router.push(`${process.env.NEXT_PUBLIC_HOST}/login`);
+            router.push(`${process.env.NEXT_PUBLIC_HOST}`);
         }, 1000);
     };
     return (

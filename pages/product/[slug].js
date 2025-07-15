@@ -406,7 +406,6 @@ export async function getServerSideProps(context) {
             });
         });
     }
-    // console.log(colorSizeSlug);
     return {
         props: {
             product: JSON.parse(JSON.stringify(product)),
