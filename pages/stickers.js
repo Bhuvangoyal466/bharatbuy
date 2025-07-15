@@ -40,40 +40,6 @@ const Stickers = ({ products }) => {
                                             <p className="mt-1">
                                                 ₹{products[product].price}
                                             </p>
-                                            <div className="mt-4">
-                                                {products[product].size &&
-                                                    Array.isArray(
-                                                        products[product].size
-                                                    ) &&
-                                                    products[product].size.map(
-                                                        (size) => (
-                                                            <span
-                                                                key={size}
-                                                                className="border border-gray-500 px-2 mx-1 rounded-lg"
-                                                            >
-                                                                {size}
-                                                            </span>
-                                                        )
-                                                    )}
-                                            </div>
-                                            <div className="mt-4">
-                                                {products[product].color &&
-                                                    Array.isArray(
-                                                        products[product].color
-                                                    ) &&
-                                                    products[product].color.map(
-                                                        (color) => (
-                                                            <button
-                                                                key={color}
-                                                                className="border-1 border-black ml-1 rounded-full w-6 h-6 focus:outline-none"
-                                                                style={{
-                                                                    backgroundColor:
-                                                                        color,
-                                                                }}
-                                                            ></button>
-                                                        )
-                                                    )}
-                                            </div>
                                         </div>
                                     </div>
                                 </a>

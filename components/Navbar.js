@@ -2,12 +2,14 @@ import React, { use } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import { useRouter } from "next/router";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { FaMinusSquare, FaPlusSquare, FaWindowClose } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md";
 import { IoBagHandle } from "react-icons/io5";
 import { useRef } from "react";
 import { MdAccountCircle } from "react-icons/md";
+import { toast } from "react-toastify";
 
 const Navbar = ({
     logout,
@@ -19,6 +21,7 @@ const Navbar = ({
     subTotal,
 }) => {
     const [dropdown, setDropdown] = useState(false);
+    const router = useRouter();
 
     const toggleCart = () => {
         if (ref.current.classList.contains("translate-x-full")) {
@@ -28,6 +31,38 @@ const Navbar = ({
             ref.current.classList.add("translate-x-full");
             ref.current.classList.remove("translate-x-0");
         }
+    };
+
+    const handleCheckout = () => {
+        // Check if user is logged in
+        const token = localStorage.getItem("token");
+        if (!token) {
+            toast.error("Please login to proceed to checkout!", {
+                position: "top-center",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+            });
+            router.push("/login");
+            return;
+        }
+
+        // Check if cart is empty
+        if (Object.keys(cart).length === 0) {
+            toast.error("Your cart is empty!", {
+                position: "top-center",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+            });
+            return;
+        }
+
+        router.push("/checkout");
     };
     const ref = useRef();
 
@@ -135,7 +170,14 @@ const Navbar = ({
                                     <div className="font-semibold w-2/3">
                                         <div className="flex items-center">
                                             <span>
-                                                {cart[k].name}({cart[k].size})
+                                                {cart[k].category !== "mug" &&
+                                                    cart[k].category !==
+                                                        "sticker" && (
+                                                        <span>
+                                                            {cart[k].name}(
+                                                            {cart[k].size})
+                                                        </span>
+                                                    )}
                                             </span>
                                         </div>
                                     </div>
@@ -175,12 +217,13 @@ const Navbar = ({
                 </ol>
                 <div className="font-bold my-2">Subtotal: ₹{subTotal}</div>
                 <div className="flex flex-col items-center">
-                    <Link href={"/checkout"}>
-                        <button className="flex mr-2 items-center justify-center mt-16 cursor-pointer font-semibold bg-[#ff8080] border-2 border-black py-2 px-8 focus:outline-none hover:bg-[#f05e5e] rounded text-lg">
-                            <IoBagHandle className="mx-1" />
-                            Checkout
-                        </button>
-                    </Link>
+                    <button
+                        onClick={handleCheckout}
+                        className="flex mr-2 items-center justify-center mt-16 cursor-pointer font-semibold bg-[#ff8080] border-2 border-black py-2 px-8 focus:outline-none hover:bg-[#f05e5e] rounded text-lg"
+                    >
+                        <IoBagHandle className="mx-1" />
+                        Checkout
+                    </button>
                     <button
                         onClick={clearCart}
                         className="flex mr-2 items-center justify-center mt-4 cursor-pointer font-semibold bg-[#ff8080] border-2 border-black py-2 px-8 focus:outline-none hover:bg-[#f05e5e] rounded text-lg"

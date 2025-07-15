@@ -52,8 +52,22 @@ export default function App({ Component, pageProps }) {
     };
 
     const buyNow = (itemCode, qty, price, name, size, variant) => {
-        let newCart = { itemCode: { qty: 1, price, name, size, variant } };
+        // Check if user is logged in
+        const token = localStorage.getItem("token");
+        if (!token) {
+            toast.error("Please login to buy products!", {
+                position: "top-center",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+            });
+            router.push("/login");
+            return;
+        }
 
+        let newCart = { itemCode: { qty: 1, price, name, size, variant } };
         setCart(newCart);
         saveCart(newCart);
         router.push("/checkout");
@@ -65,6 +79,21 @@ export default function App({ Component, pageProps }) {
     };
 
     const addToCart = (itemCode, qty, price, name, size, variant) => {
+        // Check if user is logged in
+        const token = localStorage.getItem("token");
+        if (!token) {
+            toast.error("Please login to add items to cart!", {
+                position: "top-center",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+            });
+            router.push("/login");
+            return;
+        }
+
         let newCart = JSON.parse(JSON.stringify(cart)); // Create a deep copy
         if (itemCode in newCart) {
             newCart[itemCode].qty = newCart[itemCode].qty + qty;
@@ -73,6 +102,15 @@ export default function App({ Component, pageProps }) {
         }
         setCart(newCart);
         saveCart(newCart);
+
+        toast.success("Item added to cart!", {
+            position: "bottom-center",
+            autoClose: 1500,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+        });
     };
 
     const removeFromCart = (itemCode, qty, price, name, size, variant) => {

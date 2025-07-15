@@ -1,11 +1,14 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { FaMinusSquare, FaPlusSquare } from "react-icons/fa";
 import { IoBagHandle } from "react-icons/io5";
 import { MdDeleteForever } from "react-icons/md";
+import { toast } from "react-toastify";
 
 const Checkout = ({ cart, clearCart, subTotal, addToCart, removeFromCart }) => {
+    const router = useRouter();
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [address, setAddress] = useState("");
@@ -14,6 +17,24 @@ const Checkout = ({ cart, clearCart, subTotal, addToCart, removeFromCart }) => {
     const [pin, setPin] = useState("");
     const [state, setState] = useState("");
     const [disabled, setDisabled] = useState(true);
+    const [loading, setLoading] = useState(false);
+
+    // Authentication check
+    useEffect(() => {
+        const token = localStorage.getItem("token");
+        if (!token) {
+            toast.error("Please login to continue with checkout!", {
+                position: "top-center",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+            });
+            router.push("/login");
+        }
+    }, [router]);
+
     const handleChange = (e) => {
         if (e.target.name === "name") {
             setName(e.target.value);
@@ -36,7 +57,86 @@ const Checkout = ({ cart, clearCart, subTotal, addToCart, removeFromCart }) => {
             } else {
                 setDisabled(true);
             }
-        }, 500);
+        }, 100);
+    };
+
+    const initiatePayment = async () => {
+        setLoading(true);
+
+        try {
+            // Validate cart
+            if (Object.keys(cart).length === 0) {
+                toast.error("Your cart is empty!");
+                setLoading(false);
+                return;
+            }
+
+            // Validate form fields
+            if (
+                !name ||
+                !email ||
+                !address ||
+                !phone ||
+                !city ||
+                !pin ||
+                !state
+            ) {
+                toast.error("Please fill all required fields!");
+                setLoading(false);
+                return;
+            }
+
+            // Get userId from localStorage or session (you may need to adjust this based on your auth system)
+            const userId =
+                localStorage.getItem("userId") || "guest_" + Date.now();
+
+            const orderData = {
+                userId: userId,
+                cart: cart,
+                subTotal: subTotal,
+                name: name,
+                email: email,
+                address: address,
+                phone: phone,
+                city: city,
+                pin: pin,
+                state: state,
+            };
+
+            // Call pretransaction API
+            const response = await fetch("/api/pretransaction", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(orderData),
+            });
+
+            const data = await response.json();
+
+            if (data.success) {
+                // Order created successfully
+                toast.success("Order created successfully!");
+
+                // Clear cart after successful order creation
+                clearCart();
+
+                // Redirect to payment page or success page
+                if (data.redirectUrl) {
+                    router.push(data.redirectUrl);
+                } else {
+                    // Alternative redirect
+                    router.push(`/order-success?orderId=${data.orderId}`);
+                }
+            } else {
+                toast.error(data.error || "Failed to create order");
+            }
+        } catch (error) {
+            console.error("Error initiating payment:", error);
+            toast.error("Something went wrong. Please try again.");
+        } finally {
+            setLoading(false);
+        }
     };
     return (
         <div className="container px-7  md:px-40 m-auto">
@@ -232,16 +332,15 @@ const Checkout = ({ cart, clearCart, subTotal, addToCart, removeFromCart }) => {
                 <span className="font-bold">Subtotal: ₹{subTotal}</span>
             </div>
             <div className="mx-4">
-                <Link href={"/checkout"}>
-                    <button
-                        disabled={disabled}
-                        className="flex disabled:cursor-not-allowed disabled:bg-blue-50 mr-2 items-center justify-center mt-6 
-                    rounded-lg cursor-pointer font-semibold bg-[#ff8080] border-2 border-black py-2 px-8 focus:outline-none hover:bg-[#f05e5e] text-lg"
-                    >
-                        <IoBagHandle className="mx-1" />
-                        Pay Now
-                    </button>
-                </Link>
+                <button
+                    onClick={initiatePayment}
+                    disabled={disabled || loading}
+                    className="flex disabled:cursor-not-allowed disabled:bg-gray-300 disabled:text-gray-500 mr-2 items-center justify-center mt-6 
+                rounded-lg cursor-pointer font-semibold bg-[#ff8080] border-2 border-black py-2 px-8 focus:outline-none hover:bg-[#f05e5e] text-lg"
+                >
+                    <IoBagHandle className="mx-1" />
+                    {loading ? "Processing..." : "Pay Now"}
+                </button>
             </div>
         </div>
     );

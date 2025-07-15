@@ -9,8 +9,8 @@ import "react-toastify/dist/ReactToastify.css";
 const Post = ({ buyNow, addToCart, product, variants }) => {
     const router = useRouter();
     const { slug } = router.query;
-    const [pin, setPin] = useState('');
-    const [service, setService] = useState('');
+    const [pin, setPin] = useState("");
+    const [service, setService] = useState("");
     const checkServiceability = async () => {
         let pins = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/pincode`);
         let pinJson = await pins.json();
@@ -206,7 +206,9 @@ const Post = ({ buyNow, addToCart, product, variants }) => {
                                     </a>
                                 </span>
                             </div>
-                            <p className="leading-relaxed">{product.desc}</p>
+                            <p className="leading-relaxed mb-3">
+                                {product.desc}
+                            </p>
                             {product.category !== "mug" &&
                                 product.category !== "sticker" && (
                                     <div className="flex mt-6 items-center pb-5 border-b-2 border-gray-100 mb-5">
