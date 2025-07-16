@@ -100,12 +100,12 @@ const Orders = () => {
     }
 
     return (
-        <div className="container mx-auto px-4 py-8">
+        <div className="container mx-auto md:px-30 px-15 py-24">
             <div className="text-center mb-8">
                 <h1 className="text-4xl font-bold text-gray-900 mb-4">
                     My Orders
                 </h1>
-                <p className="text-gray-600 max-w-2xl mx-auto">
+                <p className="text-gray-600 max-w-2xl mb-20 mx-auto">
                     Track and manage all your orders in one place. View order
                     details, payment status, and shipping information.
                 </p>
@@ -116,7 +116,7 @@ const Orders = () => {
                     {orders.map((order) => (
                         <div
                             key={order._id}
-                            className="bg-white rounded-lg shadow-lg border border-gray-200 overflow-hidden"
+                            className="bg-white rounded-lg shadow-lg border border-gray-200 mb-15 overflow-hidden"
                         >
                             <div className="bg-gray-50 px-6 py-4 border-b border-gray-200">
                                 <div className="flex flex-col md:flex-row md:items-center md:justify-between">
@@ -125,7 +125,7 @@ const Orders = () => {
                                             <p className="text-sm text-gray-600">
                                                 Order ID
                                             </p>
-                                            <p className="font-mono font-medium text-blue-600">
+                                            <p className="font-mono font-medium text-[#f05e5e]">
                                                 {order.orderId}
                                             </p>
                                         </div>
@@ -281,7 +281,7 @@ const Orders = () => {
                     </p>
                     <button
                         onClick={() => router.push("/")}
-                        className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors font-medium"
+                        className="bg-[#f05e5e] text-white px-6 py-3 rounded-lg hover:bg-red-600 transition-colors font-medium"
                     >
                         Start Shopping
                     </button>

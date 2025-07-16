@@ -102,7 +102,7 @@ const OrderSuccess = () => {
 
                 <div className="mt-8 space-x-4">
                     <Link href="/">
-                        <button className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                        <button className="bg-[#f05e5e] text-white px-6 py-2 rounded-lg hover:bg-red-600 transition-colors">
                             Continue Shopping
                         </button>
                     </Link>

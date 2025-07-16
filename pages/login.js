@@ -87,7 +87,7 @@ const Login = () => {
                     </h2>
                 </div>
 
-                <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+                <div className="mt-10 md:px-10 px-15 sm:mx-auto sm:w-full sm:max-w-sm">
                     <form
                         onSubmit={handleSubmit}
                         className="space-y-6"

@@ -22,7 +22,7 @@ export default function Home() {
             </div>
             <section className="text-gray-600 body-font">
                 <div className="container px-5 py-24 mx-auto">
-                    <div className="flex flex-wrap w-full mb-20 flex-col items-center text-center">
+                    <div className="flex flex-wrap w-full mb-20 flex-col items-center text-center md:px-30 px-10">
                         <h1 className="sm:text-3xl text-2xl font-medium title-font mb-2 text-gray-900">
                             India's Own Shopping Gully
                         </h1>
@@ -42,7 +42,7 @@ export default function Home() {
                             for unique, handcrafted products.
                         </p>
                     </div>
-                    <div className="flex flex-wrap -m-4">
+                    <div className="flex md:px-30 px-5 flex-wrap -m-4">
                         <div className="xl:w-1/3 md:w-1/2 p-4">
                             <div className="border border-gray-200 p-6 rounded-lg">
                                 <div className="w-10 h-10 inline-flex items-center justify-center rounded-full bg-[#FF3131]/10 text-[#FF3131] mb-4">

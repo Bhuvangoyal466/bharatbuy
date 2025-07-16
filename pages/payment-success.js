@@ -63,7 +63,7 @@ const PaymentSuccess = () => {
     }
 
     return (
-        <div className="container mx-auto px-4 py-8 max-w-2xl">
+        <div className="container mx-auto md:px-30 px-5 py-8 max-w-2xl">
             <div className="bg-green-50 border border-green-200 rounded-lg overflow-hidden shadow-lg">
                 <div className="bg-green-600 text-white px-6 py-4 text-center">
                     <div className="text-6xl mb-2">🎉</div>
@@ -91,7 +91,7 @@ const PaymentSuccess = () => {
                                     <span className="font-medium">
                                         Order ID:
                                     </span>
-                                    <span className="text-blue-600 font-mono">
+                                    <span className="text-[#f05e5e] font-mono">
                                         {orderDetails.orderId}
                                     </span>
                                 </div>
@@ -173,7 +173,7 @@ const PaymentSuccess = () => {
                     <div className="mt-8 text-center space-y-4">
                         <div className="flex flex-col sm:flex-row gap-4 justify-center">
                             <Link href="/">
-                                <button className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors font-medium">
+                                <button className="bg-[#f05e5e] text-white px-6 py-3 rounded-lg hover:bg-red-600 transition-colors font-medium">
                                     Continue Shopping
                                 </button>
                             </Link>

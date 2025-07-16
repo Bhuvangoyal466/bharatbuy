@@ -94,9 +94,9 @@ const PaymentPage = () => {
                 crossOrigin="anonymous"
             />
 
-            <div className="container mx-auto px-4 py-8 max-w-2xl">
+            <div className="container mx-auto  py-8 max-w-2xl md:px-30 px-10">
                 <div className="bg-white shadow-lg rounded-lg overflow-hidden">
-                    <div className="bg-blue-600 text-white px-6 py-4">
+                    <div className="bg-[#f05e5e] text-white px-6 py-4">
                         <h1 className="text-2xl font-bold">Complete Payment</h1>
                     </div>
 
@@ -110,7 +110,7 @@ const PaymentPage = () => {
                                     <span className="font-medium">
                                         Order ID:
                                     </span>
-                                    <span className="text-blue-600 font-mono">
+                                    <span className="text-[#f05e5e] font-mono">
                                         {orderDetails.orderId}
                                     </span>
                                 </div>
@@ -193,7 +193,7 @@ const PaymentPage = () => {
                         <div className="border-t pt-6">
                             <button
                                 onClick={initiatePaytmPayment}
-                                className="w-full bg-blue-600 text-white py-3 px-6 rounded-lg text-lg font-semibold hover:bg-blue-700 transition-colors"
+                                className="w-full bg-[#f05e5e] text-white py-3 px-6 rounded-lg text-lg font-semibold hover:bg-red-600 transition-colors"
                             >
                                 Pay with Paytm - ₹{orderDetails.amount}
                             </button>

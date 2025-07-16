@@ -6,6 +6,7 @@ import { FaMinusSquare, FaPlusSquare } from "react-icons/fa";
 import { IoBagHandle } from "react-icons/io5";
 import { MdDeleteForever } from "react-icons/md";
 import { toast } from "react-toastify";
+import { set } from "mongoose";
 
 const Checkout = ({ cart, clearCart, subTotal, addToCart, removeFromCart }) => {
     const router = useRouter();
@@ -35,7 +36,7 @@ const Checkout = ({ cart, clearCart, subTotal, addToCart, removeFromCart }) => {
         }
     }, [router]);
 
-    const handleChange = (e) => {
+    const handleChange = async (e) => {
         if (e.target.name === "name") {
             setName(e.target.value);
         } else if (e.target.name === "email") {
@@ -48,6 +49,22 @@ const Checkout = ({ cart, clearCart, subTotal, addToCart, removeFromCart }) => {
             setCity(e.target.value);
         } else if (e.target.name === "pin") {
             setPin(e.target.value);
+            if (e.target.value.length == 6) {
+                let pins = await fetch(
+                    `${process.env.NEXT_PUBLIC_HOST}/api/pincode`
+                );
+                let pinJson = await pins.json();
+                if (Object.keys(pinJson).includes(e.target.value)) {
+                    setCity(pinJson[e.target.value][0]);
+                    setState(pinJson[e.target.value][1]);
+                } else {
+                    setCity("");
+                    setState("");
+                }
+            } else {
+                setCity("");
+                setState("");
+            }
         } else if (e.target.name === "state") {
             setState(e.target.value);
         }
