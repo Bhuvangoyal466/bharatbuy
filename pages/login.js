@@ -6,8 +6,8 @@ import { ToastContainer, toast, Bounce } from "react-toastify";
 
 const Login = () => {
     const router = useRouter();
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
 
     const handleChange = (e) => {
         if (e.target.name === "email") {
@@ -31,7 +31,10 @@ const Login = () => {
         setEmail("");
         setPassword("");
         if (response.success) {
-            localStorage.setItem("token", response.token);
+            localStorage.setItem(
+                "myuser",
+                JSON.stringify({ token: response.token, email: response.email })
+            );
             toast.success("Log in succesfull!", {
                 position: "bottom-left",
                 autoClose: 1700,

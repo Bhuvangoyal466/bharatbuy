@@ -37,9 +37,17 @@ const Mugs = ({ products }) => {
                                             <h2 className="text-gray-900 title-font text-lg font-medium">
                                                 {products[product].title}
                                             </h2>
-                                            <p className="mt-1">
-                                                ₹{products[product].price}
-                                            </p>
+                                            <div className="flex items-center justify-center mt-1">
+                                                <p className="text-gray-900 font-medium">
+                                                    ₹{products[product].price}
+                                                </p>
+                                                {products[product]
+                                                    .availableQty === 0 && (
+                                                    <span className="ml-2 text-red-600 font-semibold text-sm bg-red-100 px-2 py-1 rounded-full">
+                                                        Out of Stock
+                                                    </span>
+                                                )}
+                                            </div>
                                         </div>
                                     </div>
                                 </a>

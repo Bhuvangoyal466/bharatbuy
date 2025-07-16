@@ -7,8 +7,16 @@ import { IoBagHandle } from "react-icons/io5";
 import { MdDeleteForever } from "react-icons/md";
 import { toast } from "react-toastify";
 import { set } from "mongoose";
+import User from "@/models/User";
 
-const Checkout = ({ cart, clearCart, subTotal, addToCart, removeFromCart }) => {
+const Checkout = ({
+    cart,
+    user,
+    clearCart,
+    subTotal,
+    addToCart,
+    removeFromCart,
+}) => {
     const router = useRouter();
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
@@ -60,6 +68,14 @@ const Checkout = ({ cart, clearCart, subTotal, addToCart, removeFromCart }) => {
                 } else {
                     setCity("");
                     setState("");
+                    toast.error("We don't deliver to this pincode yet.", {
+                        position: "top-center",
+                        autoClose: 1500,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                    });
                 }
             } else {
                 setCity("");
@@ -99,6 +115,25 @@ const Checkout = ({ cart, clearCart, subTotal, addToCart, removeFromCart }) => {
                 !state
             ) {
                 toast.error("Please fill all required fields!");
+                setLoading(false);
+                return;
+            }
+
+            // Validate pincode exists in our system
+            if (pin && pin.length === 6) {
+                let pins = await fetch(
+                    `${process.env.NEXT_PUBLIC_HOST}/api/pincode`
+                );
+                let pinJson = await pins.json();
+                if (!Object.keys(pinJson).includes(pin)) {
+                    toast.error(
+                        "Sorry, we don't deliver to this pincode. Please enter a valid pincode!"
+                    );
+                    setLoading(false);
+                    return;
+                }
+            } else {
+                toast.error("Please enter a valid 6-digit pincode!");
                 setLoading(false);
                 return;
             }
@@ -146,7 +181,34 @@ const Checkout = ({ cart, clearCart, subTotal, addToCart, removeFromCart }) => {
                     router.push(`/order-success?orderId=${data.orderId}`);
                 }
             } else {
-                toast.error(data.error || "Failed to create order");
+                // Handle different types of errors
+                if (data.stockIssues && data.stockIssues.length > 0) {
+                    // Handle stock insufficiency error
+                    let stockMessage = "❌ Some items are out of stock!\n\n";
+                    data.stockIssues.forEach((issue) => {
+                        stockMessage += `📦 ${issue.productName}\n`;
+                        stockMessage += `   Requested: ${issue.requestedQty}, Available: ${issue.availableQty}\n\n`;
+                    });
+                    stockMessage +=
+                        "Please reduce the quantities and try again.";
+
+                    toast.error(stockMessage, {
+                        position: "top-center",
+                        autoClose: 8000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        style: {
+                            whiteSpace: "pre-line",
+                            fontSize: "14px",
+                            textAlign: "left",
+                        },
+                    });
+                } else {
+                    // Handle other errors
+                    toast.error(data.error || "Failed to create order");
+                }
             }
         } catch (error) {
             console.error("Error initiating payment:", error);
@@ -186,15 +248,16 @@ const Checkout = ({ cart, clearCart, subTotal, addToCart, removeFromCart }) => {
                             htmlFor="email"
                             className="leading-7 text-sm text-gray-600"
                         >
-                            Email
+                            Email (You are not allowed to edit this)
                         </label>
                         <input
-                            value={email}
+                            value={user.email}
                             onChange={handleChange}
                             type="email"
                             id="email"
                             name="email"
                             className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                            readOnly
                         />
                     </div>
                 </div>

@@ -34,9 +34,9 @@ export default function App({ Component, pageProps }) {
             console.error(error);
             localStorage.clear();
         }
-        const token = localStorage.getItem("token");
-        if (token) {
-            setUser({ value: token });
+        const myuser = JSON.parse(localStorage.getItem("myuser"));
+        if (myuser) {
+            setUser({ value: myuser.token, email: myuser.email });
         }
         setKey(Math.random());
     }, [router.query]);
@@ -53,8 +53,8 @@ export default function App({ Component, pageProps }) {
 
     const buyNow = (itemCode, qty, price, name, size, variant) => {
         // Check if user is logged in
-        const token = localStorage.getItem("token");
-        if (!token) {
+        const myuser = localStorage.getItem("myuser");
+        if (!myuser) {
             toast.error("Please login to buy products!", {
                 position: "top-center",
                 autoClose: 3000,
@@ -80,8 +80,8 @@ export default function App({ Component, pageProps }) {
 
     const addToCart = (itemCode, qty, price, name, size, variant) => {
         // Check if user is logged in
-        const token = localStorage.getItem("token");
-        if (!token) {
+        const myuser = localStorage.getItem("myuser");
+        if (!myuser) {
             toast.error("Please login to add items to cart!", {
                 position: "top-center",
                 autoClose: 3000,
@@ -125,7 +125,7 @@ export default function App({ Component, pageProps }) {
         saveCart(newCart);
     };
     const logout = () => {
-        localStorage.removeItem("token");
+        localStorage.removeItem("myuser");
         setUser({ value: null });
         setKey(Math.random());
 
@@ -169,6 +169,7 @@ export default function App({ Component, pageProps }) {
                 />
             )}
             <Component
+                user={user}
                 buyNow={buyNow}
                 cart={cart}
                 addToCart={addToCart}

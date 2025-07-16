@@ -1,4 +1,5 @@
 import Order from "../../models/Order";
+import Product from "../../models/Product";
 import connectDb from "../../middleware/mongoose";
 
 const handler = async (req, res) => {
@@ -45,6 +46,47 @@ const handler = async (req, res) => {
                 });
             }
 
+            // Check stock availability for each product in cart
+            const stockCheckResults = [];
+            for (const productKey of Object.keys(cart)) {
+                const cartItem = cart[productKey];
+
+                // Extract slug from productKey (format: slug-size-color)
+                const slugPart = productKey.split("-").slice(0, -2).join("-"); // Remove last 2 parts (size and color)
+
+                // Find product in database by slug
+                const product = await Product.findOne({ slug: slugPart });
+
+                if (!product) {
+                    return res.status(400).json({
+                        success: false,
+                        error: `Some products in your cart are not available`,
+                        productKey: productKey,
+                    });
+                }
+
+                // Check if requested quantity is available
+                if (product.availableQty < cartItem.qty) {
+                    stockCheckResults.push({
+                        productName: cartItem.name,
+                        requestedQty: cartItem.qty,
+                        availableQty: product.availableQty,
+                        productKey: productKey,
+                    });
+                }
+            }
+
+            // If any products have insufficient stock, return error
+            if (stockCheckResults.length > 0) {
+                return res.status(400).json({
+                    success: false,
+                    error: "Insufficient stock for some products",
+                    stockIssues: stockCheckResults,
+                    message:
+                        "Some items in your cart are out of stock or have insufficient quantity available.",
+                });
+            }
+
             // Transform cart data to match Order schema
             const products = Object.keys(cart).map((key) => ({
                 productId: key,
@@ -87,6 +129,19 @@ const handler = async (req, res) => {
             // Save order to database
             const order = new Order(orderData);
             const savedOrder = await order.save();
+
+            // Update product quantities (reduce available stock)
+            for (const productKey of Object.keys(cart)) {
+                const cartItem = cart[productKey];
+                // Extract slug from productKey (format: slug-size-color)
+                const slugPart = productKey.split("-").slice(0, -2).join("-");
+
+                await Product.findOneAndUpdate(
+                    { slug: slugPart },
+                    { $inc: { availableQty: -cartItem.qty } },
+                    { new: true }
+                );
+            }
 
             // Prepare response data for payment gateway
             const responseData = {

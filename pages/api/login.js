@@ -21,7 +21,11 @@ const handler = async (req, res) => {
                     process.env.JWT_SECRET,
                     { expiresIn: "1d" }
                 );
-                res.status(200).json({ success: true, token });
+                res.status(200).json({
+                    success: true,
+                    token,
+                    email: user.email,
+                });
             } else {
                 res.status(400).json({
                     success: false,
