@@ -166,6 +166,7 @@ export default function App({ Component, pageProps }) {
                     removeFromCart={removeFromCart}
                     clearCart={clearCart}
                     subTotal={subTotal}
+                    router={router}
                 />
             )}
             <Component

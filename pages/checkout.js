@@ -28,10 +28,10 @@ const Checkout = ({
     const [disabled, setDisabled] = useState(true);
     const [loading, setLoading] = useState(false);
 
-    // Authentication check
+    // Authentication check and user data initialization
     useEffect(() => {
-        const token = localStorage.getItem("token");
-        if (!token) {
+        const myuser = localStorage.getItem("myuser");
+        if (!myuser) {
             toast.error("Please login to continue with checkout!", {
                 position: "top-center",
                 autoClose: 3000,
@@ -42,7 +42,12 @@ const Checkout = ({
             });
             router.push("/login");
         }
-    }, [router]);
+
+        // Set email from user prop
+        if (user && user.email) {
+            setEmail(user.email);
+        }
+    }, [router, user]);
 
     const handleChange = async (e) => {
         if (e.target.name === "name") {
@@ -84,12 +89,12 @@ const Checkout = ({
         } else if (e.target.name === "state") {
             setState(e.target.value);
         }
+
+        // Update button disabled state
         setTimeout(() => {
-            if (name && email && address && phone && city && pin && state) {
-                setDisabled(false);
-            } else {
-                setDisabled(true);
-            }
+            const isFormValid =
+                name && email && address && phone && city && pin && state;
+            setDisabled(!isFormValid);
         }, 100);
     };
 
@@ -251,7 +256,7 @@ const Checkout = ({
                             Email (You are not allowed to edit this)
                         </label>
                         <input
-                            value={user.email}
+                            value={email}
                             onChange={handleChange}
                             type="email"
                             id="email"

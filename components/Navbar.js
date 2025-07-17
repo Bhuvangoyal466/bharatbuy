@@ -2,7 +2,6 @@ import React, { use } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import { useRouter } from "next/router";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { FaMinusSquare, FaPlusSquare, FaWindowClose } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md";
@@ -19,9 +18,12 @@ const Navbar = ({
     removeFromCart,
     clearCart,
     subTotal,
+    router,
 }) => {
     const [dropdown, setDropdown] = useState(false);
-    const router = useRouter();
+
+    // Check if current page is checkout
+    const isCheckoutPage = router?.pathname === "/checkout";
 
     const toggleCart = () => {
         if (ref.current.classList.contains("translate-x-full")) {
@@ -35,8 +37,8 @@ const Navbar = ({
 
     const handleCheckout = () => {
         // Check if user is logged in
-        const token = localStorage.getItem("token");
-        if (!token) {
+        const myuser = localStorage.getItem("myuser");
+        if (!myuser) {
             toast.error("Please login to proceed to checkout!", {
                 position: "top-center",
                 autoClose: 3000,
@@ -133,105 +135,111 @@ const Navbar = ({
                     </Link>
                 )}
 
-                <AiOutlineShoppingCart
-                    onClick={toggleCart}
-                    className="text-xl md:text-3xl"
-                />
+                {!isCheckoutPage && (
+                    <AiOutlineShoppingCart
+                        onClick={toggleCart}
+                        className="text-xl md:text-3xl"
+                    />
+                )}
             </div>
-            <div
-                ref={ref}
-                className={`fixed top-0 border-l-2 overflow-y-scroll rounded-l-3xl right-0 z-50 bg-[#f78787] h-[100vh] px-10 py-10 w-72 transition-transform transform ${
-                    Object.keys(cart).length == 0
-                        ? "translate-x-full"
-                        : "translate-x-0"
-                }`}
-            >
-                <h2 className="font-bold mb-15 text-center text-xl">
-                    Shopping Cart
-                </h2>
-                <span
-                    onClick={toggleCart}
-                    className="absolute top-5 right-5 text-xl cursor-pointer"
+            {!isCheckoutPage && (
+                <div
+                    ref={ref}
+                    className={`fixed top-0 border-l-2 overflow-y-scroll rounded-l-3xl right-0 z-50 bg-[#f78787] h-[100vh] px-10 py-10 w-72 transition-transform transform ${
+                        Object.keys(cart).length == 0
+                            ? "translate-x-full"
+                            : "translate-x-0"
+                    }`}
                 >
-                    <FaWindowClose />
-                </span>
-                <ol className="list-decimal font-semibold">
-                    {Object.keys(cart).length == 0 && (
-                        <div className="my-4 font-semibold text-center">
-                            Your cart is empty! <br />
-                            <br />
-                            Please add a few items to place your order.
-                        </div>
-                    )}
-                    {Object.keys(cart).map((k) => {
-                        return (
-                            <li key={k}>
-                                <div className="item flex my-5">
-                                    <div className="font-semibold w-2/3">
-                                        <div className="flex items-center">
-                                            <span>
-                                                {cart[k].category !== "mug" &&
-                                                    cart[k].category !==
-                                                        "sticker" && (
-                                                        <span>
-                                                            {cart[k].name}(
-                                                            {cart[k].size})
-                                                        </span>
-                                                    )}
-                                            </span>
+                    <h2 className="font-bold mb-15 text-center text-xl">
+                        Shopping Cart
+                    </h2>
+                    <span
+                        onClick={toggleCart}
+                        className="absolute top-5 right-5 text-xl cursor-pointer"
+                    >
+                        <FaWindowClose />
+                    </span>
+                    <ol className="list-decimal font-semibold">
+                        {Object.keys(cart).length == 0 && (
+                            <div className="my-4 font-semibold text-center">
+                                Your cart is empty! <br />
+                                <br />
+                                Please add a few items to place your order.
+                            </div>
+                        )}
+                        {Object.keys(cart).map((k) => {
+                            return (
+                                <li key={k}>
+                                    <div className="item flex my-5">
+                                        <div className="font-semibold w-2/3">
+                                            <div className="flex items-center">
+                                                <span>
+                                                    {cart[k].category !==
+                                                        "mug" &&
+                                                        cart[k].category !==
+                                                            "sticker" && (
+                                                            <span>
+                                                                {cart[k].name}(
+                                                                {cart[k].size})
+                                                            </span>
+                                                        )}
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div className="flex font-semibold items-center justify-center w-1/3 text-md ">
+                                            <FaMinusSquare
+                                                onClick={() =>
+                                                    removeFromCart(
+                                                        k,
+                                                        1,
+                                                        cart[k].price,
+                                                        cart[k].name,
+                                                        cart[k].size,
+                                                        cart[k].color
+                                                    )
+                                                }
+                                                className="mx-2 cursor-pointer "
+                                            />
+                                            {cart[k].qty}
+                                            <FaPlusSquare
+                                                onClick={() =>
+                                                    addToCart(
+                                                        k,
+                                                        1,
+                                                        cart[k].price,
+                                                        cart[k].name,
+                                                        cart[k].size,
+                                                        cart[k].color
+                                                    )
+                                                }
+                                                className="mx-2 cursor-pointer "
+                                            />
                                         </div>
                                     </div>
-                                    <div className="flex font-semibold items-center justify-center w-1/3 text-md ">
-                                        <FaMinusSquare
-                                            onClick={() =>
-                                                removeFromCart(
-                                                    k,
-                                                    1,
-                                                    cart[k].price,
-                                                    cart[k].name,
-                                                    cart[k].size,
-                                                    cart[k].color
-                                                )
-                                            }
-                                            className="mx-2 cursor-pointer "
-                                        />
-                                        {cart[k].qty}
-                                        <FaPlusSquare
-                                            onClick={() =>
-                                                addToCart(
-                                                    k,
-                                                    1,
-                                                    cart[k].price,
-                                                    cart[k].name,
-                                                    cart[k].size,
-                                                    cart[k].color
-                                                )
-                                            }
-                                            className="mx-2 cursor-pointer "
-                                        />
-                                    </div>
-                                </div>
-                            </li>
-                        );
-                    })}
-                </ol>
-                <div className="font-bold my-2">Subtotal: ₹{subTotal}</div>
-                <div className="flex flex-col items-center">
-                    <button
-                        onClick={handleCheckout}
-                        className="flex mr-2 items-center justify-center mt-16 cursor-pointer font-semibold bg-[#ff8080] border-2 border-black py-2 px-8 focus:outline-none hover:bg-[#f05e5e] rounded text-lg"
-                    >
-                        <IoBagHandle className="mx-1" />
-                        Checkout
-                    </button>
-                    <button
-                        onClick={clearCart}
-                        className="flex mr-2 items-center justify-center mt-4 cursor-pointer font-semibold bg-[#ff8080] border-2 border-black py-2 px-8 focus:outline-none hover:bg-[#f05e5e] rounded text-lg"
-                    >
-                        <MdDeleteForever className="mx-1 text-2xl" /> Clear Cart
-                    </button>
+                                </li>
+                            );
+                        })}
+                    </ol>
+                    <div className="font-bold my-2">Subtotal: ₹{subTotal}</div>
+                    <div className="flex flex-col items-center">
+                        <button
+                            onClick={handleCheckout}
+                            className="flex mr-2 items-center justify-center mt-16 cursor-pointer font-semibold bg-[#ff8080] border-2 border-black py-2 px-8 focus:outline-none hover:bg-[#f05e5e] rounded text-lg"
+                        >
+                            <IoBagHandle className="mx-1" />
+                            Checkout
+                        </button>
+                        <button
+                            onClick={clearCart}
+                            className="flex mr-2 items-center justify-center mt-4 cursor-pointer font-semibold bg-[#ff8080] border-2 border-black py-2 px-8 focus:outline-none hover:bg-[#f05e5e] rounded text-lg"
+                        >
+                            <MdDeleteForever className="mx-1 text-2xl" /> Clear
+                            Cart
+                        </button>
+                    </div>
                 </div>
-            </div>
+            )}
         </div>
     );
 };

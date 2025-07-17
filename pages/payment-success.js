@@ -173,12 +173,12 @@ const PaymentSuccess = () => {
                     <div className="mt-8 text-center space-y-4">
                         <div className="flex flex-col sm:flex-row gap-4 justify-center">
                             <Link href="/">
-                                <button className="bg-[#f05e5e] text-white px-6 py-3 rounded-lg hover:bg-red-600 transition-colors font-medium">
+                                <button className="bg-[#f05e5e] cursor-pointer text-white px-6 py-3 rounded-lg hover:bg-red-600 transition-colors font-medium">
                                     Continue Shopping
                                 </button>
                             </Link>
                             <Link href="/orders">
-                                <button className="bg-gray-600 text-white px-6 py-3 rounded-lg hover:bg-gray-700 transition-colors font-medium">
+                                <button className="bg-gray-600 cursor-pointer text-white px-6 py-3 rounded-lg hover:bg-gray-700 transition-colors font-medium">
                                     View My Orders
                                 </button>
                             </Link>

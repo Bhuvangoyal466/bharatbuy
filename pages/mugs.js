@@ -15,44 +15,91 @@ const Mugs = ({ products }) => {
                                 !! Stay tuned for updates
                             </p>
                         )}
-                        {Object.keys(products).map((product) => (
-                            <Link
-                                href={`/product/${products[product].slug}`}
-                                legacyBehavior
-                                key={products[product]._id}
-                            >
-                                <a className="lg:w-1/4 md:w-1/2 p-4 w-full cursor-pointer shadow-lg mb-10">
-                                    <div>
-                                        <div className="block relative h-48 rounded overflow-hidden">
-                                            <img
-                                                alt="ecommerce"
-                                                className="m-auto md:m-0 object-cover object-center w-full h-full block"
-                                                src={products[product].img}
-                                            />
-                                        </div>
-                                        <div className="mt-4 text-center">
-                                            <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">
-                                                Mug
-                                            </h3>
-                                            <h2 className="text-gray-900 title-font text-lg font-medium">
-                                                {products[product].title}
-                                            </h2>
-                                            <div className="flex items-center justify-center mt-1">
-                                                <p className="text-gray-900 font-medium">
-                                                    ₹{products[product].price}
-                                                </p>
-                                                {products[product]
-                                                    .availableQty === 0 && (
+                        {Object.keys(products).map((product) => {
+                            const isOutOfStock =
+                                products[product].availableQty === 0;
+
+                            if (isOutOfStock) {
+                                return (
+                                    <div
+                                        key={products[product]._id}
+                                        className="lg:w-1/4 md:w-1/2 p-4 w-full cursor-not-allowed shadow-lg mb-10 opacity-60"
+                                    >
+                                        <div>
+                                            <div className="block relative h-48 rounded overflow-hidden">
+                                                <img
+                                                    alt="ecommerce"
+                                                    className="m-auto md:m-0 object-cover object-center w-full h-full block"
+                                                    src={products[product].img}
+                                                />
+                                                <div className="absolute inset-0 bg-gray-500 bg-opacity-50 flex items-center justify-center">
+                                                    <span className="text-white font-bold text-lg bg-red-600 px-3 py-1 rounded">
+                                                        OUT OF STOCK
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div className="mt-4 text-center">
+                                                <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">
+                                                    Mug
+                                                </h3>
+                                                <h2 className="text-gray-900 title-font text-lg font-medium">
+                                                    {products[product].title}
+                                                </h2>
+                                                <div className="flex items-center justify-center mt-1">
+                                                    <p className="text-gray-900 font-medium">
+                                                        ₹
+                                                        {
+                                                            products[product]
+                                                                .price
+                                                        }
+                                                    </p>
                                                     <span className="ml-2 text-red-600 font-semibold text-sm bg-red-100 px-2 py-1 rounded-full">
                                                         Out of Stock
                                                     </span>
-                                                )}
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </a>
-                            </Link>
-                        ))}
+                                );
+                            }
+
+                            return (
+                                <Link
+                                    href={`/product/${products[product].slug}`}
+                                    legacyBehavior
+                                    key={products[product]._id}
+                                >
+                                    <a className="lg:w-1/4 md:w-1/2 p-4 w-full cursor-pointer shadow-lg mb-10 hover:shadow-xl transition-shadow">
+                                        <div>
+                                            <div className="block relative h-48 rounded overflow-hidden">
+                                                <img
+                                                    alt="ecommerce"
+                                                    className="m-auto md:m-0 object-cover object-center w-full h-full block"
+                                                    src={products[product].img}
+                                                />
+                                            </div>
+                                            <div className="mt-4 text-center">
+                                                <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">
+                                                    Mug
+                                                </h3>
+                                                <h2 className="text-gray-900 title-font text-lg font-medium">
+                                                    {products[product].title}
+                                                </h2>
+                                                <div className="flex items-center justify-center mt-1">
+                                                    <p className="text-gray-900 font-medium">
+                                                        ₹
+                                                        {
+                                                            products[product]
+                                                                .price
+                                                        }
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </Link>
+                            );
+                        })}
                     </div>
                 </div>
             </section>

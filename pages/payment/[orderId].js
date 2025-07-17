@@ -193,7 +193,7 @@ const PaymentPage = () => {
                         <div className="border-t pt-6">
                             <button
                                 onClick={initiatePaytmPayment}
-                                className="w-full bg-[#f05e5e] text-white py-3 px-6 rounded-lg text-lg font-semibold hover:bg-red-600 transition-colors"
+                                className="cursor-pointer w-full bg-[#f05e5e] text-white py-3 px-6 rounded-lg text-lg font-semibold hover:bg-red-600 transition-colors"
                             >
                                 Pay with Paytm - ₹{orderDetails.amount}
                             </button>
