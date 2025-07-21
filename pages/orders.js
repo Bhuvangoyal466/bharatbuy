@@ -9,19 +9,28 @@ const Orders = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const token = localStorage.getItem("myuser");
-        if (!token) {
+        const myuser = localStorage.getItem("myuser");
+        if (!myuser) {
             router.push("/login");
         } else {
-            setUser({ token });
-            fetchOrders();
+            try {
+                const parsedUser = JSON.parse(myuser);
+                if (parsedUser && parsedUser.token) {
+                    setUser(parsedUser);
+                    fetchOrders(parsedUser.token);
+                } else {
+                    router.push("/login");
+                }
+            } catch (error) {
+                console.error("Error parsing user data:", error);
+                router.push("/login");
+            }
         }
     }, [router]);
 
-    const fetchOrders = async () => {
+    const fetchOrders = async (token) => {
         try {
             setLoading(true);
-            const token = localStorage.getItem("token");
 
             if (!token) {
                 router.push("/login");
@@ -45,7 +54,7 @@ const Orders = () => {
                     data.error.includes("Invalid token") ||
                     data.error.includes("Access denied")
                 ) {
-                    localStorage.removeItem("token");
+                    localStorage.removeItem("myuser");
                     router.push("/login");
                 }
             }

@@ -5,6 +5,8 @@ import connectDb from "../../middleware/mongoose";
 const handler = async (req, res) => {
     if (req.method === "POST") {
         try {
+            console.log("Pretransaction API called with data:", req.body);
+
             // Extract data from request body
             const {
                 userId,
@@ -48,22 +50,91 @@ const handler = async (req, res) => {
 
             // Check stock availability for each product in cart
             const stockCheckResults = [];
+            console.log("Cart contents:", cart);
+            console.log("Cart keys:", Object.keys(cart));
+
             for (const productKey of Object.keys(cart)) {
                 const cartItem = cart[productKey];
+                console.log(
+                    `Processing product key: ${productKey}, cart item:`,
+                    cartItem
+                );
 
-                // Extract slug from productKey (format: slug-size-color)
-                const slugPart = productKey.split("-").slice(0, -2).join("-"); // Remove last 2 parts (size and color)
+                // Multi-strategy product lookup
+                let product = null;
 
-                // Find product in database by slug
-                const product = await Product.findOne({ slug: slugPart });
+                // Strategy 1: Try finding by _id (if productKey looks like MongoDB ObjectId)
+                if (productKey.match(/^[0-9a-fA-F]{24}$/)) {
+                    try {
+                        product = await Product.findById(productKey);
+                    } catch (error) {
+                        console.log(
+                            "Strategy 1 failed (findById):",
+                            error.message
+                        );
+                    }
+                }
+
+                // Strategy 2: Try finding by itemCode
+                if (!product) {
+                    try {
+                        product = await Product.findOne({
+                            itemCode: productKey,
+                        });
+                    } catch (error) {
+                        console.log(
+                            "Strategy 2 failed (itemCode):",
+                            error.message
+                        );
+                    }
+                }
+
+                // Strategy 3: Try finding by slug (extract from productKey format: slug-size-color)
+                if (!product) {
+                    try {
+                        const slugPart = productKey
+                            .split("-")
+                            .slice(0, -2)
+                            .join("-");
+                        product = await Product.findOne({ slug: slugPart });
+                    } catch (error) {
+                        console.log("Strategy 3 failed (slug):", error.message);
+                    }
+                }
+
+                // Strategy 4: Try exact slug match
+                if (!product) {
+                    try {
+                        product = await Product.findOne({ slug: productKey });
+                    } catch (error) {
+                        console.log(
+                            "Strategy 4 failed (exact slug):",
+                            error.message
+                        );
+                    }
+                }
 
                 if (!product) {
+                    console.log(
+                        "All strategies failed for productKey:",
+                        productKey
+                    );
+                    console.log("Available products in database:");
+                    const allProducts = await Product.find({})
+                        .select("_id itemCode slug title")
+                        .limit(5);
+                    console.log(allProducts);
                     return res.status(400).json({
                         success: false,
                         error: `Some products in your cart are not available`,
                         productKey: productKey,
                     });
                 }
+
+                console.log(
+                    `Found product for ${productKey}:`,
+                    product.title || product.itemCode || product.slug
+                );
 
                 // Check if requested quantity is available
                 if (product.availableQty < cartItem.qty) {
@@ -133,14 +204,84 @@ const handler = async (req, res) => {
             // Update product quantities (reduce available stock)
             for (const productKey of Object.keys(cart)) {
                 const cartItem = cart[productKey];
-                // Extract slug from productKey (format: slug-size-color)
-                const slugPart = productKey.split("-").slice(0, -2).join("-");
 
-                await Product.findOneAndUpdate(
-                    { slug: slugPart },
-                    { $inc: { availableQty: -cartItem.qty } },
-                    { new: true }
-                );
+                // Multi-strategy product lookup for stock reduction
+                let product = null;
+
+                // Strategy 1: Try finding by _id
+                if (productKey.match(/^[0-9a-fA-F]{24}$/)) {
+                    try {
+                        product = await Product.findByIdAndUpdate(
+                            productKey,
+                            { $inc: { availableQty: -cartItem.qty } },
+                            { new: true }
+                        );
+                    } catch (error) {
+                        console.log(
+                            "Stock update strategy 1 failed:",
+                            error.message
+                        );
+                    }
+                }
+
+                // Strategy 2: Try finding by itemCode
+                if (!product) {
+                    try {
+                        product = await Product.findOneAndUpdate(
+                            { itemCode: productKey },
+                            { $inc: { availableQty: -cartItem.qty } },
+                            { new: true }
+                        );
+                    } catch (error) {
+                        console.log(
+                            "Stock update strategy 2 failed:",
+                            error.message
+                        );
+                    }
+                }
+
+                // Strategy 3: Try finding by slug (extract from productKey)
+                if (!product) {
+                    try {
+                        const slugPart = productKey
+                            .split("-")
+                            .slice(0, -2)
+                            .join("-");
+                        product = await Product.findOneAndUpdate(
+                            { slug: slugPart },
+                            { $inc: { availableQty: -cartItem.qty } },
+                            { new: true }
+                        );
+                    } catch (error) {
+                        console.log(
+                            "Stock update strategy 3 failed:",
+                            error.message
+                        );
+                    }
+                }
+
+                // Strategy 4: Try exact slug match
+                if (!product) {
+                    try {
+                        product = await Product.findOneAndUpdate(
+                            { slug: productKey },
+                            { $inc: { availableQty: -cartItem.qty } },
+                            { new: true }
+                        );
+                    } catch (error) {
+                        console.log(
+                            "Stock update strategy 4 failed:",
+                            error.message
+                        );
+                    }
+                }
+
+                if (!product) {
+                    console.log(
+                        "Failed to update stock for productKey:",
+                        productKey
+                    );
+                }
             }
 
             // Prepare response data for payment gateway

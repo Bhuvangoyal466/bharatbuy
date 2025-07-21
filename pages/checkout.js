@@ -30,24 +30,86 @@ const Checkout = ({
 
     // Authentication check and user data initialization
     useEffect(() => {
-        const myuser = localStorage.getItem("myuser");
-        if (!myuser) {
-            toast.error("Please login to continue with checkout!", {
-                position: "top-center",
-                autoClose: 3000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-            });
-            router.push("/login");
-        }
+        const fetchUserAndInitialize = async () => {
+            const myuser = localStorage.getItem("myuser");
+            if (!myuser) {
+                toast.error("Please login to continue with checkout!", {
+                    position: "top-center",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                });
+                router.push("/login");
+                return;
+            }
 
-        // Set email from user prop
-        if (user && user.email) {
-            setEmail(user.email);
-        }
-    }, [router, user]);
+            try {
+                const parsedUser = JSON.parse(myuser);
+                if (parsedUser && parsedUser.token) {
+                    // Fetch user details from backend to auto-fill form
+                    const response = await fetch(
+                        `${process.env.NEXT_PUBLIC_HOST}/api/getuser`,
+                        {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                            },
+                            body: JSON.stringify({
+                                token: parsedUser.token,
+                            }),
+                        }
+                    );
+
+                    if (response.ok) {
+                        const userData = await response.json();
+                        setName(userData.name || "");
+                        setEmail(userData.email || "");
+                        setAddress(userData.address || "");
+                        setPhone(userData.phone || "");
+                        setPin(userData.pincode || "");
+
+                        // Auto-fill city and state if pincode is available
+                        if (userData.pincode && userData.pincode.length === 6) {
+                            try {
+                                const pins = await fetch(
+                                    `${process.env.NEXT_PUBLIC_HOST}/api/pincode`
+                                );
+                                const pinJson = await pins.json();
+                                if (
+                                    Object.keys(pinJson).includes(
+                                        userData.pincode
+                                    )
+                                ) {
+                                    setCity(pinJson[userData.pincode][0]);
+                                    setState(pinJson[userData.pincode][1]);
+                                }
+                            } catch (error) {
+                                console.error(
+                                    "Error fetching pincode data:",
+                                    error
+                                );
+                            }
+                        }
+                    }
+                }
+            } catch (error) {
+                console.error("Error parsing user data:", error);
+                toast.error("Please login to continue with checkout!");
+                router.push("/login");
+            }
+        };
+
+        fetchUserAndInitialize();
+    }, [router]);
+
+    // Update disabled state whenever form fields change
+    useEffect(() => {
+        const isFormValid =
+            name && email && address && phone && city && pin && state;
+        setDisabled(!isFormValid);
+    }, [name, email, address, phone, city, pin, state]);
 
     const handleChange = async (e) => {
         if (e.target.name === "name") {
@@ -92,8 +154,29 @@ const Checkout = ({
 
         // Update button disabled state
         setTimeout(() => {
+            // Get the updated values based on what field was changed
+            const updatedName =
+                e.target.name === "name" ? e.target.value : name;
+            const updatedEmail =
+                e.target.name === "email" ? e.target.value : email;
+            const updatedAddress =
+                e.target.name === "address" ? e.target.value : address;
+            const updatedPhone =
+                e.target.name === "phone" ? e.target.value : phone;
+            const updatedCity =
+                e.target.name === "city" ? e.target.value : city;
+            const updatedPin = e.target.name === "pin" ? e.target.value : pin;
+            const updatedState =
+                e.target.name === "state" ? e.target.value : state;
+
             const isFormValid =
-                name && email && address && phone && city && pin && state;
+                updatedName &&
+                updatedEmail &&
+                updatedAddress &&
+                updatedPhone &&
+                updatedCity &&
+                updatedPin &&
+                updatedState;
             setDisabled(!isFormValid);
         }, 100);
     };
@@ -109,17 +192,22 @@ const Checkout = ({
                 return;
             }
 
-            // Validate form fields
-            if (
-                !name ||
-                !email ||
-                !address ||
-                !phone ||
-                !city ||
-                !pin ||
-                !state
-            ) {
-                toast.error("Please fill all required fields!");
+            // Validate form fields with more specific error messages
+            const missingFields = [];
+            if (!name) missingFields.push("Name");
+            if (!email) missingFields.push("Email");
+            if (!address) missingFields.push("Address");
+            if (!phone) missingFields.push("Phone");
+            if (!city) missingFields.push("City");
+            if (!pin) missingFields.push("Pincode");
+            if (!state) missingFields.push("State");
+
+            if (missingFields.length > 0) {
+                toast.error(
+                    `Please fill the following fields: ${missingFields.join(
+                        ", "
+                    )}`
+                );
                 setLoading(false);
                 return;
             }
@@ -143,9 +231,34 @@ const Checkout = ({
                 return;
             }
 
-            // Get userId from localStorage or session (you may need to adjust this based on your auth system)
-            const userId =
-                localStorage.getItem("userId") || "guest_" + Date.now();
+            // Get userId from the authenticated user data
+            const myuser = localStorage.getItem("myuser");
+            let userId = "guest_" + Date.now();
+
+            if (myuser) {
+                try {
+                    const parsedUser = JSON.parse(myuser);
+                    if (parsedUser && parsedUser.email) {
+                        userId = parsedUser.email; // Use email as userId
+                    }
+                } catch (error) {
+                    console.error("Error parsing user data:", error);
+                }
+            }
+
+            console.log("Order Data Debug:", {
+                userId: userId,
+                cart: cart,
+                cartKeys: Object.keys(cart),
+                subTotal: subTotal,
+                name: name,
+                email: email,
+                address: address,
+                phone: phone,
+                city: city,
+                pin: pin,
+                state: state,
+            });
 
             const orderData = {
                 userId: userId,
@@ -170,6 +283,7 @@ const Checkout = ({
             });
 
             const data = await response.json();
+            console.log("API Response:", data);
 
             if (data.success) {
                 // Order created successfully
