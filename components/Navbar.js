@@ -69,126 +69,171 @@ const Navbar = ({
     const ref = useRef();
 
     return (
-        <div className="flex flex-col md:flex-row md:justify-start  items-center py-2 shadow-md justify-center sticky top-0 bg-white z-10">
-            <div className="logo mr-auto lg:mr-0  md:mr-0 mx-5">
+        <div className="flex flex-col md:flex-row md:justify-start items-center py-4 shadow-lg justify-center sticky top-0 bg-white/95 backdrop-blur-md z-50 border-b border-pink-100">
+            <div className="logo mr-auto lg:mr-0 md:mr-0 mx-5">
                 <Link href={"/"}>
-                    <Image
-                        src="/flogo.png"
-                        alt="BharatBuy Logo"
-                        height={225}
-                        width={125}
-                    />
+                    <div className="relative group">
+                        <Image
+                            src="/flogo.png"
+                            alt="BharatBuy Logo"
+                            height={225}
+                            width={125}
+                            className="transition-all duration-300 group-hover:scale-105"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-r from-pink-500 to-purple-600 opacity-0 group-hover:opacity-10 transition-opacity duration-300 rounded-lg"></div>
+                    </div>
                 </Link>
             </div>
             <div className="nav mt-4 lg:ml-10 lg:mt-0 md:mt-0">
-                <ul className="flex items-center space-x-6 font-bold md:text-lg">
-                    <Link href={"/tshirts"} className="hover:text-[#f05e5e]">
-                        <li>Tshirts</li>
+                <ul className="flex items-center space-x-8 font-semibold md:text-lg">
+                    <Link href={"/tshirts"} className="relative group">
+                        <li className="text-gray-700 hover:text-nykaa-primary transition-all duration-300 py-2 px-1">
+                            Tshirts
+                            <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-nykaa-primary group-hover:w-full transition-all duration-300"></span>
+                        </li>
                     </Link>
-                    <Link href={"/hoodies"} className="hover:text-[#f05e5e]">
-                        <li>Hoodies</li>
+                    <Link href={"/hoodies"} className="relative group">
+                        <li className="text-gray-700 hover:text-nykaa-primary transition-all duration-300 py-2 px-1">
+                            Hoodies
+                            <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-nykaa-primary group-hover:w-full transition-all duration-300"></span>
+                        </li>
                     </Link>
-                    <Link href={"/stickers"} className="hover:text-[#f05e5e]">
-                        <li>Stickers</li>
+                    <Link href={"/stickers"} className="relative group">
+                        <li className="text-gray-700 hover:text-nykaa-primary transition-all duration-300 py-2 px-1">
+                            Stickers
+                            <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-nykaa-primary group-hover:w-full transition-all duration-300"></span>
+                        </li>
                     </Link>
-                    <Link href={"/mugs"} className="hover:text-[#f05e5e]">
-                        <li>Mugs</li>
+                    <Link href={"/mugs"} className="relative group">
+                        <li className="text-gray-700 hover:text-nykaa-primary transition-all duration-300 py-2 px-1">
+                            Mugs
+                            <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-nykaa-primary group-hover:w-full transition-all duration-300"></span>
+                        </li>
                     </Link>
                 </ul>
             </div>
-            <div className="cursor-pointer items-center cart absolute right-0 top-4 mx-5 flex">
+            <div className="cursor-pointer items-center cart absolute right-0 top-4 mx-5 flex space-x-4">
                 {user.value && (
-                    <div
-                        className="relative"
-                        onMouseEnter={() => setDropdown(true)}
-                        onMouseLeave={() => setDropdown(false)}
-                    >
-                        <MdAccountCircle className="text-xl md:text-3xl mx-2" />
+                    <div className="relative group">
+                        <span
+                            onMouseOver={() => setDropdown(true)}
+                            onMouseLeave={() => setDropdown(false)}
+                            className="mx-2 flex items-center space-x-1 text-gray-700 hover:text-nykaa-primary transition-all duration-300 cursor-pointer"
+                        >
+                            <MdAccountCircle className="text-2xl" />
+                            <span className="hidden md:block font-medium">
+                                Account
+                            </span>
+                        </span>
                         {dropdown && (
-                            <div className="absolute right-0 w-40 top-8 rounded-md px-5 bg-white border-1 border-black shadow-lg">
-                                <ul>
-                                    <Link href={"/myaccount"}>
-                                        <li className="py-2 text-md hover:font-semibold cursor-pointer">
-                                            My Account
-                                        </li>
-                                    </Link>
-                                    <Link href={"/orders"}>
-                                        <li className="py-2 text-md hover:font-semibold cursor-pointer">
-                                            Orders
-                                        </li>
-                                    </Link>
-                                    <Link onClick={logout} href={""}>
-                                        <li className="py-2 text-md hover:font-semibold cursor-pointer">
-                                            Logout
-                                        </li>
-                                    </Link>
-                                </ul>
+                            <div
+                                onMouseOver={() => setDropdown(true)}
+                                onMouseLeave={() => setDropdown(false)}
+                                className="absolute right-0 top-full mt-2 w-48 bg-white rounded-xl shadow-lg border border-pink-100 py-2 z-50"
+                            >
+                                <Link
+                                    href="/myaccount"
+                                    className="block px-4 py-3 text-gray-700 hover:bg-pink-50 hover:text-nykaa-primary transition-all duration-200 rounded-lg mx-2"
+                                >
+                                    My Account
+                                </Link>
+                                <Link
+                                    href="/orders"
+                                    className="block px-4 py-3 text-gray-700 hover:bg-pink-50 hover:text-nykaa-primary transition-all duration-200 rounded-lg mx-2"
+                                >
+                                    Orders
+                                </Link>
+                                <button
+                                    onClick={logout}
+                                    className="block cursor-pointer w-full text-left px-4 py-3 text-gray-700 hover:bg-pink-50 hover:text-nykaa-primary transition-all duration-200 rounded-lg mx-2"
+                                >
+                                    Logout
+                                </button>
                             </div>
                         )}
                     </div>
                 )}
                 {!user.value && (
                     <Link href={"/login"}>
-                        <button className="bg-[#f05e5e] cursor-pointer mr-4 text-white px-7 py-2 rounded-md">
-                            Login
+                        <button className="mx-2 flex cursor-pointer items-center space-x-1 bg-nykaa-primary text-white px-4 py-2 rounded-full hover:bg-nykaa-primary-dark transition-all duration-300 transform hover:scale-105 font-medium">
+                            <MdAccountCircle className="text-lg" />
+                            <span className="hidden md:block">Login</span>
                         </button>
                     </Link>
                 )}
 
                 {!isCheckoutPage && (
-                    <AiOutlineShoppingCart
-                        onClick={toggleCart}
-                        className="text-xl md:text-3xl"
-                    />
+                    <div className="relative">
+                        <button
+                            onClick={toggleCart}
+                            className="text-2xl cursor-pointer flex items-center space-x-1 text-gray-700 hover:text-nykaa-primary transition-all duration-300 transform hover:scale-110 relative"
+                        >
+                            <AiOutlineShoppingCart />
+                            {Object.keys(cart).length > 0 && (
+                                <span className="absolute -top-2 -right-2 bg-nykaa-primary text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold animate-pulse">
+                                    {Object.keys(cart).length}
+                                </span>
+                            )}
+                        </button>
+                    </div>
                 )}
             </div>
             {!isCheckoutPage && (
                 <div
                     ref={ref}
-                    className={`fixed top-0 border-l-2 overflow-y-scroll rounded-l-3xl right-0 z-50 bg-[#f78787] h-[100vh] px-10 py-10 w-72 transition-transform transform ${
+                    className={`fixed top-0 border-l border-pink-200 overflow-y-scroll right-0 z-50 bg-white/95 backdrop-blur-md h-[100vh] px-8 py-8 w-80 transition-transform transform shadow-2xl ${
                         Object.keys(cart).length == 0
                             ? "translate-x-full"
                             : "translate-x-0"
                     }`}
                 >
-                    <h2 className="font-bold mb-15 text-center text-xl">
-                        Shopping Cart
-                    </h2>
-                    <span
-                        onClick={toggleCart}
-                        className="absolute top-5 right-5 text-xl cursor-pointer"
-                    >
-                        <FaWindowClose />
-                    </span>
-                    <ol className="list-decimal font-semibold">
+                    <div className="flex items-center justify-between mb-8">
+                        <h2 className="font-bold text-2xl text-gray-800 flex items-center">
+                            <AiOutlineShoppingCart className="mr-2 text-nykaa-primary" />
+                            Shopping Cart
+                        </h2>
+                        <button
+                            onClick={toggleCart}
+                            className="text-gray-500 cursor-pointer hover:text-nykaa-primary text-2xl transition-all duration-300 hover:rotate-90 transform"
+                        >
+                            <FaWindowClose />
+                        </button>
+                    </div>
+                    <div className="space-y-4">
                         {Object.keys(cart).length == 0 && (
-                            <div className="my-4 font-semibold text-center">
-                                Your cart is empty! <br />
-                                <br />
-                                Please add a few items to place your order.
+                            <div className="my-8 text-center py-8">
+                                <div className="text-6xl text-gray-300 mb-4">
+                                    <AiOutlineShoppingCart className="mx-auto" />
+                                </div>
+                                <p className="text-gray-500 font-medium mb-2">
+                                    Your cart is empty!
+                                </p>
+                                <p className="text-sm text-gray-400">
+                                    Add some beautiful items to get started
+                                </p>
                             </div>
                         )}
                         {Object.keys(cart).map((k) => {
                             return (
-                                <li key={k}>
-                                    <div className="item flex my-5">
-                                        <div className="font-semibold w-2/3">
-                                            <div className="flex items-center">
-                                                <span>
-                                                    {cart[k].category !==
-                                                        "mug" &&
-                                                        cart[k].category !==
-                                                            "sticker" && (
-                                                            <span>
-                                                                {cart[k].name}(
-                                                                {cart[k].size})
-                                                            </span>
-                                                        )}
-                                                </span>
-                                            </div>
+                                <div key={k} className="nykaa-card p-4 mb-4">
+                                    <div className="flex items-center justify-between">
+                                        <div className="flex-1">
+                                            <h4 className="font-semibold text-gray-800 text-sm mb-1">
+                                                {cart[k].name}
+                                                {cart[k].category !== "mug" &&
+                                                    cart[k].category !==
+                                                        "sticker" && (
+                                                        <span className="text-gray-500 ml-1">
+                                                            ({cart[k].size})
+                                                        </span>
+                                                    )}
+                                            </h4>
+                                            <p className="text-nykaa-primary font-bold text-sm">
+                                                ₹{cart[k].price}
+                                            </p>
                                         </div>
-                                        <div className="flex font-semibold items-center justify-center w-1/3 text-md ">
-                                            <FaMinusSquare
+                                        <div className="flex items-center space-x-2">
+                                            <button
                                                 onClick={() =>
                                                     removeFromCart(
                                                         k,
@@ -199,10 +244,14 @@ const Navbar = ({
                                                         cart[k].color
                                                     )
                                                 }
-                                                className="mx-2 cursor-pointer "
-                                            />
-                                            {cart[k].qty}
-                                            <FaPlusSquare
+                                                className="p-1 cursor-pointer rounded-full hover:bg-pink-100 text-nykaa-primary transition-all duration-200"
+                                            >
+                                                <FaMinusSquare />
+                                            </button>
+                                            <span className="font-semibold text-gray-700 px-2">
+                                                {cart[k].qty}
+                                            </span>
+                                            <button
                                                 onClick={() =>
                                                     addToCart(
                                                         k,
@@ -213,31 +262,45 @@ const Navbar = ({
                                                         cart[k].color
                                                     )
                                                 }
-                                                className="mx-2 cursor-pointer "
-                                            />
+                                                className="p-1 cursor-pointer rounded-full hover:bg-pink-100 text-nykaa-primary transition-all duration-200"
+                                            >
+                                                <FaPlusSquare />
+                                            </button>
                                         </div>
                                     </div>
-                                </li>
+                                </div>
                             );
                         })}
-                    </ol>
-                    <div className="font-bold my-2">Subtotal: ₹{subTotal}</div>
-                    <div className="flex flex-col items-center">
-                        <button
-                            onClick={handleCheckout}
-                            className="flex mr-2 items-center justify-center mt-16 cursor-pointer font-semibold bg-[#ff8080] border-2 border-black py-2 px-8 focus:outline-none hover:bg-[#f05e5e] rounded text-lg"
-                        >
-                            <IoBagHandle className="mx-1" />
-                            Checkout
-                        </button>
-                        <button
-                            onClick={clearCart}
-                            className="flex mr-2 items-center justify-center mt-4 cursor-pointer font-semibold bg-[#ff8080] border-2 border-black py-2 px-8 focus:outline-none hover:bg-[#f05e5e] rounded text-lg"
-                        >
-                            <MdDeleteForever className="mx-1 text-2xl" /> Clear
-                            Cart
-                        </button>
                     </div>
+
+                    {Object.keys(cart).length > 0 && (
+                        <div className="border-t border-pink-200 pt-6 mt-6">
+                            <div className="flex justify-between items-center mb-6">
+                                <span className="text-lg font-semibold text-gray-800">
+                                    Subtotal:
+                                </span>
+                                <span className="text-xl font-bold text-nykaa-primary">
+                                    ₹{subTotal}
+                                </span>
+                            </div>
+                            <div className="space-y-3">
+                                <button
+                                    onClick={handleCheckout}
+                                    className="w-full cursor-pointer btn-nykaa flex items-center justify-center py-3 text-lg font-semibold"
+                                >
+                                    <IoBagHandle className="mr-2" />
+                                    Checkout Now
+                                </button>
+                                <button
+                                    onClick={clearCart}
+                                    className="w-full bg-gray-100 cursor-pointer text-gray-700 py-3 px-4 rounded-full font-semibold hover:bg-gray-200 transition-all duration-300 flex items-center justify-center"
+                                >
+                                    <MdDeleteForever className="mr-2 text-lg" />
+                                    Clear Cart
+                                </button>
+                            </div>
+                        </div>
+                    )}
                 </div>
             )}
         </div>

@@ -6,8 +6,6 @@ import { FaMinusSquare, FaPlusSquare } from "react-icons/fa";
 import { IoBagHandle } from "react-icons/io5";
 import { MdDeleteForever } from "react-icons/md";
 import { toast } from "react-toastify";
-import { set } from "mongoose";
-import User from "@/models/User";
 
 const Checkout = ({
     cart,
@@ -151,34 +149,6 @@ const Checkout = ({
         } else if (e.target.name === "state") {
             setState(e.target.value);
         }
-
-        // Update button disabled state
-        setTimeout(() => {
-            // Get the updated values based on what field was changed
-            const updatedName =
-                e.target.name === "name" ? e.target.value : name;
-            const updatedEmail =
-                e.target.name === "email" ? e.target.value : email;
-            const updatedAddress =
-                e.target.name === "address" ? e.target.value : address;
-            const updatedPhone =
-                e.target.name === "phone" ? e.target.value : phone;
-            const updatedCity =
-                e.target.name === "city" ? e.target.value : city;
-            const updatedPin = e.target.name === "pin" ? e.target.value : pin;
-            const updatedState =
-                e.target.name === "state" ? e.target.value : state;
-
-            const isFormValid =
-                updatedName &&
-                updatedEmail &&
-                updatedAddress &&
-                updatedPhone &&
-                updatedCity &&
-                updatedPin &&
-                updatedState;
-            setDisabled(!isFormValid);
-        }, 100);
     };
 
     const initiatePayment = async () => {
@@ -192,354 +162,397 @@ const Checkout = ({
                 return;
             }
 
-            // Validate form fields with more specific error messages
-            const missingFields = [];
-            if (!name) missingFields.push("Name");
-            if (!email) missingFields.push("Email");
-            if (!address) missingFields.push("Address");
-            if (!phone) missingFields.push("Phone");
-            if (!city) missingFields.push("City");
-            if (!pin) missingFields.push("Pincode");
-            if (!state) missingFields.push("State");
-
-            if (missingFields.length > 0) {
-                toast.error(
-                    `Please fill the following fields: ${missingFields.join(
-                        ", "
-                    )}`
-                );
+            // Validate form
+            if (
+                !name ||
+                !email ||
+                !address ||
+                !phone ||
+                !city ||
+                !pin ||
+                !state
+            ) {
+                toast.error("Please fill all required fields!");
                 setLoading(false);
                 return;
             }
 
-            // Validate pincode exists in our system
-            if (pin && pin.length === 6) {
-                let pins = await fetch(
-                    `${process.env.NEXT_PUBLIC_HOST}/api/pincode`
-                );
-                let pinJson = await pins.json();
-                if (!Object.keys(pinJson).includes(pin)) {
-                    toast.error(
-                        "Sorry, we don't deliver to this pincode. Please enter a valid pincode!"
-                    );
-                    setLoading(false);
-                    return;
-                }
-            } else {
-                toast.error("Please enter a valid 6-digit pincode!");
-                setLoading(false);
-                return;
-            }
-
-            // Get userId from the authenticated user data
-            const myuser = localStorage.getItem("myuser");
-            let userId = "guest_" + Date.now();
-
-            if (myuser) {
-                try {
-                    const parsedUser = JSON.parse(myuser);
-                    if (parsedUser && parsedUser.email) {
-                        userId = parsedUser.email; // Use email as userId
-                    }
-                } catch (error) {
-                    console.error("Error parsing user data:", error);
-                }
-            }
-
-            console.log("Order Data Debug:", {
-                userId: userId,
-                cart: cart,
-                cartKeys: Object.keys(cart),
-                subTotal: subTotal,
-                name: name,
-                email: email,
-                address: address,
-                phone: phone,
-                city: city,
-                pin: pin,
-                state: state,
-            });
-
-            const orderData = {
-                userId: userId,
-                cart: cart,
-                subTotal: subTotal,
-                name: name,
-                email: email,
-                address: address,
-                phone: phone,
-                city: city,
-                pin: pin,
-                state: state,
+            const data = {
+                cart,
+                subTotal,
+                name,
+                email,
+                address,
+                phone,
+                city,
+                pin,
+                state,
             };
 
-            // Call pretransaction API
-            const response = await fetch("/api/pretransaction", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(orderData),
-            });
-
-            const data = await response.json();
-            console.log("API Response:", data);
-
-            if (data.success) {
-                // Order created successfully
-                toast.success("Order created successfully!");
-
-                // Clear cart after successful order creation
-                clearCart();
-
-                // Redirect to payment page or success page
-                if (data.redirectUrl) {
-                    router.push(data.redirectUrl);
-                } else {
-                    // Alternative redirect
-                    router.push(`/order-success?orderId=${data.orderId}`);
+            let response = await fetch(
+                `${process.env.NEXT_PUBLIC_HOST}/api/pretransaction`,
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(data),
                 }
+            );
+
+            let txnRes = await response.json();
+
+            if (txnRes.success) {
+                const orderId = txnRes.orderId;
+                router.push(`/payment/${orderId}`);
             } else {
-                // Handle different types of errors
-                if (data.stockIssues && data.stockIssues.length > 0) {
-                    // Handle stock insufficiency error
-                    let stockMessage = "❌ Some items are out of stock!\n\n";
-                    data.stockIssues.forEach((issue) => {
-                        stockMessage += `📦 ${issue.productName}\n`;
-                        stockMessage += `   Requested: ${issue.requestedQty}, Available: ${issue.availableQty}\n\n`;
-                    });
-                    stockMessage +=
-                        "Please reduce the quantities and try again.";
-
-                    toast.error(stockMessage, {
-                        position: "top-center",
-                        autoClose: 8000,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        style: {
-                            whiteSpace: "pre-line",
-                            fontSize: "14px",
-                            textAlign: "left",
-                        },
-                    });
-                } else {
-                    // Handle other errors
-                    toast.error(data.error || "Failed to create order");
-                }
+                toast.error(txnRes.error || "Something went wrong!");
             }
         } catch (error) {
-            console.error("Error initiating payment:", error);
-            toast.error("Something went wrong. Please try again.");
+            console.error("Payment initiation error:", error);
+            toast.error("Failed to initiate payment. Please try again.");
         } finally {
             setLoading(false);
         }
     };
-    return (
-        <div className="container px-7  md:px-40 m-auto">
-            <h1 className="font-semibold text-3xl my-8 text-center">
-                Checkout
-            </h1>
-            <h2 className="font-semibold text-xl">1. Delivery Details</h2>
-            <div className="mx-auto flex my-2">
-                <div className=" w-1/2 px-5">
-                    <div className="mb-4">
-                        <label
-                            htmlFor="name"
-                            className="leading-7 text-sm text-gray-600"
-                        >
-                            Name
-                        </label>
-                        <input
-                            type="text"
-                            value={name}
-                            onChange={handleChange}
-                            id="name"
-                            name="name"
-                            className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
-                        />
-                    </div>
-                </div>
-                <div className=" w-1/2">
-                    <div className="mb-4">
-                        <label
-                            htmlFor="email"
-                            className="leading-7 text-sm text-gray-600"
-                        >
-                            Email (You are not allowed to edit this)
-                        </label>
-                        <input
-                            value={email}
-                            onChange={handleChange}
-                            type="email"
-                            id="email"
-                            name="email"
-                            className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
-                            readOnly
-                        />
-                    </div>
-                </div>
-            </div>
-            <div className=" w-full my-2">
-                <div className="mb-4 pl-5">
-                    <label
-                        htmlFor="address"
-                        className="leading-7 text-sm text-gray-600"
-                    >
-                        {address ? "Address" : "Enter your address"}
-                    </label>
 
-                    <textarea
-                        value={address}
-                        onChange={handleChange}
-                        name="address"
-                        id="address"
-                        className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
-                    ></textarea>
+    return (
+        <div className="min-h-screen bg-gradient-to-br from-pink-50 via-white to-purple-50">
+            <div className="container px-5 py-16 mx-auto">
+                {/* Header */}
+                <div className="text-center mb-12">
+                    <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+                        Complete Your
+                        <span className="text-nykaa-primary ml-3">Order</span>
+                    </h1>
+                    <div className="w-24 h-1 bg-nykaa-primary rounded-full mx-auto mb-6"></div>
+                    <p className="text-gray-600 text-lg">
+                        Just a few more details to get your products delivered!
+                    </p>
                 </div>
-            </div>
-            <div className="mx-auto flex my-2">
-                <div className=" w-1/2 px-5">
-                    <div className="mb-4">
-                        <label
-                            htmlFor="phone"
-                            className="leading-7 text-sm text-gray-600"
-                        >
-                            Phone
-                        </label>
-                        <input
-                            value={phone}
-                            onChange={handleChange}
-                            type="number"
-                            id="phone"
-                            name="phone"
-                            className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
-                        />
-                    </div>
-                </div>
-                <div className=" w-1/2">
-                    <div className="mb-4">
-                        <label
-                            htmlFor="city"
-                            className="leading-7 text-sm text-gray-600"
-                        >
-                            City
-                        </label>
-                        <input
-                            value={city}
-                            onChange={handleChange}
-                            type="text"
-                            id="city"
-                            name="city"
-                            className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
-                        />
-                    </div>
-                </div>
-            </div>
-            <div className="mx-auto flex my-2">
-                <div className=" w-1/2 px-5">
-                    <div className="mb-4">
-                        <label
-                            htmlFor="pin"
-                            className="leading-7 text-sm text-gray-600"
-                        >
-                            Pincode
-                        </label>
-                        <input
-                            value={pin}
-                            onChange={handleChange}
-                            type="number"
-                            id="pin"
-                            name="pin"
-                            className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
-                        />
-                    </div>
-                </div>
-                <div className=" w-1/2">
-                    <div className="mb-4">
-                        <label
-                            htmlFor="state"
-                            className="leading-7 text-sm text-gray-600"
-                        >
-                            State
-                        </label>
-                        <input
-                            value={state}
-                            onChange={handleChange}
-                            type="text"
-                            id="state"
-                            name="state"
-                            className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
-                        />
-                    </div>
-                </div>
-            </div>
-            <h2 className="font-semibold text-xl">
-                2. Review Your Order & Pay
-            </h2>
-            <div className=" bg-[#ff8080] border-black border-2 p-6 pl-20 m-4 mt-4 rounded-xl">
-                <ol className="list-decimal font-semibold">
-                    {Object.keys(cart).length == 0 && (
-                        <div className="my-4 font-semibold text-center">
-                            Your cart is empty! <br />
-                            <br />
-                            Please add a few items to place your order.
-                        </div>
-                    )}
-                    {Object.keys(cart).map((k) => {
-                        return (
-                            <li key={k}>
-                                <div className="item flex my-5">
-                                    <div className="font-semibold flex items-center justify-center">
-                                        {cart[k].name}({cart[k].size})
-                                    </div>
-                                    <div className="flex font-semibold items-center justify-center w-1/3 text-md ">
-                                        <FaMinusSquare
-                                            onClick={() =>
-                                                removeFromCart(
-                                                    k,
-                                                    1,
-                                                    cart[k].price,
-                                                    cart[k].name,
-                                                    cart[k].size,
-                                                    cart[k].variant
-                                                )
-                                            }
-                                            className="mx-2 cursor-pointer "
+
+                <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12">
+                    {/* Delivery Details Form */}
+                    <div className="order-1">
+                        <div className="nykaa-card p-8">
+                            <h2 className="text-2xl font-bold text-gray-900 mb-8">
+                                🚚 Delivery Details
+                            </h2>
+
+                            <form className="space-y-6">
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div>
+                                        <label
+                                            htmlFor="name"
+                                            className="block text-sm font-semibold text-gray-700 mb-2"
+                                        >
+                                            Full Name *
+                                        </label>
+                                        <input
+                                            type="text"
+                                            value={name}
+                                            onChange={handleChange}
+                                            id="name"
+                                            name="name"
+                                            className="nykaa-input w-full"
+                                            placeholder="Enter your full name"
+                                            required
                                         />
-                                        {cart[k].qty}
-                                        <FaPlusSquare
-                                            onClick={() =>
-                                                addToCart(
-                                                    k,
-                                                    1,
-                                                    cart[k].price,
-                                                    cart[k].name,
-                                                    cart[k].size,
-                                                    cart[k].variant
-                                                )
-                                            }
-                                            className="mx-2 cursor-pointer "
+                                    </div>
+
+                                    <div>
+                                        <label
+                                            htmlFor="email"
+                                            className="block text-sm font-semibold text-gray-700 mb-2"
+                                        >
+                                            Email Address *
+                                        </label>
+                                        <input
+                                            value={email}
+                                            onChange={handleChange}
+                                            type="email"
+                                            id="email"
+                                            name="email"
+                                            className="nykaa-input w-full bg-gray-50"
+                                            placeholder="Your email address"
+                                            readOnly
+                                        />
+                                        <p className="text-xs text-gray-500 mt-1">
+                                            Email cannot be changed
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label
+                                        htmlFor="address"
+                                        className="block text-sm font-semibold text-gray-700 mb-2"
+                                    >
+                                        Complete Address *
+                                    </label>
+                                    <textarea
+                                        value={address}
+                                        onChange={handleChange}
+                                        name="address"
+                                        id="address"
+                                        rows={3}
+                                        className="nykaa-input w-full resize-none"
+                                        placeholder="Enter your complete address with landmarks"
+                                        required
+                                    />
+                                </div>
+
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div>
+                                        <label
+                                            htmlFor="phone"
+                                            className="block text-sm font-semibold text-gray-700 mb-2"
+                                        >
+                                            Phone Number *
+                                        </label>
+                                        <input
+                                            value={phone}
+                                            onChange={handleChange}
+                                            type="tel"
+                                            id="phone"
+                                            name="phone"
+                                            className="nykaa-input w-full"
+                                            placeholder="Enter your phone number"
+                                            required
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <label
+                                            htmlFor="pin"
+                                            className="block text-sm font-semibold text-gray-700 mb-2"
+                                        >
+                                            Pin Code *
+                                        </label>
+                                        <input
+                                            value={pin}
+                                            onChange={handleChange}
+                                            type="text"
+                                            id="pin"
+                                            name="pin"
+                                            maxLength="6"
+                                            className="nykaa-input w-full"
+                                            placeholder="Enter 6-digit pincode"
+                                            required
                                         />
                                     </div>
                                 </div>
-                            </li>
-                        );
-                    })}
-                </ol>
-                <span className="font-bold">Subtotal: ₹{subTotal}</span>
-            </div>
-            <div className="mx-4">
-                <button
-                    onClick={initiatePayment}
-                    disabled={disabled || loading}
-                    className="flex disabled:cursor-not-allowed disabled:bg-gray-300 disabled:text-gray-500 mr-2 items-center justify-center mt-6 
-                rounded-lg cursor-pointer font-semibold bg-[#ff8080] border-2 border-black py-2 px-8 focus:outline-none hover:bg-[#f05e5e] text-lg"
-                >
-                    <IoBagHandle className="mx-1" />
-                    {loading ? "Processing..." : "Pay Now"}
-                </button>
+
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div>
+                                        <label
+                                            htmlFor="city"
+                                            className="block text-sm font-semibold text-gray-700 mb-2"
+                                        >
+                                            City *
+                                        </label>
+                                        <input
+                                            value={city}
+                                            onChange={handleChange}
+                                            type="text"
+                                            id="city"
+                                            name="city"
+                                            className="nykaa-input w-full bg-gray-50"
+                                            placeholder="Auto-filled from pincode"
+                                            readOnly
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <label
+                                            htmlFor="state"
+                                            className="block text-sm font-semibold text-gray-700 mb-2"
+                                        >
+                                            State *
+                                        </label>
+                                        <input
+                                            value={state}
+                                            onChange={handleChange}
+                                            type="text"
+                                            id="state"
+                                            name="state"
+                                            className="nykaa-input w-full bg-gray-50"
+                                            placeholder="Auto-filled from pincode"
+                                            readOnly
+                                        />
+                                    </div>
+                                </div>
+
+                                <button
+                                    type="button"
+                                    onClick={initiatePayment}
+                                    disabled={disabled || loading}
+                                    className={`w-full cursor-pointer btn-nykaa py-4 text-lg font-semibold ${
+                                        disabled || loading
+                                            ? "opacity-50 cursor-not-allowed"
+                                            : ""
+                                    }`}
+                                >
+                                    {loading ? (
+                                        <div className="flex items-center justify-center">
+                                            <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
+                                            Processing...
+                                        </div>
+                                    ) : (
+                                        <>
+                                            <IoBagHandle className="inline mr-2" />
+                                            Proceed to Payment - ₹{subTotal}
+                                        </>
+                                    )}
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+
+                    {/* Order Summary */}
+                    <div className="order-2 lg:order-2">
+                        <div className="nykaa-card p-8 sticky top-8">
+                            <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center">
+                                <IoBagHandle className="mr-3 text-nykaa-primary" />
+                                Order Summary
+                            </h2>
+
+                            <div className="space-y-4 max-h-80 overflow-y-auto">
+                                {Object.keys(cart).length === 0 ? (
+                                    <div className="text-center py-8">
+                                        <div className="text-6xl text-gray-300 mb-4">
+                                            🛒
+                                        </div>
+                                        <p className="text-gray-500 font-medium">
+                                            Your cart is empty!
+                                        </p>
+                                        <Link href="/">
+                                            <button className="btn-nykaa cursor-pointer mt-4">
+                                                Continue Shopping
+                                            </button>
+                                        </Link>
+                                    </div>
+                                ) : (
+                                    Object.keys(cart).map((k) => (
+                                        <div
+                                            key={k}
+                                            className="bg-gray-50 rounded-xl p-4"
+                                        >
+                                            <div className="flex items-center justify-between">
+                                                <div className="flex-1">
+                                                    <h4 className="font-semibold text-gray-800 mb-1">
+                                                        {cart[k].name}
+                                                        {cart[k].category !==
+                                                            "mug" &&
+                                                            cart[k].category !==
+                                                                "sticker" && (
+                                                                <span className="text-gray-500 ml-2">
+                                                                    (
+                                                                    {
+                                                                        cart[k]
+                                                                            .size
+                                                                    }
+                                                                    )
+                                                                </span>
+                                                            )}
+                                                    </h4>
+                                                    <p className="text-nykaa-primary font-bold">
+                                                        ₹{cart[k].price}
+                                                    </p>
+                                                </div>
+                                                <div className="flex items-center space-x-3">
+                                                    <div className="flex items-center space-x-2">
+                                                        <button
+                                                            onClick={() =>
+                                                                removeFromCart(
+                                                                    k,
+                                                                    1,
+                                                                    cart[k]
+                                                                        .price,
+                                                                    cart[k]
+                                                                        .name,
+                                                                    cart[k]
+                                                                        .size,
+                                                                    cart[k]
+                                                                        .color
+                                                                )
+                                                            }
+                                                            className="p-2 rounded-full cursor-pointer hover:bg-pink-100 text-nykaa-primary transition-all duration-200"
+                                                        >
+                                                            <FaMinusSquare />
+                                                        </button>
+                                                        <span className="font-semibold text-gray-700 px-3 py-1 bg-white rounded-lg min-w-[40px] text-center">
+                                                            {cart[k].qty}
+                                                        </span>
+                                                        <button
+                                                            onClick={() =>
+                                                                addToCart(
+                                                                    k,
+                                                                    1,
+                                                                    cart[k]
+                                                                        .price,
+                                                                    cart[k]
+                                                                        .name,
+                                                                    cart[k]
+                                                                        .size,
+                                                                    cart[k]
+                                                                        .color
+                                                                )
+                                                            }
+                                                            className="p-2 cursor-pointer rounded-full hover:bg-pink-100 text-nykaa-primary transition-all duration-200"
+                                                        >
+                                                            <FaPlusSquare />
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ))
+                                )}
+                            </div>
+
+                            {Object.keys(cart).length > 0 && (
+                                <>
+                                    <div className="border-t border-gray-200 pt-6 mt-6">
+                                        <div className="flex justify-between items-center mb-4">
+                                            <span className="text-lg font-semibold text-gray-800">
+                                                Subtotal:
+                                            </span>
+                                            <span className="text-xl font-bold text-gray-900">
+                                                ₹{subTotal}
+                                            </span>
+                                        </div>
+                                        <div className="flex justify-between items-center mb-4">
+                                            <span className="text-sm text-gray-600">
+                                                Shipping:
+                                            </span>
+                                            <span className="text-sm text-green-600 font-semibold">
+                                                FREE
+                                            </span>
+                                        </div>
+                                        <div className="flex justify-between items-center mb-6 pt-4 border-t border-gray-200">
+                                            <span className="text-xl font-bold text-gray-900">
+                                                Total:
+                                            </span>
+                                            <span className="text-2xl font-bold text-nykaa-primary">
+                                                ₹{subTotal}
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <button
+                                        onClick={clearCart}
+                                        className="w-full bg-gray-100 
+                                        cursor-pointer text-gray-700 py-3 px-4 rounded-full font-semibold hover:bg-gray-200 transition-all duration-300 flex items-center justify-center mb-4"
+                                    >
+                                        <MdDeleteForever className="mr-2 text-lg" />
+                                        Clear Cart
+                                    </button>
+                                </>
+                            )}
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     );

@@ -1,4 +1,5 @@
 import Head from "next/head";
+import Link from "next/link";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
@@ -6,10 +7,10 @@ export default function Home() {
     return (
         <>
             <Head>
-                <title>BharatBuy.com - India's own shopping gully</title>
+                <title>BharatBuy.com - India's own shopping destination</title>
                 <meta
                     name="description"
-                    content="BharatBuy.com - India's own shopping gully"
+                    content="BharatBuy.com - India's own shopping destination. Discover premium quality products and support local artisans."
                 />
                 <meta
                     name="viewport"
@@ -17,183 +18,155 @@ export default function Home() {
                 />
             </Head>
 
-            <div>
-                <img src="/bg.png" alt="Background" />
-            </div>
-            <section className="text-gray-600 body-font">
-                <div className="container px-5 py-24 mx-auto">
-                    <div className="flex flex-wrap w-full mb-20 flex-col items-center text-center md:px-30 px-10">
-                        <h1 className="sm:text-3xl text-2xl font-medium title-font mb-2 text-gray-900">
-                            India's Own Shopping Gully
+            {/* Hero Section with Modern Design */}
+            <div className="relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-br from-pink-50 via-white to-purple-50"></div>
+                <div className="relative bg-gradient-to-r from-gray-900 to-gray-700 flex items-center justify-start pl-8 md:pl-16 py-20 md:py-32">
+                    <div className="text-white max-w-lg fade-in-up">
+                        <h1 className="text-4xl md:text-6xl font-bold mb-4 drop-shadow-lg">
+                            Style.
+                            <span className="text-nykaa-primary">
+                                Redefined.
+                            </span>
                         </h1>
-                        <p className="lg:w-1/2 w-full leading-relaxed text-gray-500">
-                            Let's promote local artisans and small businesses
-                            across India. BharatBuy.com is your go-to platform
-                            for unique, handcrafted products.
+                        <p className="text-lg md:text-xl mb-6 drop-shadow-md">
+                            Discover India's finest collection
                         </p>
-                        <p className="lg:w-1/2 w-full leading-relaxed text-gray-500">
-                            Let's promote local artisans and small businesses
-                            across India. BharatBuy.com is your go-to platform
-                            for unique, handcrafted products.
+                        <Link href="/tshirts">
+                            <button className="btn-nykaa cursor-pointer text-lg px-8 py-4">
+                                Explore Collection
+                            </button>
+                        </Link>
+                    </div>
+                </div>
+            </div>
+
+            <section className="text-gray-600 body-font py-20">
+                <div className="container px-5 mx-auto">
+                    <div className="flex flex-wrap w-full mb-16 flex-col items-center text-center">
+                        <h1 className="text-4xl md:text-5xl font-bold title-font mb-6 text-gray-900 fade-in-up">
+                            India's Own
+                            <span className="text-nykaa-primary block md:inline md:ml-3">
+                                Shopping Destination
+                            </span>
+                        </h1>
+                        <div className="w-20 h-1 bg-nykaa-primary rounded-full mb-6"></div>
+                        <p className="lg:w-2/3 w-full leading-relaxed text-gray-600 text-lg mb-4">
+                            Discover the beauty of local craftsmanship and
+                            support small businesses across India. Our curated
+                            collection celebrates the artistry and tradition
+                            that makes Indian products truly special.
                         </p>
-                        <p className="lg:w-1/2 w-full leading-relaxed text-gray-500">
-                            Let's promote local artisans and small businesses
-                            across India. BharatBuy.com is your go-to platform
-                            for unique, handcrafted products.
+                        <p className="lg:w-2/3 w-full leading-relaxed text-gray-600 text-lg">
+                            From handcrafted apparel to unique accessories,
+                            every product tells a story of passion, heritage,
+                            and exceptional quality.
                         </p>
                     </div>
-                    <div className="flex md:px-30 px-5 flex-wrap -m-4">
+
+                    {/* Feature Cards */}
+                    <div className="flex flex-wrap -m-4 justify-center">
                         <div className="xl:w-1/3 md:w-1/2 p-4">
-                            <div className="border border-gray-200 p-6 rounded-lg">
-                                <div className="w-10 h-10 inline-flex items-center justify-center rounded-full bg-[#FF3131]/10 text-[#FF3131] mb-4">
+                            <div className="nykaa-card p-8 text-center h-full">
+                                <div className="w-16 h-16 mx-auto mb-6 nykaa-gradient rounded-full flex items-center justify-center text-white text-2xl">
                                     <svg
                                         fill="none"
                                         stroke="currentColor"
                                         strokeLinecap="round"
                                         strokeLinejoin="round"
                                         strokeWidth="2"
-                                        className="w-6 h-6"
+                                        className="w-8 h-8"
                                         viewBox="0 0 24 24"
                                     >
                                         <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
                                     </svg>
                                 </div>
-                                <h2 className="text-lg text-gray-900 font-medium title-font mb-2">
-                                    Shooting Stars
+                                <h2 className="text-2xl text-gray-900 font-bold title-font mb-4">
+                                    Premium Quality
                                 </h2>
-                                <p className="leading-relaxed text-base">
-                                    Fingerstache flexitarian street art 8-bit
-                                    waist co, subway tile poke farm.
+                                <p className="leading-relaxed text-gray-600">
+                                    Every product in our collection is carefully
+                                    selected and quality-tested to ensure you
+                                    receive only the finest items that represent
+                                    the best of Indian craftsmanship.
                                 </p>
                             </div>
                         </div>
                         <div className="xl:w-1/3 md:w-1/2 p-4">
-                            <div className="border border-gray-200 p-6 rounded-lg">
-                                <div className="w-10 h-10 inline-flex items-center justify-center rounded-full bg-[#FF3131]/10 text-[#FF3131] mb-4">
+                            <div className="nykaa-card p-8 text-center h-full">
+                                <div className="w-16 h-16 mx-auto mb-6 nykaa-gradient rounded-full flex items-center justify-center text-white text-2xl">
                                     <svg
                                         fill="none"
                                         stroke="currentColor"
                                         strokeLinecap="round"
                                         strokeLinejoin="round"
                                         strokeWidth="2"
-                                        className="w-6 h-6"
+                                        className="w-8 h-8"
                                         viewBox="0 0 24 24"
                                     >
                                         <circle cx="6" cy="6" r="3"></circle>
                                         <circle cx="6" cy="18" r="3"></circle>
-                                        <path d="M20 4L8.12 15.88M14.47 14.48L20 20M8.12 8.12L12 12"></path>
+                                        <path d="m20 4-8.58 8.58a1 1 0 0 0 0 1.41L20 22"></path>
                                     </svg>
                                 </div>
-                                <h2 className="text-lg text-gray-900 font-medium title-font mb-2">
-                                    The Catalyzer
+                                <h2 className="text-2xl text-gray-900 font-bold title-font mb-4">
+                                    Fast Delivery
                                 </h2>
-                                <p className="leading-relaxed text-base">
-                                    Fingerstache flexitarian street art 8-bit
-                                    waist co, subway tile poke farm.
+                                <p className="leading-relaxed text-gray-600">
+                                    Swift and secure delivery across India
+                                    ensures your favorite products reach you
+                                    quickly, so you can enjoy your shopping
+                                    experience without any delays.
                                 </p>
                             </div>
                         </div>
                         <div className="xl:w-1/3 md:w-1/2 p-4">
-                            <div className="border border-gray-200 p-6 rounded-lg">
-                                <div className="w-10 h-10 inline-flex items-center justify-center rounded-full bg-[#FF3131]/10 text-[#FF3131] mb-4">
+                            <div className="nykaa-card p-8 text-center h-full">
+                                <div className="w-16 h-16 mx-auto mb-6 nykaa-gradient rounded-full flex items-center justify-center text-white text-2xl">
                                     <svg
                                         fill="none"
                                         stroke="currentColor"
                                         strokeLinecap="round"
                                         strokeLinejoin="round"
                                         strokeWidth="2"
-                                        className="w-6 h-6"
+                                        className="w-8 h-8"
                                         viewBox="0 0 24 24"
                                     >
-                                        <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"></path>
+                                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
                                         <circle cx="12" cy="7" r="4"></circle>
                                     </svg>
                                 </div>
-                                <h2 className="text-lg text-gray-900 font-medium title-font mb-2">
-                                    Neptune
+                                <h2 className="text-2xl text-gray-900 font-bold title-font mb-4">
+                                    Support Local
                                 </h2>
-                                <p className="leading-relaxed text-base">
-                                    Fingerstache flexitarian street art 8-bit
-                                    waist co, subway tile poke farm.
-                                </p>
-                            </div>
-                        </div>
-                        <div className="xl:w-1/3 md:w-1/2 p-4">
-                            <div className="border border-gray-200 p-6 rounded-lg">
-                                <div className="w-10 h-10 inline-flex items-center justify-center rounded-full bg-[#FF3131]/10 text-[#FF3131] mb-4">
-                                    <svg
-                                        fill="none"
-                                        stroke="currentColor"
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth="2"
-                                        className="w-6 h-6"
-                                        viewBox="0 0 24 24"
-                                    >
-                                        <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1zM4 22v-7"></path>
-                                    </svg>
-                                </div>
-                                <h2 className="text-lg text-gray-900 font-medium title-font mb-2">
-                                    Melanchole
-                                </h2>
-                                <p className="leading-relaxed text-base">
-                                    Fingerstache flexitarian street art 8-bit
-                                    waist co, subway tile poke farm.
-                                </p>
-                            </div>
-                        </div>
-                        <div className="xl:w-1/3 md:w-1/2 p-4">
-                            <div className="border border-gray-200 p-6 rounded-lg">
-                                <div className="w-10 h-10 inline-flex items-center justify-center rounded-full bg-[#FF3131]/10 text-[#FF3131] mb-4">
-                                    <svg
-                                        fill="none"
-                                        stroke="currentColor"
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth="2"
-                                        className="w-6 h-6"
-                                        viewBox="0 0 24 24"
-                                    >
-                                        <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
-                                    </svg>
-                                </div>
-                                <h2 className="text-lg text-gray-900 font-medium title-font mb-2">
-                                    Bunker
-                                </h2>
-                                <p className="leading-relaxed text-base">
-                                    Fingerstache flexitarian street art 8-bit
-                                    waist co, subway tile poke farm.
-                                </p>
-                            </div>
-                        </div>
-                        <div className="xl:w-1/3 md:w-1/2 p-4">
-                            <div className="border border-gray-200 p-6 rounded-lg">
-                                <div className="w-10 h-10 inline-flex items-center justify-center rounded-full bg-[#FF3131]/10 text-[#FF3131] mb-4">
-                                    <svg
-                                        fill="none"
-                                        stroke="currentColor"
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth="2"
-                                        className="w-6 h-6"
-                                        viewBox="0 0 24 24"
-                                    >
-                                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-                                    </svg>
-                                </div>
-                                <h2 className="text-lg text-gray-900 font-medium title-font mb-2">
-                                    Ramona Falls
-                                </h2>
-                                <p className="leading-relaxed text-base">
-                                    Fingerstache flexitarian street art 8-bit
-                                    waist co, subway tile poke farm.
+                                <p className="leading-relaxed text-gray-600">
+                                    By choosing BharatBuy, you directly support
+                                    local artisans and small businesses, helping
+                                    preserve traditional crafts and empowering
+                                    communities across India.
                                 </p>
                             </div>
                         </div>
                     </div>
-                    <button className="flex mx-auto mt-16 text-white bg-[#FF3131] border-0 py-2 px-8 focus:outline-none hover:bg-[#E02D2D] rounded text-lg">
-                        Button
-                    </button>
+
+                    {/* Call to Action */}
+                    <div className="text-center mt-16">
+                        <h2 className="text-3xl font-bold text-gray-900 mb-6">
+                            Ready to Explore?
+                        </h2>
+                        <div className="flex flex-wrap justify-center gap-4">
+                            <Link href="/tshirts">
+                                <button className="btn-nykaa cursor-pointer">
+                                    Shop T-Shirts
+                                </button>
+                            </Link>
+                            <Link href="/hoodies">
+                                <button className="bg-white cursor-pointer border-2 border-nykaa-primary text-nykaa-primary px-6 py-3 rounded-full font-semibold hover:bg-nykaa-primary hover:text-white transition-all duration-300">
+                                    Browse Hoodies
+                                </button>
+                            </Link>
+                        </div>
+                    </div>
                 </div>
             </section>
         </>

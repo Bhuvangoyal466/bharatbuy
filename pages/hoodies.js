@@ -81,7 +81,7 @@ const Hoodies = ({ products }) => {
                                                         (color) => (
                                                             <button
                                                                 key={color}
-                                                                className="border-1 border-black ml-1 rounded-full w-6 h-6 focus:outline-none"
+                                                                className="cursor-pointer border-1 border-black ml-1 rounded-full w-6 h-6 focus:outline-none"
                                                                 style={{
                                                                     backgroundColor:
                                                                         color,
@@ -154,7 +154,8 @@ const Hoodies = ({ products }) => {
                                                         ].color.map((color) => (
                                                             <button
                                                                 key={color}
-                                                                className="border-1 border-black ml-1 rounded-full w-6 h-6 focus:outline-none"
+                                                                className="border-1 border-black ml-1 
+                                                                cursor-pointer rounded-full w-6 h-6 focus:outline-none"
                                                                 style={{
                                                                     backgroundColor:
                                                                         color,

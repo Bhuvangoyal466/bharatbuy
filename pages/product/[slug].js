@@ -1,42 +1,58 @@
+import React, { useState } from "react";
 import { useRouter } from "next/router";
-import { useState } from "react";
-import React from "react";
 import mongoose from "mongoose";
 import Product from "../../models/Product";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const Post = ({ buyNow, addToCart, product, variants }) => {
+const ProductDetails = ({ addToCart, buyNow, product, variants, error }) => {
     const router = useRouter();
     const { slug } = router.query;
     const [pin, setPin] = useState("");
     const [service, setService] = useState("");
+
+    // Initialize state with available options
+    const [color, setColor] = useState(
+        product &&
+            product.color &&
+            Array.isArray(product.color) &&
+            product.color.length > 0
+            ? product.color[0]
+            : ""
+    );
+    const [size, setSize] = useState(
+        product &&
+            product.size &&
+            Array.isArray(product.size) &&
+            product.size.length > 0
+            ? product.size[0]
+            : ""
+    );
+
     const checkServiceability = async () => {
         let pins = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/pincode`);
         let pinJson = await pins.json();
         if (Object.keys(pinJson).includes(pin)) {
             setService(true);
-            toast.success("Pincode is serviceable", {
-                position: "bottom-center",
-                autoClose: 1500,
+            toast.success("Your Pincode is serviceable!", {
+                position: "top-left",
+                autoClose: 1000,
                 hideProgressBar: false,
-                closeOnClick: false,
+                closeOnClick: true,
                 pauseOnHover: true,
                 draggable: true,
                 progress: undefined,
-                theme: "light",
             });
         } else {
             setService(false);
-            toast.error("Sorry, we do not deliver to this pincode yet", {
-                position: "bottom-center",
-                autoClose: 1500,
+            toast.error("Sorry! We do not service this area yet", {
+                position: "top-left",
+                autoClose: 1000,
                 hideProgressBar: false,
-                closeOnClick: false,
+                closeOnClick: true,
                 pauseOnHover: true,
                 draggable: true,
                 progress: undefined,
-                theme: "light",
             });
         }
     };
@@ -45,130 +61,52 @@ const Post = ({ buyNow, addToCart, product, variants }) => {
         setPin(e.target.value);
     };
 
-    const [color, setColor] = useState(
-        Array.isArray(product.color) ? product.color[0] : product.color
-    );
-    const [size, setSize] = useState(
-        Array.isArray(product.size) ? product.size[0] : product.size
-    );
-
-    // Initialize color state with first available color if product.color doesn't exist in variants
-    React.useEffect(() => {
-        if (variants && Object.keys(variants).length > 0) {
-            const availableColors = Object.keys(variants);
-            if (!availableColors.includes(color)) {
-                setColor(availableColors[0]);
-                // Also set the first available size for the first color
-                if (variants[availableColors[0]]) {
-                    const availableSizes = Object.keys(
-                        variants[availableColors[0]]
-                    );
-                    if (availableSizes.length > 0) {
-                        setSize(availableSizes[0]);
-                    }
-                }
-            }
-        }
-    }, [variants]);
-
-    const refreshVariant = (newsize, newcolor) => {
-        if (variants && variants[newcolor] && variants[newcolor][newsize]) {
-            let url = `${process.env.NEXT_PUBLIC_HOST}/product/${variants[newcolor][newsize].slug}`;
-            window.location = url;
-        }
-    };
+    if (error) {
+        return <div>Product not found</div>;
+    }
 
     return (
         <>
-            <section className="text-gray-600 body-font overflow-hidden">
-                <div className="container px-5 py-16 mx-auto">
+            <section className="text-gray-600 body-font overflow-hidden min-h-screen bg-gradient-to-br from-pink-50 to-white">
+                <div className="container px-5 py-24 mx-auto">
                     <div className="lg:w-4/5 mx-auto flex flex-wrap">
                         <img
-                            alt="ecommerce"
-                            className="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-top rounded"
+                            alt={product.title}
+                            className="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded-2xl shadow-2xl"
                             src={product.img}
                         />
                         <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
-                            <h2 className="text-sm title-font text-gray-500 tracking-widest">
+                            <h2 className="text-sm title-font text-gray-500 tracking-widest uppercase font-medium mb-2">
                                 {product.category}
                             </h2>
-                            <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">
+                            <h1 className="text-gray-900 text-3xl title-font font-bold mb-4 leading-tight">
                                 {product.title}
                             </h1>
-                            {product.category !== "mug" &&
-                                product.category !== "sticker" && (
-                                    <h2 className="text-sm title-font text-gray-500 tracking-widest flex items-center">
-                                        {size} /
-                                        <span
-                                            className="ml-2 border-2 border-gray-600 rounded-full w-6 h-6 inline-block"
-                                            style={{ backgroundColor: color }}
-                                            title={color}
-                                        ></span>
-                                    </h2>
-                                )}
-                            <div className="flex mb-4">
+                            <div className="flex mb-4 items-center">
                                 <span className="flex items-center">
-                                    <svg
-                                        fill="currentColor"
-                                        stroke="currentColor"
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth="2"
-                                        className="w-4 h-4 text-[#f05e5e]"
-                                        viewBox="0 0 24 24"
-                                    >
-                                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
-                                    </svg>
-                                    <svg
-                                        fill="currentColor"
-                                        stroke="currentColor"
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth="2"
-                                        className="w-4 h-4 text-[#f05e5e]"
-                                        viewBox="0 0 24 24"
-                                    >
-                                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
-                                    </svg>
-                                    <svg
-                                        fill="currentColor"
-                                        stroke="currentColor"
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth="2"
-                                        className="w-4 h-4 text-[#f05e5e]"
-                                        viewBox="0 0 24 24"
-                                    >
-                                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
-                                    </svg>
-                                    <svg
-                                        fill="currentColor"
-                                        stroke="currentColor"
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth="2"
-                                        className="w-4 h-4 text-[#f05e5e]"
-                                        viewBox="0 0 24 24"
-                                    >
-                                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
-                                    </svg>
-                                    <svg
-                                        fill="none"
-                                        stroke="currentColor"
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth="2"
-                                        className="w-4 h-4 text-[#f05e5e]"
-                                        viewBox="0 0 24 24"
-                                    >
-                                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
-                                    </svg>
-                                    <span className="text-gray-600 ml-3">
-                                        4 Reviews
+                                    {[...Array(5)].map((star, index) => (
+                                        <svg
+                                            key={index}
+                                            fill="currentColor"
+                                            stroke="currentColor"
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            strokeWidth="2"
+                                            className="w-4 h-4 text-nykaa-primary"
+                                            viewBox="0 0 24 24"
+                                        >
+                                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+                                        </svg>
+                                    ))}
+                                    <span className="text-gray-600 ml-3 font-medium">
+                                        4.5 (24 Reviews)
                                     </span>
                                 </span>
-                                <span className="flex ml-3 pl-3 py-2 border-l-2 border-gray-200 space-x-2s">
-                                    <a className="text-gray-500">
+                                <span className="flex ml-3 pl-3 py-2 border-l-2 border-gray-200 space-x-3">
+                                    <a
+                                        href="#"
+                                        className="text-gray-500 hover:text-nykaa-primary transition-colors"
+                                    >
                                         <svg
                                             fill="currentColor"
                                             strokeLinecap="round"
@@ -180,7 +118,10 @@ const Post = ({ buyNow, addToCart, product, variants }) => {
                                             <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"></path>
                                         </svg>
                                     </a>
-                                    <a className="text-gray-500">
+                                    <a
+                                        href="#"
+                                        className="text-gray-500 hover:text-nykaa-primary transition-colors"
+                                    >
                                         <svg
                                             fill="currentColor"
                                             strokeLinecap="round"
@@ -192,7 +133,10 @@ const Post = ({ buyNow, addToCart, product, variants }) => {
                                             <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"></path>
                                         </svg>
                                     </a>
-                                    <a className="text-gray-500">
+                                    <a
+                                        href="#"
+                                        className="text-gray-500 hover:text-nykaa-primary transition-colors"
+                                    >
                                         <svg
                                             fill="currentColor"
                                             strokeLinecap="round"
@@ -206,83 +150,81 @@ const Post = ({ buyNow, addToCart, product, variants }) => {
                                     </a>
                                 </span>
                             </div>
-                            <p className="leading-relaxed mb-3">
+                            <p className="leading-relaxed text-gray-700 mb-6 text-lg">
                                 {product.desc}
                             </p>
                             {product.category !== "mug" &&
                                 product.category !== "sticker" && (
                                     <div className="flex mt-6 items-center pb-5 border-b-2 border-gray-100 mb-5">
-                                        <div className="flex">
-                                            <span className="mr-3">Color</span>
-                                            {Object.keys(variants).map(
-                                                (colorOption) => {
-                                                    return (
-                                                        <button
-                                                            key={colorOption}
-                                                            onClick={() => {
-                                                                setColor(
+                                        <div className="flex items-center">
+                                            <span className="mr-4 font-medium text-gray-700">
+                                                Color
+                                            </span>
+                                            <div className="flex space-x-2">
+                                                {product.color &&
+                                                    Array.isArray(
+                                                        product.color
+                                                    ) &&
+                                                    product.color.map(
+                                                        (colorOption) => (
+                                                            <button
+                                                                key={
                                                                     colorOption
-                                                                );
-                                                                // Set the first available size for the new color
-                                                                if (
-                                                                    variants[
-                                                                        colorOption
-                                                                    ]
-                                                                ) {
-                                                                    const availableSizes =
-                                                                        Object.keys(
-                                                                            variants[
-                                                                                colorOption
-                                                                            ]
-                                                                        );
-                                                                    if (
-                                                                        availableSizes.length >
-                                                                        0
-                                                                    ) {
-                                                                        setSize(
-                                                                            availableSizes[0]
-                                                                        );
-                                                                    }
                                                                 }
-                                                            }}
-                                                            className={`border-2 ml-1 cursor-pointer rounded-full w-6 h-6 ${
-                                                                color ===
-                                                                colorOption
-                                                                    ? "border-black"
-                                                                    : "border-gray-600"
-                                                            }`}
-                                                            style={{
-                                                                backgroundColor:
-                                                                    colorOption,
-                                                            }}
-                                                            title={colorOption}
-                                                        ></button>
-                                                    );
-                                                }
-                                            )}
+                                                                onClick={() =>
+                                                                    setColor(
+                                                                        colorOption
+                                                                    )
+                                                                }
+                                                                className={`border-2 
+                                                                    cursor-pointer rounded-full w-8 h-8 focus:outline-none transition-all hover:scale-110 ${
+                                                                        color ===
+                                                                        colorOption
+                                                                            ? "ring-2 ring-nykaa-primary ring-opacity-30"
+                                                                            : "border-gray-600"
+                                                                    }`}
+                                                                style={{
+                                                                    backgroundColor:
+                                                                        colorOption,
+                                                                }}
+                                                                title={
+                                                                    colorOption
+                                                                }
+                                                            ></button>
+                                                        )
+                                                    )}
+                                            </div>
                                         </div>
-                                        <div className="flex ml-6 items-center">
-                                            <span className="mr-3">Size</span>
+                                        <div className="flex ml-8 items-center">
+                                            <span className="mr-4 font-medium text-gray-700">
+                                                Size
+                                            </span>
                                             <div className="relative">
                                                 <select
                                                     value={size}
-                                                    onChange={(e) => {
-                                                        setSize(e.target.value);
-                                                    }}
-                                                    className="rounded border appearance-none border-gray-300 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-200 focus:border-indigo-500 text-base pl-3 pr-10"
+                                                    onChange={(e) =>
+                                                        setSize(e.target.value)
+                                                    }
+                                                    className="nykaa-input rounded-lg border appearance-none border-gray-300 py-2 focus:outline-none focus:ring-2 focus:ring-nykaa-primary focus:border-nykaa-primary text-base pl-3 pr-10 bg-white"
                                                 >
-                                                    {color &&
-                                                        variants[color] &&
-                                                        Object.keys(
-                                                            variants[color]
-                                                        ).map((size) => (
-                                                            <option
-                                                                key={size}
-                                                                value={size}
-                                                            >
-                                                                {size}
-                                                            </option>
-                                                        ))}
+                                                    {product.size &&
+                                                        Array.isArray(
+                                                            product.size
+                                                        ) &&
+                                                        product.size.map(
+                                                            (sizeOption) => (
+                                                                <option
+                                                                    key={
+                                                                        sizeOption
+                                                                    }
+                                                                    value={
+                                                                        sizeOption
+                                                                    }
+                                                                >
+                                                                    {sizeOption}
+                                                                </option>
+                                                            )
+                                                        )}
                                                 </select>
                                                 <span className="absolute right-0 top-0 h-full w-10 text-center text-gray-600 pointer-events-none flex items-center justify-center">
                                                     <svg
@@ -301,75 +243,119 @@ const Post = ({ buyNow, addToCart, product, variants }) => {
                                         </div>
                                     </div>
                                 )}
-                            <div className="flex">
-                                <span className="title-font font-medium text-2xl text-gray-900">
+                            <div className="flex items-center justify-between">
+                                <span className="title-font font-bold text-3xl text-gray-900">
                                     ₹{product.price}
                                 </span>
-                                <button
-                                    onClick={() => {
-                                        const uniqueKey = `${product.slug}-${size}-${color}`;
-                                        buyNow(
-                                            uniqueKey,
-                                            1,
-                                            product.price,
-                                            product.title,
-                                            size,
-                                            color
-                                        );
-                                    }}
-                                    className="flex cursor-pointer ml-3 text-white bg-[#f05e5e] border-0 py-2 px-6 focus:outline-none hover:bg-red-500 rounded"
-                                >
-                                    Buy Now
-                                </button>
-                                <button
-                                    onClick={() => {
-                                        // Create a unique key for each color-size combination
-                                        const uniqueKey = `${product.slug}-${size}-${color}`;
-
-                                        addToCart(
-                                            uniqueKey,
-                                            1,
-                                            product.price,
-                                            product.title,
-                                            size,
-                                            color
-                                        );
-                                    }}
-                                    className="flex cursor-pointer ml-4 text-white bg-[#f05e5e] border-0 py-2 px-6 focus:outline-none hover:bg-red-500 rounded"
-                                >
-                                    Add to Cart
-                                </button>
-                                <button className="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-4">
-                                    <svg
-                                        fill="currentColor"
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth="2"
-                                        className="w-5 h-5"
-                                        viewBox="0 0 24 24"
+                                <div className="flex space-x-3">
+                                    <button
+                                        onClick={() => {
+                                            const uniqueKey = `${product.slug}-${size}-${color}`;
+                                            buyNow(
+                                                uniqueKey,
+                                                1,
+                                                product.price,
+                                                product.title,
+                                                size,
+                                                color
+                                            );
+                                        }}
+                                        className="btn-nykaa px-8 py-3 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
                                     >
-                                        <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"></path>
-                                    </svg>
-                                </button>
+                                        Buy Now
+                                    </button>
+                                    <button
+                                        onClick={() => {
+                                            const uniqueKey = `${product.slug}-${size}-${color}`;
+                                            addToCart(
+                                                uniqueKey,
+                                                1,
+                                                product.price,
+                                                product.title,
+                                                size,
+                                                color
+                                            );
+                                        }}
+                                        className="btn-nykaa-outline px-8 py-3 border-2 border-nykaa-primary text-nykaa-primary font-semibold rounded-lg hover:bg-nykaa-primary hover:text-white transition-all duration-300"
+                                    >
+                                        Add to Cart
+                                    </button>
+                                    <button className="rounded-full w-12 h-12 bg-gray-100 hover:bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500 hover:text-nykaa-primary ml-4 transition-all duration-300">
+                                        <svg
+                                            fill="currentColor"
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            strokeWidth="2"
+                                            className="w-5 h-5"
+                                            viewBox="0 0 24 24"
+                                        >
+                                            <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"></path>
+                                        </svg>
+                                    </button>
+                                </div>
                             </div>
-                            <div className="pin mt-6 flex space-x-2 text-sm">
-                                <input
-                                    type="text"
-                                    placeholder="Enter your pincode"
-                                    onChange={onChangePin}
-                                    className="border-2 px-2 border-[#f05e5e] rounded-md"
-                                />
-                                <button
-                                    onClick={checkServiceability}
-                                    className="flex cursor-pointer text-white bg-[#f05e5e] border-0 py-2 px-6 focus:outline-none hover:bg-red-500 rounded"
-                                >
-                                    Check
-                                </button>
+                            <div className="mt-8 p-4 bg-pink-50 rounded-lg border border-pink-100">
+                                <h3 className="font-semibold text-gray-900 mb-3">
+                                    Check Delivery
+                                </h3>
+                                <div className="flex space-x-3">
+                                    <input
+                                        type="text"
+                                        placeholder="Enter your pincode"
+                                        value={pin}
+                                        onChange={onChangePin}
+                                        className="flex-1 nykaa-input border-2 border-nykaa-primary rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-nykaa-primary focus:border-transparent"
+                                    />
+                                    <button
+                                        onClick={checkServiceability}
+                                        className="btn-nykaa px-6 py-2 text-white font-semibold rounded-lg hover:shadow-lg transition-all duration-300"
+                                    >
+                                        Check
+                                    </button>
+                                </div>
+                                {service !== "" && (
+                                    <div className="mt-3">
+                                        {service ? (
+                                            <p className="text-green-600 font-medium flex items-center">
+                                                <svg
+                                                    className="w-5 h-5 mr-2"
+                                                    fill="currentColor"
+                                                    viewBox="0 0 20 20"
+                                                >
+                                                    <path
+                                                        fillRule="evenodd"
+                                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                                        clipRule="evenodd"
+                                                    />
+                                                </svg>
+                                                Delivery available in your area
+                                            </p>
+                                        ) : (
+                                            <p className="text-red-600 font-medium flex items-center">
+                                                <svg
+                                                    className="w-5 h-5 mr-2"
+                                                    fill="currentColor"
+                                                    viewBox="0 0 20 20"
+                                                >
+                                                    <path
+                                                        fillRule="evenodd"
+                                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                                                        clipRule="evenodd"
+                                                    />
+                                                </svg>
+                                                Sorry, we don't deliver to this
+                                                pincode yet
+                                            </p>
+                                        )}
+                                    </div>
+                                )}
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
+
+            <ToastContainer />
         </>
     );
 };
@@ -378,32 +364,38 @@ export async function getServerSideProps(context) {
     if (!mongoose.connections[0].readyState) {
         await mongoose.connect(process.env.MONGO_URI);
     }
+
     let product = await Product.findOne({ slug: context.query.slug });
-    let variants = await Product.find({ title: product.title });
-    let colorSizeSlug = {}; // {red:{XL:'abc'}}
 
-    for (let item of variants) {
-        // Handle colors array - convert each color to individual entries
-        const colors = Array.isArray(item.color) ? item.color : [item.color];
-        const sizes = Array.isArray(item.size) ? item.size : [item.size];
-
-        colors.forEach((color) => {
-            sizes.forEach((size) => {
-                if (Object.keys(colorSizeSlug).includes(color)) {
-                    colorSizeSlug[color][size] = { slug: item.slug };
-                } else {
-                    colorSizeSlug[color] = {};
-                    colorSizeSlug[color][size] = { slug: item.slug };
-                }
-            });
-        });
+    if (!product) {
+        return {
+            props: {
+                error: 404,
+            },
+        };
     }
+
+    let variants = {};
+    let products = await Product.find({
+        title: product.title,
+        category: product.category,
+    });
+
+    for (let item of products) {
+        if (Object.keys(variants).includes(item.color)) {
+            variants[item.color][item.size] = { slug: item.slug };
+        } else {
+            variants[item.color] = {};
+            variants[item.color][item.size] = { slug: item.slug };
+        }
+    }
+
     return {
         props: {
             product: JSON.parse(JSON.stringify(product)),
-            variants: JSON.parse(JSON.stringify(colorSizeSlug)),
+            variants: JSON.parse(JSON.stringify(variants)),
         },
     };
 }
 
-export default Post;
+export default ProductDetails;
