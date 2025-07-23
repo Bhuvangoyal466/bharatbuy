@@ -1,4 +1,7 @@
 @import "tailwindcss";
+@plugin "daisyui";
+@plugin "flowbite-react/plugin/tailwindcss";
+@source "../.flowbite-react/class-list.json";
 
 /* Nykaa-inspired color palette and global styles */
 :root {

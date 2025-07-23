@@ -1,6 +1,7 @@
 import Head from "next/head";
 import Link from "next/link";
 import Navbar from "../components/Navbar";
+import Image from "next/image";
 import Footer from "../components/Footer";
 
 export default function Home() {
@@ -63,7 +64,6 @@ export default function Home() {
                             and exceptional quality.
                         </p>
                     </div>
-
                     {/* Feature Cards */}
                     <div className="flex flex-wrap -m-4 justify-center">
                         <div className="xl:w-1/3 md:w-1/2 p-4">
@@ -148,13 +148,12 @@ export default function Home() {
                             </div>
                         </div>
                     </div>
-
                     {/* Call to Action */}
-                    <div className="text-center mt-16">
+                    <div className="text-center mt-25">
                         <h2 className="text-3xl font-bold text-gray-900 mb-6">
                             Ready to Explore?
                         </h2>
-                        <div className="flex flex-wrap justify-center gap-4">
+                        <div className="flex mb-20 flex-wrap justify-center gap-4">
                             <Link href="/tshirts">
                                 <button className="btn-nykaa cursor-pointer">
                                     Shop T-Shirts
@@ -165,6 +164,60 @@ export default function Home() {
                                     Browse Hoodies
                                 </button>
                             </Link>
+                        </div>
+                    </div>
+
+                    <div className="flex justify-center">
+                        <div className="carousel carousel-center bg-neutral rounded-box w-full max-w-md md:max-w-4xl lg:max-w-6xl xl:max-w-screen-2xl space-x-4 p-4">
+                            <div className="carousel-item">
+                                <img
+                                    src="/tshirt.png"
+                                    alt="T-Shirt"
+                                    className="rounded-box w-32 md:w-48 lg:w-64 xl:w-80 2xl:w-96"
+                                />
+                            </div>
+                            <div className="carousel-item">
+                                <img
+                                    src="/hoodie.png"
+                                    alt="Hoodie"
+                                    className="rounded-box w-32 md:w-48 lg:w-64 xl:w-80 2xl:w-96"
+                                />
+                            </div>
+                            <div className="carousel-item">
+                                <img
+                                    src="/mug.png"
+                                    alt="Mug"
+                                    className="rounded-box w-32 md:w-48 lg:w-64 xl:w-80 2xl:w-96"
+                                />
+                            </div>
+                            <div className="carousel-item">
+                                <img
+                                    src="/sticker.png"
+                                    alt="Sticker"
+                                    className="rounded-box w-32 md:w-48 lg:w-64 xl:w-80 2xl:w-96"
+                                />
+                            </div>
+                            <div className="carousel-item">
+                                <img
+                                    src="/logo1.png"
+                                    alt="Logo 1"
+                                    className="rounded-box w-32 md:w-48 lg:w-64 xl:w-80 2xl:w-96"
+                                />
+                            </div>
+                            <div className="carousel-item">
+                                <img
+                                    src="/logo2.png"
+                                    alt="Logo 2"
+                                    className="rounded-box w-32 md:w-48 lg:w-64 xl:w-80 2xl:w-96"
+                                />
+                            </div>
+                            <div className="carousel-item">
+                                <img
+                                    src="/window.svg"
+                                    alt="Window"
+                                    className="rounded-box w-32 md:w-48 lg:w-64 xl:w-80 2xl:w-96"
+                                />
+                            </div>
                         </div>
                     </div>
                 </div>

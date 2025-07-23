@@ -14,114 +14,125 @@ const OrderSuccess = () => {
         }
     }, [orderId]);
 
-    const fetchOrderDetails = async () => {
-        try {
-            const response = await fetch(
-                `/api/pretransaction?orderId=${orderId}`
-            );
-            const data = await response.json();
-
-            if (data.success) {
-                setOrderDetails(data.order);
-            }
-        } catch (error) {
-            console.error("Error fetching order details:", error);
-        } finally {
-            setLoading(false);
-        }
-    };
-
     if (loading) {
         return (
-            <div className="container mx-auto px-4 py-8 text-center">
-                <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-gray-900 mx-auto"></div>
-                <p className="mt-4 text-lg">Loading order details...</p>
+            <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-pink-50 via-white to-purple-50">
+                <div className="text-center">
+                    <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-nykaa-primary mx-auto"></div>
+                    <p className="mt-4 text-lg text-gray-700">
+                        Loading order details...
+                    </p>
+                </div>
             </div>
         );
     }
 
     return (
-        <div className="container mx-auto px-4 py-8 max-w-2xl">
-            <div className="bg-green-50 border border-green-200 rounded-lg p-8 text-center">
-                <div className="text-green-600 text-6xl mb-4">✓</div>
-                <h1 className="text-3xl font-bold text-green-800 mb-4">
-                    Order Created Successfully!
-                </h1>
-
-                {orderDetails && (
-                    <div className="bg-white p-6 rounded-lg shadow-md text-left">
-                        <h2 className="text-xl font-semibold mb-4">
-                            Order Details
-                        </h2>
-                        <div className="space-y-2">
-                            <p>
-                                <strong>Order ID:</strong>{" "}
-                                {orderDetails.orderId}
-                            </p>
-                            <p>
-                                <strong>Amount:</strong> ₹{orderDetails.amount}
-                            </p>
-                            <p>
-                                <strong>Status:</strong>
-                                <span className="bg-yellow-100 text-yellow-800 px-2 py-1 rounded ml-2">
-                                    {orderDetails.status}
-                                </span>
-                            </p>
-                            <p>
-                                <strong>Customer:</strong>{" "}
-                                {orderDetails.customerInfo?.name}
-                            </p>
-                            <p>
-                                <strong>Email:</strong>{" "}
-                                {orderDetails.customerInfo?.email}
-                            </p>
-                            <p>
-                                <strong>Phone:</strong>{" "}
-                                {orderDetails.customerInfo?.phone}
-                            </p>
-                        </div>
-
-                        <div className="mt-4">
-                            <h3 className="font-semibold mb-2">
-                                Items Ordered:
-                            </h3>
-                            <ul className="space-y-1">
-                                {orderDetails.products?.map(
-                                    (product, index) => (
-                                        <li key={index} className="text-sm">
-                                            {product.name} ({product.size}) -
-                                            Qty: {product.quantity} - ₹
-                                            {product.price}
-                                        </li>
-                                    )
-                                )}
-                            </ul>
-                        </div>
+        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-pink-50 via-white to-purple-50 px-4 py-12">
+            <div className="w-full max-w-2xl">
+                <div className="nykaa-card p-10 text-center">
+                    <div className="text-nykaa-primary text-6xl mb-4">
+                        &#10003;
                     </div>
-                )}
+                    <h1 className="text-3xl font-bold text-gray-900 mb-4">
+                        Order Created Successfully!
+                    </h1>
 
-                <div className="mt-8 space-x-4">
-                    <Link href="/">
-                        <button className="bg-[#f05e5e] cursor-pointer text-white px-6 py-2 rounded-lg hover:bg-red-600 transition-colors">
-                            Continue Shopping
-                        </button>
-                    </Link>
-                    <Link href="/orders">
-                        <button className="bg-gray-600 text-white px-6 py-2 rounded-lg hover:bg-gray-700 transition-colors">
-                            View Orders
-                        </button>
-                    </Link>
-                </div>
+                    {orderDetails && (
+                        <div className="bg-white p-6 rounded-lg shadow-md text-left mb-6">
+                            <h2 className="text-xl font-semibold mb-4 text-nykaa-primary">
+                                Order Details
+                            </h2>
+                            <div className="space-y-2">
+                                <p>
+                                    <strong>Order ID:</strong>{" "}
+                                    <span className="text-nykaa-primary font-mono">
+                                        {orderDetails.orderId}
+                                    </span>
+                                </p>
+                                <p>
+                                    <strong>Amount:</strong>{" "}
+                                    <span className="text-nykaa-primary font-bold">
+                                        ₹{orderDetails.amount}
+                                    </span>
+                                </p>
+                                <p>
+                                    <strong>Status:</strong>
+                                    <span className="bg-yellow-100 text-yellow-800 px-2 py-1 rounded ml-2">
+                                        {orderDetails.status}
+                                    </span>
+                                </p>
+                                <p>
+                                    <strong>Customer:</strong>{" "}
+                                    {orderDetails.customerInfo?.name}
+                                </p>
+                                <p>
+                                    <strong>Email:</strong>{" "}
+                                    {orderDetails.customerInfo?.email}
+                                </p>
+                                <p>
+                                    <strong>Phone:</strong>{" "}
+                                    {orderDetails.customerInfo?.phone}
+                                </p>
+                            </div>
 
-                <div className="mt-6 text-sm text-gray-600">
-                    <p>
-                        A confirmation email has been sent to your email
-                        address.
-                    </p>
-                    <p>
-                        You can track your order status in the "My Orders"
-                        section.
-                    </p>
+                            <div className="mt-4">
+                                <h3 className="font-semibold mb-2 text-gray-900">
+                                    Items Ordered:
+                                </h3>
+                                <ul className="space-y-1">
+                                    {orderDetails.products?.map(
+                                        (product, index) => (
+                                            <li key={index} className="text-sm">
+                                                <span className="font-medium text-gray-800">
+                                                    {product.name}
+                                                </span>
+                                                {product.size && (
+                                                    <span className="text-gray-500 ml-1">
+                                                        ({product.size})
+                                                    </span>
+                                                )}{" "}
+                                                - Qty: {product.quantity} -{" "}
+                                                <span className="text-nykaa-primary font-semibold">
+                                                    ₹{product.price}
+                                                </span>
+                                            </li>
+                                        )
+                                    )}
+                                </ul>
+                            </div>
+                        </div>
+                    )}
+
+                    <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
+                        <Link href="/" passHref legacyBehavior>
+                            <a className="w-full sm:w-auto">
+                                <button className="btn-nykaa px-6 py-3 text-lg font-semibold w-full sm:w-auto">
+                                    Continue Shopping
+                                </button>
+                            </a>
+                        </Link>
+                        <Link href="/orders" passHref legacyBehavior>
+                            <a className="w-full sm:w-auto">
+                                <button className="bg-gray-600 text-white px-6 py-3 rounded-full font-semibold hover:bg-gray-700 transition-all duration-300 w-full sm:w-auto">
+                                    View Orders
+                                </button>
+                            </a>
+                        </Link>
+                    </div>
+
+                    <div className="mt-6 text-sm text-gray-600 bg-blue-50 p-4 rounded-lg">
+                        <p>
+                            A confirmation email has been sent to your email
+                            address.
+                            <br />
+                            You can track your order status in the{" "}
+                            <span className="font-semibold text-nykaa-primary">
+                                My Orders
+                            </span>{" "}
+                            section.
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>

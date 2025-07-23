@@ -34,8 +34,8 @@ const Signup = () => {
         setName("");
         setEmail("");
         setPassword("");
-        toast.success("Sign up succesfull!", {
-            position: "bottom-left",
+        toast.success("Sign up successful!", {
+            position: "top-center",
             autoClose: 1700,
             hideProgressBar: false,
             closeOnClick: false,
@@ -46,129 +46,125 @@ const Signup = () => {
             transition: Bounce,
         });
         setTimeout(() => {
-            router.push(`${process.env.NEXT_PUBLIC_HOST}`);
+            router.push("/login");
         }, 1000);
     };
+
     return (
         <>
-            <ToastContainer
-                position="bottom-left"
-                autoClose={1700}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick={false}
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="light"
-                transition={Bounce}
-            />
-            <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
-                <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-                    <img
-                        className="mx-auto h-40 w-auto"
-                        src="/logo2.png"
-                        alt="Your Company"
-                    />
-                    <h2 className="mt-5 text-center text-2xl/9 font-bold tracking-tight text-gray-900">
-                        Sign up
-                    </h2>
-                </div>
+            <div className="min-h-screen bg-gradient-to-br from-pink-50 via-white to-purple-50 flex items-center justify-center p-6">
+                <ToastContainer
+                    position="top-center"
+                    autoClose={1700}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick={false}
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                    theme="light"
+                    transition={Bounce}
+                />
+                <div className="w-full max-w-md">
+                    {/* Logo and Header */}
+                    <div className="text-center mb-8">
+                        <img
+                            className="mx-auto h-24 w-auto mb-6"
+                            src="/logo2.png"
+                            alt="BharatBuy"
+                        />
+                        <h2 className="text-3xl font-bold text-gray-900 mb-2">
+                            Create Account
+                        </h2>
+                        <p className="text-gray-600">
+                            Sign up for a BharatBuy account
+                        </p>
+                    </div>
 
-                <div className="mt-10 md:px-30 px-10 sm:mx-auto sm:w-full sm:max-w-sm">
-                    <form
-                        onSubmit={handleSubmit}
-                        className="space-y-6"
-                        action="#"
-                        method="POST"
-                    >
-                        <div>
-                            <label
-                                htmlFor="name"
-                                className="block text-sm/6 font-medium text-gray-900"
-                            >
-                                Name
-                            </label>
-                            <div className="mt-2">
+                    {/* Signup Form */}
+                    <div className="nykaa-card p-8">
+                        <form onSubmit={handleSubmit} className="space-y-6">
+                            <div>
+                                <label
+                                    htmlFor="name"
+                                    className="block text-sm font-semibold text-gray-700 mb-2"
+                                >
+                                    Name
+                                </label>
                                 <input
                                     value={name}
                                     onChange={handleChange}
                                     type="text"
                                     name="name"
                                     id="name"
-                                    placeholder="Enter your name"
                                     required
-                                    className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-red-600 sm:text-sm/6"
+                                    className="nykaa-input w-full"
+                                    placeholder="Enter your name"
                                 />
                             </div>
-                        </div>
 
-                        <div>
-                            <label
-                                htmlFor="email"
-                                className="block text-sm/6 font-medium text-gray-900"
-                            >
-                                Email address
-                            </label>
-                            <div className="mt-2">
+                            <div>
+                                <label
+                                    htmlFor="email"
+                                    className="block text-sm font-semibold text-gray-700 mb-2"
+                                >
+                                    Email Address
+                                </label>
                                 <input
                                     value={email}
                                     onChange={handleChange}
                                     type="email"
                                     name="email"
-                                    placeholder="Enter your email"
                                     id="email"
                                     autoComplete="email"
                                     required
-                                    className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-red-600 sm:text-sm/6"
+                                    className="nykaa-input w-full"
+                                    placeholder="Enter your email"
                                 />
                             </div>
-                        </div>
 
-                        <div>
-                            <div className="flex items-center justify-between">
+                            <div>
                                 <label
                                     htmlFor="password"
-                                    className="block text-sm/6 font-medium text-gray-900"
+                                    className="block text-sm font-semibold text-gray-700 mb-2"
                                 >
                                     Password
                                 </label>
-                            </div>
-                            <div className="mt-2">
                                 <input
                                     value={password}
                                     onChange={handleChange}
                                     type="password"
                                     name="password"
                                     id="password"
-                                    placeholder="Enter your password"
                                     autoComplete="current-password"
                                     required
-                                    className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-red-600 sm:text-sm/6"
+                                    className="nykaa-input w-full"
+                                    placeholder="Enter your password"
                                 />
                             </div>
-                        </div>
 
-                        <div>
                             <button
                                 type="submit"
-                                className="flex cursor-pointer w-full justify-center rounded-md bg-red-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-red-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600"
+                                className="w-full cursor-pointer btn-nykaa py-4 text-lg font-semibold"
                             >
-                                Sign up
+                                Sign Up
                             </button>
-                        </div>
-                    </form>
+                        </form>
 
-                    <p className="mt-10 text-center text-sm/6 text-gray-500">
-                        Already a member?{" "}
-                        <Link legacyBehavior href={"/login"}>
-                            <a className="font-semibold text-red-600 hover:text-red-500">
-                                {" "}
-                                Log In
-                            </a>
-                        </Link>
-                    </p>
+                        {/* Sign In Link */}
+                        <div className="mt-8 text-center">
+                            <p className="text-gray-600">
+                                Already a member?{" "}
+                                <Link
+                                    href="/login"
+                                    className="font-semibold text-nykaa-primary hover:text-nykaa-primary-dark transition-colors duration-200"
+                                >
+                                    Log In
+                                </Link>
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </>

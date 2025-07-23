@@ -94,118 +94,68 @@ const PaymentPage = () => {
                 crossOrigin="anonymous"
             />
 
-            <div className="container mx-auto  py-8 max-w-2xl md:px-30 px-10">
-                <div className="bg-white shadow-lg rounded-lg overflow-hidden">
-                    <div className="bg-[#f05e5e] text-white px-6 py-4">
-                        <h1 className="text-2xl font-bold">Complete Payment</h1>
+            <div className="min-h-screen bg-gradient-to-br from-[#fff0f6] via-[#ffe3ec] to-[#fff0f6] flex items-center justify-center py-10 px-2">
+                <div className="w-full max-w-2xl shadow-2xl rounded-3xl bg-white/90 border border-pink-100 overflow-hidden">
+                    <div className="bg-[#f05e5e] bg-gradient-to-r from-[#f05e5e] to-[#ffb6c1] text-white px-8 py-6 rounded-t-3xl flex items-center gap-3">
+                        <svg width="32" height="32" fill="none" viewBox="0 0 24 24"><rect width="24" height="24" rx="12" fill="#fff" fillOpacity=".1"/><path d="M7 12.5l3 3 7-7" stroke="#fff" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                        <h1 className="text-3xl font-extrabold tracking-tight">Complete Payment</h1>
                     </div>
-
-                    <div className="p-6">
-                        <div className="mb-6">
-                            <h2 className="text-xl font-semibold mb-4">
-                                Order Summary
-                            </h2>
-                            <div className="bg-gray-50 p-4 rounded-lg">
+                    <div className="p-8">
+                        <div className="mb-8">
+                            <h2 className="text-xl font-bold mb-4 text-[#f05e5e] tracking-wide">Order Summary</h2>
+                            <div className="bg-[#fff5fa] p-5 rounded-2xl border border-pink-100">
                                 <div className="flex justify-between items-center mb-2">
-                                    <span className="font-medium">
-                                        Order ID:
-                                    </span>
-                                    <span className="text-[#f05e5e] font-mono">
-                                        {orderDetails.orderId}
-                                    </span>
+                                    <span className="font-semibold text-gray-700">Order ID:</span>
+                                    <span className="text-[#f05e5e] font-mono text-base">{orderDetails.orderId}</span>
                                 </div>
                                 <div className="flex justify-between items-center mb-2">
-                                    <span className="font-medium">
-                                        Total Amount:
-                                    </span>
-                                    <span className="text-2xl font-bold text-green-600">
-                                        ₹{orderDetails.amount}
-                                    </span>
+                                    <span className="font-semibold text-gray-700">Total Amount:</span>
+                                    <span className="text-2xl font-extrabold text-[#43b672]">₹{orderDetails.amount}</span>
                                 </div>
                                 <div className="flex justify-between items-center">
-                                    <span className="font-medium">Status:</span>
-                                    <span className="bg-yellow-100 text-yellow-800 px-2 py-1 rounded text-sm">
-                                        {orderDetails.paymentStatus}
-                                    </span>
+                                    <span className="font-semibold text-gray-700">Status:</span>
+                                    <span className="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-sm font-semibold">{orderDetails.paymentStatus}</span>
                                 </div>
                             </div>
                         </div>
-
-                        <div className="mb-6">
-                            <h3 className="text-lg font-semibold mb-3">
-                                Customer Information
-                            </h3>
+                        <div className="mb-8">
+                            <h3 className="text-lg font-bold mb-3 text-[#f05e5e] tracking-wide">Customer Information</h3>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-                                <div>
-                                    <span className="font-medium">Name:</span>{" "}
-                                    {orderDetails.customerInfo?.name}
-                                </div>
-                                <div>
-                                    <span className="font-medium">Email:</span>{" "}
-                                    {orderDetails.customerInfo?.email}
-                                </div>
-                                <div>
-                                    <span className="font-medium">Phone:</span>{" "}
-                                    {orderDetails.customerInfo?.phone}
-                                </div>
-                                <div>
-                                    <span className="font-medium">City:</span>{" "}
-                                    {orderDetails.customerInfo?.city}
-                                </div>
+                                <div><span className="font-semibold text-gray-700">Name:</span> {orderDetails.customerInfo?.name}</div>
+                                <div><span className="font-semibold text-gray-700">Email:</span> {orderDetails.customerInfo?.email}</div>
+                                <div><span className="font-semibold text-gray-700">Phone:</span> {orderDetails.customerInfo?.phone}</div>
+                                <div><span className="font-semibold text-gray-700">City:</span> {orderDetails.customerInfo?.city}</div>
                             </div>
                         </div>
-
-                        <div className="mb-6">
-                            <h3 className="text-lg font-semibold mb-3">
-                                Items Ordered
-                            </h3>
-                            <div className="space-y-2">
-                                {orderDetails.products?.map(
-                                    (product, index) => (
-                                        <div
-                                            key={index}
-                                            className="flex justify-between items-center py-2 border-b border-gray-100"
-                                        >
-                                            <div>
-                                                <span className="font-medium">
-                                                    {product.name}
-                                                </span>
-                                                {product.size && (
-                                                    <span className="text-gray-500 ml-2">
-                                                        ({product.size})
-                                                    </span>
-                                                )}
-                                            </div>
-                                            <div className="text-right">
-                                                <div>
-                                                    Qty: {product.quantity}
-                                                </div>
-                                                <div className="font-medium">
-                                                    ₹{product.price}
-                                                </div>
-                                            </div>
+                        <div className="mb-8">
+                            <h3 className="text-lg font-bold mb-3 text-[#f05e5e] tracking-wide">Items Ordered</h3>
+                            <div className="space-y-3">
+                                {orderDetails.products?.map((product, index) => (
+                                    <div key={index} className="flex justify-between items-center py-3 border-b border-pink-100 last:border-b-0">
+                                        <div>
+                                            <span className="font-semibold text-gray-800">{product.name}</span>
+                                            {product.size && (
+                                                <span className="text-gray-400 ml-2">({product.size})</span>
+                                            )}
                                         </div>
-                                    )
-                                )}
+                                        <div className="text-right">
+                                            <div className="text-gray-600">Qty: {product.quantity}</div>
+                                            <div className="font-semibold text-[#f05e5e]">₹{product.price}</div>
+                                        </div>
+                                    </div>
+                                ))}
                             </div>
                         </div>
-
-                        <div className="border-t pt-6">
+                        <div className="border-t border-pink-100 pt-8">
                             <button
                                 onClick={initiatePaytmPayment}
-                                className="cursor-pointer w-full bg-[#f05e5e] text-white py-3 px-6 rounded-lg text-lg font-semibold hover:bg-red-600 transition-colors"
+                                className="btn-nykaa w-full py-3 px-6 text-lg font-bold rounded-xl shadow-md transition-all duration-200 bg-[#f05e5e] hover:bg-[#e13c3c] text-white tracking-wide"
                             >
                                 Pay with Paytm - ₹{orderDetails.amount}
                             </button>
-
-                            <div className="mt-4 text-center">
-                                <p className="text-sm text-gray-600">
-                                    Secure payment powered by Paytm
-                                </p>
-                                <p className="text-xs text-gray-500 mt-1">
-                                    Your payment information is encrypted and
-                                    secure
-                                </p>
+                            <div className="mt-6 text-center">
+                                <p className="text-sm text-[#f05e5e] font-semibold">Secure payment powered by Paytm</p>
+                                <p className="text-xs text-gray-400 mt-1">Your payment information is encrypted and secure</p>
                             </div>
                         </div>
                     </div>

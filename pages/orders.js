@@ -92,54 +92,60 @@ const Orders = () => {
 
     if (loading) {
         return (
-            <div className="container mx-auto px-4 py-8 text-center">
-                <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-gray-900 mx-auto"></div>
-                <p className="mt-4 text-lg">Loading your orders...</p>
+            <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-pink-50 via-white to-purple-50">
+                <div className="text-center">
+                    <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-nykaa-primary mx-auto"></div>
+                    <p className="mt-4 text-lg text-gray-700">
+                        Loading your orders...
+                    </p>
+                </div>
             </div>
         );
     }
 
     if (!user) {
         return (
-            <div className="container mx-auto px-4 py-8 text-center">
-                <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-gray-900 mx-auto"></div>
-                <p className="mt-4 text-lg">Loading...</p>
+            <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-pink-50 via-white to-purple-50">
+                <div className="text-center">
+                    <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-nykaa-primary mx-auto"></div>
+                    <p className="mt-4 text-lg text-gray-700">Loading...</p>
+                </div>
             </div>
         );
     }
 
     return (
-        <div className="container mx-auto md:px-30 px-15 py-24">
-            <div className="text-center mb-8">
-                <h1 className="text-4xl font-bold text-gray-900 mb-4">
-                    My Orders
-                </h1>
-                <p className="text-gray-600 max-w-2xl mb-20 mx-auto">
-                    Track and manage all your orders in one place. View order
-                    details, payment status, and shipping information.
-                </p>
-            </div>
+        <div className="min-h-screen bg-gradient-to-br from-pink-50 via-white to-purple-50 px-4 py-12">
+            <div className="max-w-5xl mx-auto">
+                <div className="text-center mb-12">
+                    <h1 className="text-4xl font-bold text-gray-900 mb-4">
+                        My Orders
+                    </h1>
+                    <p className="text-gray-600 max-w-2xl mb-8 mx-auto">
+                        Track and manage all your orders in one place. View
+                        order details, payment status, and shipping information.
+                    </p>
+                </div>
 
-            {orders && orders.length > 0 ? (
-                <div className="space-y-6">
-                    {orders.map((order) => (
-                        <div
-                            key={order._id}
-                            className="bg-white rounded-lg shadow-lg border border-gray-200 mb-15 overflow-hidden"
-                        >
-                            <div className="bg-gray-50 px-6 py-4 border-b border-gray-200">
-                                <div className="flex flex-col md:flex-row md:items-center md:justify-between">
-                                    <div className="flex flex-col md:flex-row md:items-center md:space-x-6">
+                {orders && orders.length > 0 ? (
+                    <div className="space-y-8">
+                        {orders.map((order) => (
+                            <div
+                                key={order._id}
+                                className="nykaa-card p-8 mb-8"
+                            >
+                                <div className="flex flex-col md:flex-row md:items-center md:justify-between border-b border-gray-200 pb-4 mb-4">
+                                    <div className="flex flex-col md:flex-row md:items-center md:space-x-8">
                                         <div>
-                                            <p className="text-sm text-gray-600">
+                                            <p className="text-xs text-gray-500">
                                                 Order ID
                                             </p>
-                                            <p className="font-mono font-medium text-[#f05e5e]">
+                                            <p className="font-mono font-semibold text-nykaa-primary">
                                                 {order.orderId}
                                             </p>
                                         </div>
                                         <div>
-                                            <p className="text-sm text-gray-600">
+                                            <p className="text-xs text-gray-500">
                                                 Order Date
                                             </p>
                                             <p className="font-medium">
@@ -147,10 +153,10 @@ const Orders = () => {
                                             </p>
                                         </div>
                                         <div>
-                                            <p className="text-sm text-gray-600">
+                                            <p className="text-xs text-gray-500">
                                                 Total Amount
                                             </p>
-                                            <p className="font-bold text-lg text-green-600">
+                                            <p className="font-bold text-lg text-nykaa-primary">
                                                 ₹{order.amount}
                                             </p>
                                         </div>
@@ -172,10 +178,8 @@ const Orders = () => {
                                         </span>
                                     </div>
                                 </div>
-                            </div>
 
-                            <div className="px-6 py-4">
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                                     <div>
                                         <h3 className="font-semibold text-gray-900 mb-3">
                                             Customer Information
@@ -208,7 +212,6 @@ const Orders = () => {
                                             </p>
                                         </div>
                                     </div>
-
                                     <div>
                                         <h3 className="font-semibold text-gray-900 mb-3">
                                             Order Items
@@ -221,7 +224,7 @@ const Orders = () => {
                                                         className="flex justify-between items-center text-sm"
                                                     >
                                                         <div>
-                                                            <span className="font-medium">
+                                                            <span className="font-medium text-gray-800">
                                                                 {product.name}
                                                             </span>
                                                             {product.size && (
@@ -241,7 +244,7 @@ const Orders = () => {
                                                                     product.quantity
                                                                 }
                                                             </span>
-                                                            <span className="ml-2 font-medium">
+                                                            <span className="ml-2 font-semibold text-nykaa-primary">
                                                                 ₹{product.price}
                                                             </span>
                                                         </div>
@@ -253,7 +256,7 @@ const Orders = () => {
                                 </div>
 
                                 {order.address && (
-                                    <div className="mt-4 pt-4 border-t border-gray-200">
+                                    <div className="mt-6 pt-4 border-t border-gray-200">
                                         <h3 className="font-semibold text-gray-900 mb-2">
                                             Delivery Address
                                         </h3>
@@ -276,26 +279,26 @@ const Orders = () => {
                                     </div>
                                 )}
                             </div>
-                        </div>
-                    ))}
-                </div>
-            ) : (
-                <div className="text-center py-12">
-                    <div className="text-6xl text-gray-300 mb-4">📦</div>
-                    <h2 className="text-2xl font-semibold text-gray-900 mb-2">
-                        No Orders Found
-                    </h2>
-                    <p className="text-gray-600 mb-6">
-                        You haven't placed any orders yet.
-                    </p>
-                    <button
-                        onClick={() => router.push("/")}
-                        className="bg-[#f05e5e] text-white px-6 py-3 rounded-lg hover:bg-red-600 transition-colors font-medium"
-                    >
-                        Start Shopping
-                    </button>
-                </div>
-            )}
+                        ))}
+                    </div>
+                ) : (
+                    <div className="text-center py-20">
+                        <div className="text-6xl text-gray-300 mb-4">📦</div>
+                        <h2 className="text-2xl font-semibold text-gray-900 mb-2">
+                            No Orders Found
+                        </h2>
+                        <p className="text-gray-600 mb-6">
+                            You haven't placed any orders yet.
+                        </p>
+                        <button
+                            onClick={() => router.push("/")}
+                            className="btn-nykaa px-6 py-3 text-lg font-semibold"
+                        >
+                            Start Shopping
+                        </button>
+                    </div>
+                )}
+            </div>
         </div>
     );
 };

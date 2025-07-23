@@ -55,22 +55,26 @@ const PaymentSuccess = () => {
 
     if (loading) {
         return (
-            <div className="container mx-auto px-4 py-8 text-center">
-                <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-green-600 mx-auto"></div>
-                <p className="mt-4 text-lg">Confirming your payment...</p>
+            <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-pink-50 via-white to-purple-50">
+                <div className="text-center">
+                    <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-nykaa-primary mx-auto"></div>
+                    <p className="mt-4 text-lg text-gray-700">
+                        Confirming your payment...
+                    </p>
+                </div>
             </div>
         );
     }
 
     return (
-        <div className="container mx-auto md:px-30 px-5 py-8 max-w-2xl">
-            <div className="bg-green-50 border border-green-200 rounded-lg overflow-hidden shadow-lg">
-                <div className="bg-green-600 text-white px-6 py-4 text-center">
-                    <div className="text-6xl mb-2">🎉</div>
-                    <h1 className="text-3xl font-bold">Payment Successful!</h1>
-                </div>
+        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-pink-50 via-white to-purple-50 px-4 py-12">
+            <div className="w-full max-w-2xl">
+                <div className="nykaa-card p-10 text-center">
+                    <div className="text-nykaa-primary text-6xl mb-4">🎉</div>
+                    <h1 className="text-3xl font-bold text-gray-900 mb-4">
+                        Payment Successful!
+                    </h1>
 
-                <div className="p-6">
                     <div className="text-center mb-6">
                         <p className="text-lg text-gray-700 mb-2">
                             Thank you for your purchase!
@@ -82,8 +86,8 @@ const PaymentSuccess = () => {
                     </div>
 
                     {orderDetails && (
-                        <div className="bg-white p-6 rounded-lg shadow-md">
-                            <h2 className="text-xl font-semibold mb-4">
+                        <div className="bg-white p-6 rounded-lg shadow-md text-left mb-6">
+                            <h2 className="text-xl font-semibold mb-4 text-nykaa-primary">
                                 Payment Details
                             </h2>
                             <div className="space-y-3">
@@ -91,7 +95,7 @@ const PaymentSuccess = () => {
                                     <span className="font-medium">
                                         Order ID:
                                     </span>
-                                    <span className="text-[#f05e5e] font-mono">
+                                    <span className="text-nykaa-primary font-mono">
                                         {orderDetails.orderId}
                                     </span>
                                 </div>
@@ -109,7 +113,7 @@ const PaymentSuccess = () => {
                                     <span className="font-medium">
                                         Amount Paid:
                                     </span>
-                                    <span className="text-2xl font-bold text-green-600">
+                                    <span className="text-2xl font-bold text-nykaa-primary">
                                         ₹{orderDetails.amount}
                                     </span>
                                 </div>
@@ -138,7 +142,7 @@ const PaymentSuccess = () => {
                             </div>
 
                             <div className="mt-6 pt-4 border-t">
-                                <h3 className="font-semibold mb-3">
+                                <h3 className="font-semibold mb-3 text-gray-900">
                                     Items Purchased:
                                 </h3>
                                 <div className="space-y-2">
@@ -149,7 +153,7 @@ const PaymentSuccess = () => {
                                                 className="flex justify-between items-center text-sm"
                                             >
                                                 <div>
-                                                    <span className="font-medium">
+                                                    <span className="font-medium text-gray-800">
                                                         {product.name}
                                                     </span>
                                                     {product.size && (
@@ -159,8 +163,10 @@ const PaymentSuccess = () => {
                                                     )}
                                                 </div>
                                                 <div>
-                                                    Qty: {product.quantity} × ₹
-                                                    {product.price}
+                                                    Qty: {product.quantity} ×{" "}
+                                                    <span className="text-nykaa-primary font-semibold">
+                                                        ₹{product.price}
+                                                    </span>
                                                 </div>
                                             </div>
                                         )
@@ -170,43 +176,47 @@ const PaymentSuccess = () => {
                         </div>
                     )}
 
-                    <div className="mt-8 text-center space-y-4">
-                        <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                            <Link href="/">
-                                <button className="bg-[#f05e5e] cursor-pointer text-white px-6 py-3 rounded-lg hover:bg-red-600 transition-colors font-medium">
+                    <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
+                        <Link href="/" passHref legacyBehavior>
+                            <a className="w-full sm:w-auto">
+                                <button className="btn-nykaa px-6 py-3 text-lg font-semibold w-full sm:w-auto">
                                     Continue Shopping
                                 </button>
-                            </Link>
-                            <Link href="/orders">
-                                <button className="bg-gray-600 cursor-pointer text-white px-6 py-3 rounded-lg hover:bg-gray-700 transition-colors font-medium">
+                            </a>
+                        </Link>
+                        <Link href="/orders" passHref legacyBehavior>
+                            <a className="w-full sm:w-auto">
+                                <button className="bg-gray-600 text-white px-6 py-3 rounded-full font-semibold hover:bg-gray-700 transition-all duration-300 w-full sm:w-auto">
                                     View My Orders
                                 </button>
-                            </Link>
-                        </div>
+                            </a>
+                        </Link>
+                    </div>
 
-                        <div className="bg-blue-50 p-4 rounded-lg">
-                            <h4 className="font-semibold text-blue-800 mb-2">
-                                What's Next?
-                            </h4>
-                            <ul className="text-sm text-blue-700 space-y-1">
-                                <li>
-                                    • You will receive an order confirmation
-                                    email shortly
-                                </li>
-                                <li>
-                                    • Your order will be processed and shipped
-                                    within 1-2 business days
-                                </li>
-                                <li>
-                                    • You can track your order status in the "My
-                                    Orders" section
-                                </li>
-                                <li>
-                                    • For any queries, contact our customer
-                                    support
-                                </li>
-                            </ul>
-                        </div>
+                    <div className="mt-6 text-sm text-gray-600 bg-blue-50 p-4 rounded-lg">
+                        <h4 className="font-semibold text-blue-800 mb-2">
+                            What's Next?
+                        </h4>
+                        <ul className="text-sm text-blue-700 space-y-1 text-left">
+                            <li>
+                                • You will receive an order confirmation email
+                                shortly
+                            </li>
+                            <li>
+                                • Your order will be processed and shipped
+                                within 1-2 business days
+                            </li>
+                            <li>
+                                • You can track your order status in the{" "}
+                                <span className="font-semibold text-nykaa-primary">
+                                    My Orders
+                                </span>{" "}
+                                section
+                            </li>
+                            <li>
+                                • For any queries, contact our customer support
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>
