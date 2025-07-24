@@ -141,7 +141,7 @@ export default function App({ Component, pageProps }) {
 
         // Add a small delay before redirecting to allow toast to show
         setTimeout(() => {
-            router.push(`${process.env.NEXT_PUBLIC_HOST}`);
+            router.push("/");
         }, 500);
     };
 

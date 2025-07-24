@@ -22,7 +22,7 @@ const Login = () => {
         e.preventDefault();
         setIsLoading(true);
         const data = { email, password };
-        let res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/login`, {
+        let res = await fetch("/api/login", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -50,7 +50,7 @@ const Login = () => {
                 transition: Bounce,
             });
             setTimeout(() => {
-                router.push(`${process.env.NEXT_PUBLIC_HOST}`);
+                router.push("/");
             }, 1000);
         } else {
             toast.error(response.error || "Login failed", {

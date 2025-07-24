@@ -75,18 +75,15 @@ const MyAccount = ({
                     setUserData(parsedUser);
 
                     // Fetch user details from backend
-                    const response = await fetch(
-                        `${process.env.NEXT_PUBLIC_HOST}/api/getuser`,
-                        {
-                            method: "POST",
-                            headers: {
-                                "Content-Type": "application/json",
-                            },
-                            body: JSON.stringify({
-                                token: parsedUser.token,
-                            }),
-                        }
-                    );
+                    const response = await fetch("/api/getuser", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            token: parsedUser.token,
+                        }),
+                    });
 
                     if (response.ok) {
                         const userData = await response.json();
@@ -114,22 +111,19 @@ const MyAccount = ({
 
         setLoading(true);
         try {
-            const response = await fetch(
-                `${process.env.NEXT_PUBLIC_HOST}/api/updateuser`,
-                {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({
-                        token: userData.token,
-                        name: name,
-                        address: address,
-                        phone: phone,
-                        pincode: pin,
-                    }),
-                }
-            );
+            const response = await fetch("/api/updateuser", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    token: userData.token,
+                    name: name,
+                    address: address,
+                    phone: phone,
+                    pincode: pin,
+                }),
+            });
 
             const result = await response.json();
 
@@ -164,19 +158,16 @@ const MyAccount = ({
 
         setLoading(true);
         try {
-            const response = await fetch(
-                `${process.env.NEXT_PUBLIC_HOST}/api/updatepassword`,
-                {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({
-                        token: userData.token,
-                        password: password,
-                    }),
-                }
-            );
+            const response = await fetch("/api/updatepassword", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    token: userData.token,
+                    password: password,
+                }),
+            });
 
             const result = await response.json();
 

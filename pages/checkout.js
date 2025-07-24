@@ -47,18 +47,15 @@ const Checkout = ({
                 const parsedUser = JSON.parse(myuser);
                 if (parsedUser && parsedUser.token) {
                     // Fetch user details from backend to auto-fill form
-                    const response = await fetch(
-                        `${process.env.NEXT_PUBLIC_HOST}/api/getuser`,
-                        {
-                            method: "POST",
-                            headers: {
-                                "Content-Type": "application/json",
-                            },
-                            body: JSON.stringify({
-                                token: parsedUser.token,
-                            }),
-                        }
-                    );
+                    const response = await fetch("/api/getuser", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            token: parsedUser.token,
+                        }),
+                    });
 
                     if (response.ok) {
                         const userData = await response.json();
@@ -71,9 +68,7 @@ const Checkout = ({
                         // Auto-fill city and state if pincode is available
                         if (userData.pincode && userData.pincode.length === 6) {
                             try {
-                                const pins = await fetch(
-                                    `${process.env.NEXT_PUBLIC_HOST}/api/pincode`
-                                );
+                                const pins = await fetch("/api/pincode");
                                 const pinJson = await pins.json();
                                 if (
                                     Object.keys(pinJson).includes(
@@ -123,9 +118,7 @@ const Checkout = ({
         } else if (e.target.name === "pin") {
             setPin(e.target.value);
             if (e.target.value.length == 6) {
-                let pins = await fetch(
-                    `${process.env.NEXT_PUBLIC_HOST}/api/pincode`
-                );
+                let pins = await fetch("/api/pincode");
                 let pinJson = await pins.json();
                 if (Object.keys(pinJson).includes(e.target.value)) {
                     setCity(pinJson[e.target.value][0]);
@@ -189,16 +182,13 @@ const Checkout = ({
                 state,
             };
 
-            let response = await fetch(
-                `${process.env.NEXT_PUBLIC_HOST}/api/pretransaction`,
-                {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify(data),
-                }
-            );
+            let response = await fetch("/api/pretransaction", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(data),
+            });
 
             let txnRes = await response.json();
 
