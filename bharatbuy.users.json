@@ -1,0 +1,96 @@
+[{
+  "_id": {
+    "$oid": "6870aaacd9b4344f51f356e2"
+  },
+  "name": "bhuvan",
+  "email": "bhuvan@gmail.com",
+  "password": "bhuvan",
+  "createdAt": {
+    "$date": "2025-07-11T06:09:48.242Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-11T06:09:48.242Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6870aec6d9b4344f51f356e5"
+  },
+  "name": "bhuvan2",
+  "email": "bhuvan2@gmail.com",
+  "password": "bhuvan2",
+  "createdAt": {
+    "$date": "2025-07-11T06:27:18.640Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-11T06:27:18.640Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6870aff2d9b4344f51f356ee"
+  },
+  "name": "bhuvan3",
+  "email": "bhuvan3@gmail.com",
+  "password": "bhuvan3",
+  "createdAt": {
+    "$date": "2025-07-11T06:32:18.679Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-11T06:32:18.679Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "687252cdd8013c9fb496fa3d"
+  },
+  "name": "bhuvan4",
+  "email": "bhuvan4@gmail.com",
+  "password": "U2FsdGVkX1+Q5J8cB+67snjbOQDE9PrWlFTD0tWuNIY=",
+  "createdAt": {
+    "$date": "2025-07-12T12:19:25.159Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-21T12:39:44.263Z"
+  },
+  "__v": 0,
+  "address": "abc",
+  "phone": "1234567890",
+  "pincode": "173213"
+},
+{
+  "_id": {
+    "$oid": "6875e791a4796e3780f27ef6"
+  },
+  "name": "bhuvan5",
+  "email": "bhuvan5@gmail.com",
+  "password": "U2FsdGVkX19GBsoJPojOWEYJ1XwkSzlwV7W1IWQyRe4=",
+  "createdAt": {
+    "$date": "2025-07-15T05:30:57.658Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-15T05:30:57.658Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6880712e1645c4a871ec51db"
+  },
+  "name": "Daksh Nagpal",
+  "email": "Dakshnagpal@gmail.com",
+  "password": "U2FsdGVkX18Sv1E6N0rYLD0ZHRKn08UndNDVz2ZphBo=",
+  "address": "",
+  "pincode": "",
+  "phone": "",
+  "createdAt": {
+    "$date": "2025-07-23T05:20:46.783Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-23T05:20:46.783Z"
+  },
+  "__v": 0
+}]

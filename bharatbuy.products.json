@@ -1,0 +1,1059 @@
+{
+  "_id": {
+    "$oid": "686e7571b74a1d6d55418e72"
+  },
+  "title": "Be Different ‘Be Different’ Graphic Tee",
+  "slug": "be-different-graphic-tee",
+  "desc": "Bold text graphic tee from Be Different.",
+  "img": "https://prod-img.thesouledstore.com/public/theSoul/uploads/catalog/product/1711434111_1458251.jpg?format=webp&w=480&dpr=1.3",
+  "category": "tshirt",
+  "size": [
+    "S",
+    "M",
+    "L",
+    "XL",
+    "XXL"
+  ],
+  "color": [
+    "#cdb4db",
+    "#ffafcc",
+    "#bde0fe"
+  ],
+  "price": 1299,
+  "availableQty": 0,
+  "createdAt": {
+    "$date": "2025-07-09T13:58:09.621Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-16T15:16:24.724Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "686e7571b74a1d6d55418e74"
+  },
+  "title": "MTV Logo Pop‑Art Tee",
+  "slug": "mtv-logo-pop-art-tee",
+  "desc": "Colorful MTV logo grid graphic tee.",
+  "img": "https://prod-img.thesouledstore.com/public/theSoul/uploads/catalog/product/1711434111_1458251.jpg?format=webp&w=480&dpr=1.3",
+  "category": "tshirt",
+  "size": [
+    "S",
+    "M",
+    "L",
+    "XL",
+    "XXL"
+  ],
+  "color": [
+    "#cdb4db",
+    "#ffafcc",
+    "#bde0fe",
+    "#e63946"
+  ],
+  "price": 1599,
+  "availableQty": 8,
+  "createdAt": {
+    "$date": "2025-07-09T13:58:09.623Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-21T13:10:53.068Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "686e7571b74a1d6d55418e76"
+  },
+  "title": "Everyday Heavy Cotton",
+  "slug": "everyday-heavy-cotton-6pack-tee",
+  "desc": "Bulk basic heavy‑weight cotton tees, multipack.",
+  "img": "https://prod-img.thesouledstore.com/public/theSoul/uploads/catalog/product/1711434111_1458251.jpg?format=webp&w=480&dpr=1.3",
+  "category": "tshirt",
+  "size": [
+    "S",
+    "M",
+    "L",
+    "XL",
+    "XXL"
+  ],
+  "color": [
+    "#cdb4db",
+    "#ffafcc",
+    "#bde0fe",
+    "#e63946"
+  ],
+  "price": 2499,
+  "availableQty": 10,
+  "createdAt": {
+    "$date": "2025-07-09T13:58:09.625Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-09T13:58:09.625Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "686e7571b74a1d6d55418e78"
+  },
+  "title": "Built Different Crew-Neck Tee",
+  "slug": "built-different-crew-neck-tee",
+  "desc": "Positive message ‘Built Different’ tee.",
+  "img": "https://prod-img.thesouledstore.com/public/theSoul/uploads/catalog/product/1711434111_1458251.jpg?format=webp&w=480&dpr=1.3",
+  "category": "tshirt",
+  "size": [
+    "S",
+    "M",
+    "L",
+    "XL",
+    "XXL"
+  ],
+  "color": [
+    "#cdb4db",
+    "#ffafcc",
+    "#bde0fe",
+    "#e63946"
+  ],
+  "price": 1399,
+  "availableQty": 9,
+  "createdAt": {
+    "$date": "2025-07-09T13:58:09.627Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-22T16:00:40.070Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "686e7571b74a1d6d55418e7a"
+  },
+  "title": "Hanes Crewneck Tee",
+  "slug": "hanes-6pack-crewneck-tee",
+  "desc": "Classic Hanes cotton crewneck multipack.",
+  "img": "https://prod-img.thesouledstore.com/public/theSoul/uploads/catalog/product/1711434111_1458251.jpg?format=webp&w=480&dpr=1.3",
+  "category": "tshirt",
+  "size": [
+    "S",
+    "M",
+    "L",
+    "XL",
+    "XXL"
+  ],
+  "color": [
+    "#cdb4db",
+    "#ffafcc",
+    "#bde0fe",
+    "#e63946"
+  ],
+  "price": 1999,
+  "availableQty": 10,
+  "createdAt": {
+    "$date": "2025-07-09T13:58:09.628Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-09T13:58:09.628Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "686e7571b74a1d6d55418e7c"
+  },
+  "title": "Stay Weird Graphic Tee",
+  "slug": "stay-weird-graphic-tee",
+  "desc": "Fun “Stay Weird” pastel graphic tee.",
+  "img": "https://prod-img.thesouledstore.com/public/theSoul/uploads/catalog/product/1711434111_1458251.jpg?format=webp&w=480&dpr=1.3",
+  "category": "tshirt",
+  "size": [
+    "S",
+    "M",
+    "L",
+    "XL",
+    "XXL"
+  ],
+  "color": [
+    "#cdb4db",
+    "#ffafcc",
+    "#bde0fe",
+    "#e63946"
+  ],
+  "price": 1399,
+  "availableQty": 10,
+  "createdAt": {
+    "$date": "2025-07-09T13:58:09.629Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-09T13:58:09.629Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "686e7571b74a1d6d55418e7e"
+  },
+  "title": "It’s Okay To Be Different Tee",
+  "slug": "its-okay-to-be-different-tee",
+  "desc": "Inclusive message tee: “It's okay to be different.”",
+  "img": "https://prod-img.thesouledstore.com/public/theSoul/uploads/catalog/product/1711434111_1458251.jpg?format=webp&w=480&dpr=1.3",
+  "category": "tshirt",
+  "size": [
+    "S",
+    "M",
+    "L",
+    "XL",
+    "XXL"
+  ],
+  "color": [
+    "#cdb4db",
+    "#ffafcc",
+    "#bde0fe",
+    "#e63946"
+  ],
+  "price": 1399,
+  "availableQty": 10,
+  "createdAt": {
+    "$date": "2025-07-09T13:58:09.630Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-09T13:58:09.630Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "686e7571b74a1d6d55418e80"
+  },
+  "title": "I’m Just Built Different Tee",
+  "slug": "im-just-built-different-tee",
+  "desc": "Message tee with bold stripes: “I’m just built different.”",
+  "img": "https://prod-img.thesouledstore.com/public/theSoul/uploads/catalog/product/1711434111_1458251.jpg?format=webp&w=480&dpr=1.3",
+  "category": "tshirt",
+  "size": [
+    "S",
+    "M",
+    "L",
+    "XL",
+    "XXL"
+  ],
+  "color": [
+    "#cdb4db",
+    "#ffafcc",
+    "#bde0fe",
+    "#e63946"
+  ],
+  "price": 1499,
+  "availableQty": 10,
+  "createdAt": {
+    "$date": "2025-07-09T13:58:09.631Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-09T13:58:09.631Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "686e7571b74a1d6d55418e82"
+  },
+  "title": "Multipack Gildan Crew Tee",
+  "slug": "multipack-gildan-crew-tee",
+  "desc": "Gildan plain crew tees, perfect basics.",
+  "img": "https://prod-img.thesouledstore.com/public/theSoul/uploads/catalog/product/1711434111_1458251.jpg?format=webp&w=480&dpr=1.3",
+  "category": "tshirt",
+  "size": [
+    "S",
+    "M",
+    "L",
+    "XL",
+    "XXL"
+  ],
+  "color": [
+    "#cdb4db",
+    "#ffafcc",
+    "#bde0fe",
+    "#e63946"
+  ],
+  "price": 2299,
+  "availableQty": 10,
+  "createdAt": {
+    "$date": "2025-07-09T13:58:09.633Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-09T13:58:09.633Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "686e7571b74a1d6d55418e84"
+  },
+  "title": "MTV Variations Logo Tee",
+  "slug": "mtv-variations-logo-tee",
+  "desc": "MTV graphic tee – different colorways logo series.",
+  "img": "https://prod-img.thesouledstore.com/public/theSoul/uploads/catalog/product/1711434111_1458251.jpg?format=webp&w=480&dpr=1.3",
+  "category": "tshirt",
+  "size": [
+    "S",
+    "M",
+    "L",
+    "XL",
+    "XXL"
+  ],
+  "color": [
+    "#cdb4db",
+    "#ffafcc",
+    "#bde0fe",
+    "#e63946"
+  ],
+  "price": 1599,
+  "availableQty": 10,
+  "createdAt": {
+    "$date": "2025-07-09T13:58:09.635Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-09T13:58:09.635Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68709944d9b4344f51f35659"
+  },
+  "title": "Nike Club Fleece Hoodie",
+  "slug": "nike-club-fleece-hoodie",
+  "desc": "Classic Nike hoodie with soft fleece lining.",
+  "img": "https://prod-img.thesouledstore.com/public/theSoul/uploads/catalog/product/1736923851_1544315.jpg?format=webp&w=480&dpr=1.3",
+  "category": "hoodie",
+  "size": [
+    "S",
+    "M",
+    "L",
+    "XL",
+    "XXL"
+  ],
+  "color": [
+    "#cdb4db",
+    "#ffafcc",
+    "#bde0fe",
+    "#e63946"
+  ],
+  "price": 3495,
+  "availableQty": 9,
+  "createdAt": {
+    "$date": "2025-07-11T04:55:32.057Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-23T16:16:11.325Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68709944d9b4344f51f3565c"
+  },
+  "title": "Adidas Essentials Hoodie",
+  "slug": "adidas-essentials-hoodie",
+  "desc": "Everyday hoodie with iconic Adidas branding.",
+  "img": "https://prod-img.thesouledstore.com/public/theSoul/uploads/catalog/product/1736923851_1544315.jpg?format=webp&w=480&dpr=1.3",
+  "category": "hoodie",
+  "size": [
+    "S",
+    "M",
+    "L",
+    "XL",
+    "XXL"
+  ],
+  "color": [
+    "#cdb4db",
+    "#ffafcc",
+    "#bde0fe",
+    "#e63946"
+  ],
+  "price": 2999,
+  "availableQty": 8,
+  "createdAt": {
+    "$date": "2025-07-11T04:55:32.076Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-17T07:03:02.514Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68709944d9b4344f51f3565e"
+  },
+  "title": "Puma Power Colorblock Hoodie",
+  "slug": "puma-power-colorblock-hoodie",
+  "desc": "Bold colorblock hoodie from Puma.",
+  "img": "https://prod-img.thesouledstore.com/public/theSoul/uploads/catalog/product/1736923851_1544315.jpg?format=webp&w=480&dpr=1.3",
+  "category": "hoodie",
+  "size": [
+    "S",
+    "M",
+    "L",
+    "XL",
+    "XXL"
+  ],
+  "color": [
+    "#cdb4db",
+    "#ffafcc",
+    "#bde0fe",
+    "#e63946"
+  ],
+  "price": 3299,
+  "availableQty": 10,
+  "createdAt": {
+    "$date": "2025-07-11T04:55:32.082Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-11T04:55:32.082Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68709944d9b4344f51f35660"
+  },
+  "title": "H&M Relaxed Fit Hoodie",
+  "slug": "hm-relaxed-fit-hoodie",
+  "desc": "Soft cotton-blend hoodie for daily comfort.",
+  "img": "https://prod-img.thesouledstore.com/public/theSoul/uploads/catalog/product/1736923851_1544315.jpg?format=webp&w=480&dpr=1.3",
+  "category": "hoodie",
+  "size": [
+    "S",
+    "M",
+    "L",
+    "XL",
+    "XXL"
+  ],
+  "color": [
+    "#cdb4db",
+    "#ffafcc",
+    "#bde0fe",
+    "#e63946"
+  ],
+  "price": 1999,
+  "availableQty": 10,
+  "createdAt": {
+    "$date": "2025-07-11T04:55:32.084Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-11T04:55:32.084Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68709944d9b4344f51f35662"
+  },
+  "title": "Zara Printed Oversized Hoodie",
+  "slug": "zara-printed-oversized-hoodie",
+  "desc": "Trendy oversized hoodie with graphic prints.",
+  "img": "https://prod-img.thesouledstore.com/public/theSoul/uploads/catalog/product/1736923851_1544315.jpg?format=webp&w=480&dpr=1.3",
+  "category": "hoodie",
+  "size": [
+    "S",
+    "M",
+    "L",
+    "XL",
+    "XXL"
+  ],
+  "color": [
+    "#cdb4db",
+    "#ffafcc",
+    "#bde0fe",
+    "#e63946"
+  ],
+  "price": 2790,
+  "availableQty": 10,
+  "createdAt": {
+    "$date": "2025-07-11T04:55:32.086Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-11T04:55:32.086Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68709944d9b4344f51f35664"
+  },
+  "title": "Levi’s Standard Hoodie",
+  "slug": "levis-standard-hoodie",
+  "desc": "Signature Levi’s hoodie for a relaxed fit.",
+  "img": "https://prod-img.thesouledstore.com/public/theSoul/uploads/catalog/product/1736923851_1544315.jpg?format=webp&w=480&dpr=1.3",
+  "category": "hoodie",
+  "size": [
+    "S",
+    "M",
+    "L",
+    "XL",
+    "XXL"
+  ],
+  "color": [
+    "#cdb4db",
+    "#ffafcc",
+    "#bde0fe",
+    "#e63946"
+  ],
+  "price": 3599,
+  "availableQty": 10,
+  "createdAt": {
+    "$date": "2025-07-11T04:55:32.088Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-11T04:55:32.088Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68709944d9b4344f51f35666"
+  },
+  "title": "Jack & Jones Core Hoodie",
+  "slug": "jack-jones-core-hoodie",
+  "desc": "Urban style hoodie with a sleek silhouette.",
+  "img": "https://prod-img.thesouledstore.com/public/theSoul/uploads/catalog/product/1736923851_1544315.jpg?format=webp&w=480&dpr=1.3",
+  "category": "hoodie",
+  "size": [
+    "S",
+    "M",
+    "L",
+    "XL",
+    "XXL"
+  ],
+  "color": [
+    "#cdb4db",
+    "#ffafcc",
+    "#bde0fe",
+    "#e63946"
+  ],
+  "price": 2699,
+  "availableQty": 10,
+  "createdAt": {
+    "$date": "2025-07-11T04:55:32.091Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-11T04:55:32.091Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68709944d9b4344f51f35668"
+  },
+  "title": "Superdry Vintage Logo Hoodie",
+  "slug": "superdry-vintage-logo-hoodie",
+  "desc": "Superdry hoodie with vintage print and snug fit.",
+  "img": "https://prod-img.thesouledstore.com/public/theSoul/uploads/catalog/product/1736923851_1544315.jpg?format=webp&w=480&dpr=1.3",
+  "category": "hoodie",
+  "size": [
+    "S",
+    "M",
+    "L",
+    "XL",
+    "XXL"
+  ],
+  "color": [
+    "#cdb4db",
+    "#ffafcc",
+    "#bde0fe",
+    "#e63946"
+  ],
+  "price": 4199,
+  "availableQty": 10,
+  "createdAt": {
+    "$date": "2025-07-11T04:55:32.096Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-11T04:55:32.096Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68709944d9b4344f51f3566a"
+  },
+  "title": "Under Armour Rival Fleece Hoodie",
+  "slug": "under-armour-rival-fleece-hoodie",
+  "desc": "Workout-ready fleece hoodie from Under Armour.",
+  "img": "https://prod-img.thesouledstore.com/public/theSoul/uploads/catalog/product/1736923851_1544315.jpg?format=webp&w=480&dpr=1.3",
+  "category": "hoodie",
+  "size": [
+    "S",
+    "M",
+    "L",
+    "XL",
+    "XXL"
+  ],
+  "color": [
+    "#cdb4db",
+    "#ffafcc",
+    "#bde0fe",
+    "#e63946"
+  ],
+  "price": 3899,
+  "availableQty": 10,
+  "createdAt": {
+    "$date": "2025-07-11T04:55:32.105Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-11T04:55:32.105Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68709944d9b4344f51f3566c"
+  },
+  "title": "Roadster Solid Men Hoodie",
+  "slug": "roadster-solid-men-hoodie",
+  "desc": "Affordable, stylish hoodie from Roadster by Myntra.",
+  "img": "https://prod-img.thesouledstore.com/public/theSoul/uploads/catalog/product/1736923851_1544315.jpg?format=webp&w=480&dpr=1.3",
+  "category": "hoodie",
+  "size": [
+    "S",
+    "M",
+    "L",
+    "XL",
+    "XXL"
+  ],
+  "color": [
+    "#cdb4db",
+    "#ffafcc",
+    "#bde0fe",
+    "#e63946"
+  ],
+  "price": 1599,
+  "availableQty": 10,
+  "createdAt": {
+    "$date": "2025-07-11T04:55:32.110Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-11T04:55:32.110Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6870a100d9b4344f51f35687"
+  },
+  "title": "Stay Weird Sticker",
+  "slug": "stay-weird-sticker",
+  "desc": "Bold sticker with ‘Stay Weird’ text.",
+  "img": "https://m.media-amazon.com/images/I/A1BvRTJ1atL._AC_UL480_FMwebp_QL65_.jpg",
+  "category": "sticker",
+  "size": [],
+  "color": [],
+  "price": 99,
+  "availableQty": 50,
+  "createdAt": {
+    "$date": "2025-07-11T05:28:32.198Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-11T05:28:32.198Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6870a100d9b4344f51f3568a"
+  },
+  "title": "Be Different Die-Cut Sticker",
+  "slug": "be-different-diecut-sticker",
+  "desc": "Premium vinyl sticker with motivational text.",
+  "img": "https://m.media-amazon.com/images/I/A1BvRTJ1atL._AC_UL480_FMwebp_QL65_.jpg",
+  "category": "sticker",
+  "size": [],
+  "color": [],
+  "price": 129,
+  "availableQty": 40,
+  "createdAt": {
+    "$date": "2025-07-11T05:28:32.212Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-11T05:28:32.212Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6870a100d9b4344f51f3568c"
+  },
+  "title": "MTV Retro Logo Sticker",
+  "slug": "mtv-retro-logo-sticker",
+  "desc": "MTV-themed sticker with a vintage vibe.",
+  "img": "https://m.media-amazon.com/images/I/A1BvRTJ1atL._AC_UL480_FMwebp_QL65_.jpg",
+  "category": "sticker",
+  "size": [],
+  "color": [],
+  "price": 149,
+  "availableQty": 60,
+  "createdAt": {
+    "$date": "2025-07-11T05:28:32.214Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-11T05:28:32.214Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6870a100d9b4344f51f3568e"
+  },
+  "title": "Code & Chill Sticker",
+  "slug": "code-and-chill-sticker",
+  "desc": "Perfect for laptops and notebooks.",
+  "img": "https://m.media-amazon.com/images/I/A1BvRTJ1atL._AC_UL480_FMwebp_QL65_.jpg",
+  "category": "sticker",
+  "size": [],
+  "color": [],
+  "price": 89,
+  "availableQty": 70,
+  "createdAt": {
+    "$date": "2025-07-11T05:28:32.216Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-11T05:28:32.216Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6870a100d9b4344f51f35690"
+  },
+  "title": "Built Different Sticker",
+  "slug": "built-different-sticker",
+  "desc": "Minimalist sticker with ‘Built Different’ message.",
+  "img": "https://m.media-amazon.com/images/I/A1BvRTJ1atL._AC_UL480_FMwebp_QL65_.jpg",
+  "category": "sticker",
+  "size": [],
+  "color": [],
+  "price": 119,
+  "availableQty": 55,
+  "createdAt": {
+    "$date": "2025-07-11T05:28:32.218Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-11T05:28:32.218Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6870a100d9b4344f51f35692"
+  },
+  "title": "Debug Mode On Sticker",
+  "slug": "debug-mode-on-sticker",
+  "desc": "A must-have for all coders & techies.",
+  "img": "https://m.media-amazon.com/images/I/A1BvRTJ1atL._AC_UL480_FMwebp_QL65_.jpg",
+  "category": "sticker",
+  "size": [],
+  "color": [],
+  "price": 109,
+  "availableQty": 45,
+  "createdAt": {
+    "$date": "2025-07-11T05:28:32.220Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-11T05:28:32.220Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6870a100d9b4344f51f35694"
+  },
+  "title": "404 Not Found Sticker",
+  "slug": "404-not-found-sticker",
+  "desc": "Funny 404 error sticker for your gadgets.",
+  "img": "https://m.media-amazon.com/images/I/A1BvRTJ1atL._AC_UL480_FMwebp_QL65_.jpg",
+  "category": "sticker",
+  "size": [],
+  "color": [],
+  "price": 89,
+  "availableQty": 48,
+  "createdAt": {
+    "$date": "2025-07-11T05:28:32.221Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-11T05:28:32.221Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6870a100d9b4344f51f35696"
+  },
+  "title": "No Bugs Just Features Sticker",
+  "slug": "no-bugs-just-features-sticker",
+  "desc": "Dev humor sticker, ideal for software geeks.",
+  "img": "https://m.media-amazon.com/images/I/A1BvRTJ1atL._AC_UL480_FMwebp_QL65_.jpg",
+  "category": "sticker",
+  "size": [],
+  "color": [],
+  "price": 139,
+  "availableQty": 52,
+  "createdAt": {
+    "$date": "2025-07-11T05:28:32.224Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-11T05:28:32.224Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6870a100d9b4344f51f35698"
+  },
+  "title": "Hello World Sticker",
+  "slug": "hello-world-sticker",
+  "desc": "Beginner programmer sticker with a classic touch.",
+  "img": "https://m.media-amazon.com/images/I/A1BvRTJ1atL._AC_UL480_FMwebp_QL65_.jpg",
+  "category": "sticker",
+  "size": [],
+  "color": [],
+  "price": 99,
+  "availableQty": 63,
+  "createdAt": {
+    "$date": "2025-07-11T05:28:32.225Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-11T05:28:32.225Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6870a100d9b4344f51f3569a"
+  },
+  "title": "Trust Me I'm a Developer Sticker",
+  "slug": "trust-me-im-a-dev-sticker",
+  "desc": "Slick dev badge sticker for your workspace.",
+  "img": "https://m.media-amazon.com/images/I/A1BvRTJ1atL._AC_UL480_FMwebp_QL65_.jpg",
+  "category": "sticker",
+  "size": [],
+  "color": [],
+  "price": 149,
+  "availableQty": 38,
+  "createdAt": {
+    "$date": "2025-07-11T05:28:32.226Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-11T05:28:32.226Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6870a1b4d9b4344f51f356a1"
+  },
+  "title": "Code Mode Ceramic Mug",
+  "slug": "code-mode-ceramic-mug",
+  "desc": "Black ceramic mug with ‘Code Mode’ print.",
+  "img": "https://m.media-amazon.com/images/I/61uBVfykP5L._AC_UL480_FMwebp_QL65_.jpg",
+  "category": "mug",
+  "size": [],
+  "color": [],
+  "price": 299,
+  "availableQty": 20,
+  "createdAt": {
+    "$date": "2025-07-11T05:31:32.984Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-11T05:31:32.984Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6870a1b4d9b4344f51f356a4"
+  },
+  "title": "Built Different Mug",
+  "slug": "built-different-mug",
+  "desc": "Bold font mug for the ones who stand out.",
+  "img": "https://m.media-amazon.com/images/I/61uBVfykP5L._AC_UL480_FMwebp_QL65_.jpg",
+  "category": "mug",
+  "size": [],
+  "color": [],
+  "price": 349,
+  "availableQty": 29,
+  "createdAt": {
+    "$date": "2025-07-11T05:31:32.987Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-17T07:02:02.181Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6870a1b4d9b4344f51f356a6"
+  },
+  "title": "Debug Fuel Mug",
+  "slug": "debug-fuel-mug",
+  "desc": "Perfect mug for your daily debugging grind.",
+  "img": "https://m.media-amazon.com/images/I/61uBVfykP5L._AC_UL480_FMwebp_QL65_.jpg",
+  "category": "mug",
+  "size": [],
+  "color": [],
+  "price": 279,
+  "availableQty": 25,
+  "createdAt": {
+    "$date": "2025-07-11T05:31:32.988Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-11T05:31:32.988Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6870a1b4d9b4344f51f356a8"
+  },
+  "title": "World’s Okayest Coder Mug",
+  "slug": "worlds-okayest-coder-mug",
+  "desc": "Fun sarcasm for developers in mug form.",
+  "img": "https://m.media-amazon.com/images/I/61uBVfykP5L._AC_UL480_FMwebp_QL65_.jpg",
+  "category": "mug",
+  "size": [],
+  "color": [],
+  "price": 319,
+  "availableQty": 18,
+  "createdAt": {
+    "$date": "2025-07-11T05:31:32.990Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-11T05:31:32.990Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6870a1b4d9b4344f51f356aa"
+  },
+  "title": "Git Push Mug",
+  "slug": "git-push-mug",
+  "desc": "Mug with Git-themed slogan, loved by devs.",
+  "img": "https://m.media-amazon.com/images/I/61uBVfykP5L._AC_UL480_FMwebp_QL65_.jpg",
+  "category": "mug",
+  "size": [],
+  "color": [],
+  "price": 289,
+  "availableQty": 28,
+  "createdAt": {
+    "$date": "2025-07-11T05:31:32.991Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-11T05:31:32.991Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6870a1b4d9b4344f51f356ac"
+  },
+  "title": "Late Night Debug Mug",
+  "slug": "late-night-debug-mug",
+  "desc": "Fuel for your 2AM coding marathons.",
+  "img": "https://m.media-amazon.com/images/I/61uBVfykP5L._AC_UL480_FMwebp_QL65_.jpg",
+  "category": "mug",
+  "size": [],
+  "color": [],
+  "price": 259,
+  "availableQty": 35,
+  "createdAt": {
+    "$date": "2025-07-11T05:31:32.994Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-11T05:31:32.994Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6870a1b4d9b4344f51f356ae"
+  },
+  "title": "Just One More Bug Mug",
+  "slug": "just-one-more-bug-mug",
+  "desc": "We all know it’s never just one bug.",
+  "img": "https://m.media-amazon.com/images/I/61uBVfykP5L._AC_UL480_FMwebp_QL65_.jpg",
+  "category": "mug",
+  "size": [],
+  "color": [],
+  "price": 299,
+  "availableQty": 22,
+  "createdAt": {
+    "$date": "2025-07-11T05:31:32.995Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-11T05:31:32.995Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6870a1b4d9b4344f51f356b0"
+  },
+  "title": "Eat Sleep Code Mug",
+  "slug": "eat-sleep-code-mug",
+  "desc": "Classic dev mantra printed on a sleek mug.",
+  "img": "https://m.media-amazon.com/images/I/61uBVfykP5L._AC_UL480_FMwebp_QL65_.jpg",
+  "category": "mug",
+  "size": [],
+  "color": [],
+  "price": 319,
+  "availableQty": 40,
+  "createdAt": {
+    "$date": "2025-07-11T05:31:32.996Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-11T05:31:32.996Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6870a1b4d9b4344f51f356b2"
+  },
+  "title": "Stack Overflow Mug",
+  "slug": "stack-overflow-mug",
+  "desc": "Pay tribute to your daily problem-solver.",
+  "img": "https://m.media-amazon.com/images/I/61uBVfykP5L._AC_UL480_FMwebp_QL65_.jpg",
+  "category": "mug",
+  "size": [],
+  "color": [],
+  "price": 339,
+  "availableQty": 32,
+  "createdAt": {
+    "$date": "2025-07-11T05:31:32.998Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-11T05:31:32.998Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6870a1b4d9b4344f51f356b4"
+  },
+  "title": "Trust Me I’m a Dev Mug",
+  "slug": "trust-me-im-a-dev-mug",
+  "desc": "Ceramic mug for the proud full-stack dev.",
+  "img": "https://m.media-amazon.com/images/I/61uBVfykP5L._AC_UL480_FMwebp_QL65_.jpg",
+  "category": "mug",
+  "size": [],
+  "color": [],
+  "price": 349,
+  "availableQty": 26,
+  "createdAt": {
+    "$date": "2025-07-11T05:31:32.999Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-11T05:31:32.999Z"
+  },
+  "__v": 0
+}
