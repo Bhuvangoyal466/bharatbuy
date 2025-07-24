@@ -12,7 +12,6 @@ const connectDb = (handler) => async (req, res) => {
             useNewUrlParser: true,
             useUnifiedTopology: true,
         });
-        console.log("MongoDB connected successfully");
         return handler(req, res);
     } catch (error) {
         console.error("MongoDB connection error:", error);

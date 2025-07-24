@@ -1,4 +1,4 @@
-import React, { use } from "react";
+import React, { use, useRef, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
@@ -6,7 +6,7 @@ import { AiOutlineShoppingCart } from "react-icons/ai";
 import { FaMinusSquare, FaPlusSquare, FaWindowClose } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md";
 import { IoBagHandle } from "react-icons/io5";
-import { useRef } from "react";
+
 import { MdAccountCircle } from "react-icons/md";
 import { toast } from "react-toastify";
 
@@ -21,17 +21,35 @@ const Navbar = ({
     router,
 }) => {
     const [dropdown, setDropdown] = useState(false);
+    const accountRef = useRef();
 
     // Check if current page is checkout
     const isCheckoutPage = router?.pathname === "/checkout";
+
+    // Close dropdown on outside click
+    useEffect(() => {
+        if (!dropdown) return;
+        function handleClickOutside(event) {
+            if (
+                accountRef.current &&
+                !accountRef.current.contains(event.target)
+            ) {
+                setDropdown(false);
+            }
+        }
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, [dropdown]);
 
     const toggleCart = () => {
         if (ref.current.classList.contains("translate-x-full")) {
             ref.current.classList.remove("translate-x-full");
             ref.current.classList.add("translate-x-0");
         } else {
-            ref.current.classList.add("translate-x-full");
             ref.current.classList.remove("translate-x-0");
+            ref.current.classList.add("translate-x-full");
         }
     };
 
@@ -112,13 +130,13 @@ const Navbar = ({
                     </Link>
                 </ul>
             </div>
-            <div className="cursor-pointer items-center cart absolute right-0 top-4 mx-5 flex space-x-4">
+            <div className="cursor-pointer items-center justify-center cart absolute right-0 top-9 mx-5 flex space-x-4">
                 {user.value && (
-                    <div className="relative group">
+                    <div className="relative" ref={accountRef}>
                         <span
-                            onMouseOver={() => setDropdown(true)}
-                            onMouseLeave={() => setDropdown(false)}
+                            onClick={() => setDropdown((prev) => !prev)}
                             className="mx-2 flex items-center space-x-1 text-gray-700 hover:text-nykaa-primary transition-all duration-300 cursor-pointer"
+                            style={{ userSelect: "none" }}
                         >
                             <MdAccountCircle className="text-2xl" />
                             <span className="hidden md:block font-medium">
@@ -126,11 +144,7 @@ const Navbar = ({
                             </span>
                         </span>
                         {dropdown && (
-                            <div
-                                onMouseOver={() => setDropdown(true)}
-                                onMouseLeave={() => setDropdown(false)}
-                                className="absolute right-0 top-full mt-2 w-48 bg-white rounded-xl shadow-lg border border-pink-100 py-2 z-50"
-                            >
+                            <div className="absolute right-0 top-full mt-2 w-48 bg-white rounded-xl shadow-lg border border-pink-100 py-2 z-50">
                                 <Link
                                     href="/myaccount"
                                     className="block px-4 py-3 text-gray-700 hover:bg-pink-50 hover:text-nykaa-primary transition-all duration-200 rounded-lg mx-2"
@@ -181,11 +195,8 @@ const Navbar = ({
             {!isCheckoutPage && (
                 <div
                     ref={ref}
-                    className={`fixed top-0 border-l border-pink-200 overflow-y-scroll right-0 z-50 bg-white/95 backdrop-blur-md h-[100vh] px-8 py-8 w-80 transition-transform transform shadow-2xl ${
-                        Object.keys(cart).length == 0
-                            ? "translate-x-full"
-                            : "translate-x-0"
-                    }`}
+                    className={`fixed top-0 right-0 z-50 h-[100vh] w-80 px-8 py-8 bg-white/95 backdrop-blur-md border-l border-pink-200 shadow-2xl overflow-y-scroll transform transition-transform duration-300 ease-in-out translate-x-full`}
+                    style={{ willChange: "transform" }}
                 >
                     <div className="flex items-center justify-between mb-8">
                         <h2 className="font-bold text-2xl text-gray-800 flex items-center">

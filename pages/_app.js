@@ -24,7 +24,6 @@ export default function App({ Component, pageProps }) {
         router.events.on("routeChangeComplete", () => {
             setProgress(100);
         });
-        console.log("useEffect called");
         try {
             if (localStorage.getItem("cart")) {
                 setCart(JSON.parse(localStorage.getItem("cart")));
@@ -158,6 +157,7 @@ export default function App({ Component, pageProps }) {
             />
             {key && (
                 <Navbar
+                    className="overflow-x-hidden"
                     logout={logout}
                     user={user}
                     key={key}

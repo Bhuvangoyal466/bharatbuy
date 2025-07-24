@@ -70,14 +70,14 @@ const Signup = () => {
                     {/* Logo and Header */}
                     <div className="text-center mb-8">
                         <img
-                            className="mx-auto h-24 w-auto mb-6"
+                            className="mx-auto h-50 w-auto mb-6"
                             src="/logo2.png"
                             alt="BharatBuy"
                         />
                         <h2 className="text-3xl font-bold text-gray-900 mb-2">
                             Create Account
                         </h2>
-                        <p className="text-gray-600">
+                        <p className="text-gray-600 mb-20">
                             Sign up for a BharatBuy account
                         </p>
                     </div>

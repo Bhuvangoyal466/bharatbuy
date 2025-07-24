@@ -2,11 +2,12 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 
-const PaymentSuccess = () => {
+const PaymentSuccess = ({ clearCart }) => {
     const router = useRouter();
     const { orderId, transactionId } = router.query;
     const [orderDetails, setOrderDetails] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [cartCleared, setCartCleared] = useState(false);
 
     useEffect(() => {
         if (orderId) {
@@ -14,6 +15,14 @@ const PaymentSuccess = () => {
             updateOrderStatus();
         }
     }, [orderId]);
+
+    // Clear cart after payment is confirmed and only once
+    useEffect(() => {
+        if (!loading && orderDetails && !cartCleared) {
+            clearCart && clearCart();
+            setCartCleared(true);
+        }
+    }, [loading, orderDetails, clearCart, cartCleared]);
 
     const fetchOrderDetails = async () => {
         try {
@@ -92,7 +101,7 @@ const PaymentSuccess = () => {
                             </h2>
                             <div className="space-y-3">
                                 <div className="flex justify-between">
-                                    <span className="font-medium">
+                                    <span className="font-medium text-black">
                                         Order ID:
                                     </span>
                                     <span className="text-nykaa-primary font-mono">
@@ -100,7 +109,7 @@ const PaymentSuccess = () => {
                                     </span>
                                 </div>
                                 <div className="flex justify-between">
-                                    <span className="font-medium">
+                                    <span className="font-medium text-black">
                                         Transaction ID:
                                     </span>
                                     <span className="text-green-600 font-mono">
@@ -110,7 +119,7 @@ const PaymentSuccess = () => {
                                     </span>
                                 </div>
                                 <div className="flex justify-between">
-                                    <span className="font-medium">
+                                    <span className="font-medium text-black">
                                         Amount Paid:
                                     </span>
                                     <span className="text-2xl font-bold text-nykaa-primary">
@@ -118,23 +127,23 @@ const PaymentSuccess = () => {
                                     </span>
                                 </div>
                                 <div className="flex justify-between">
-                                    <span className="font-medium">
+                                    <span className="font-medium text-black">
                                         Payment Status:
                                     </span>
                                     <span className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium">
                                         Success
                                     </span>
                                 </div>
-                                <div className="flex justify-between">
-                                    <span className="font-medium">
+                                <div className="flex justify-between text-black">
+                                    <span className="font-medium ">
                                         Customer:
                                     </span>
                                     <span>
                                         {orderDetails.customerInfo?.name}
                                     </span>
                                 </div>
-                                <div className="flex justify-between">
-                                    <span className="font-medium">Email:</span>
+                                <div className="flex justify-between text-black">
+                                    <span className="font-medium ">Email:</span>
                                     <span>
                                         {orderDetails.customerInfo?.email}
                                     </span>

@@ -196,16 +196,16 @@ const MyAccount = ({
     };
 
     return (
-        <div className="container px-7  md:px-40 m-auto">
-            <h1 className="font-semibold text-3xl my-8 text-center">
-                Update your Account
-            </h1>
-            <div className="mx-auto flex my-2">
-                <div className=" w-1/2 px-5">
-                    <div className="mb-4">
+        <div className="min-h-screen bg-pink-50 py-10 flex flex-col items-center font-sans">
+            <div className="w-full max-w-2xl bg-white rounded-2xl shadow-lg p-8 md:p-12 border border-pink-100">
+                <h1 className="font-bold text-3xl md:text-4xl text-center text-[#e80071] mb-8 tracking-tight">
+                    Update your Account
+                </h1>
+                <div className="flex flex-col md:flex-row gap-6 mb-4">
+                    <div className="w-full md:w-1/2">
                         <label
                             htmlFor="name"
-                            className="leading-7 text-sm text-gray-600"
+                            className="block mb-2 text-sm font-medium text-gray-700"
                         >
                             Name
                         </label>
@@ -215,15 +215,13 @@ const MyAccount = ({
                             onChange={handleChange}
                             id="name"
                             name="name"
-                            className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                            className="w-full bg-pink-50 rounded-lg border border-pink-200 focus:border-[#e80071] focus:ring-2 focus:ring-[#e80071]/20 text-base outline-none text-gray-700 py-2 px-4 transition-colors duration-200 ease-in-out shadow-sm"
                         />
                     </div>
-                </div>
-                <div className=" w-1/2">
-                    <div className="mb-4">
+                    <div className="w-full md:w-1/2">
                         <label
                             htmlFor="email"
-                            className="leading-7 text-sm text-gray-600"
+                            className="block mb-2 text-sm font-medium text-gray-700"
                         >
                             Email (Cannot be updated)
                         </label>
@@ -233,17 +231,15 @@ const MyAccount = ({
                             type="email"
                             id="email"
                             name="email"
-                            className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                            className="w-full bg-pink-50 rounded-lg border border-pink-200 text-base outline-none text-gray-400 py-2 px-4 shadow-sm cursor-not-allowed"
                             readOnly
                         />
                     </div>
                 </div>
-            </div>
-            <div className=" w-full my-2">
-                <div className="mb-4 pl-5">
+                <div className="mb-4">
                     <label
                         htmlFor="address"
-                        className="leading-7 text-sm text-gray-600"
+                        className="block mb-2 text-sm font-medium text-gray-700"
                     >
                         {address ? "Address" : "Enter your address"}
                     </label>
@@ -252,16 +248,14 @@ const MyAccount = ({
                         onChange={handleChange}
                         name="address"
                         id="address"
-                        className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                        className="w-full bg-pink-50 rounded-lg border border-pink-200 focus:border-[#e80071] focus:ring-2 focus:ring-[#e80071]/20 text-base outline-none text-gray-700 py-2 px-4 transition-colors duration-200 ease-in-out shadow-sm min-h-[80px]"
                     ></textarea>
                 </div>
-            </div>
-            <div className="mx-auto flex my-2">
-                <div className=" w-1/2 px-5">
-                    <div className="mb-4">
+                <div className="flex flex-col md:flex-row gap-6 mb-4">
+                    <div className="w-full md:w-1/2">
                         <label
                             htmlFor="phone"
-                            className="leading-7 text-sm text-gray-600"
+                            className="block mb-2 text-sm font-medium text-gray-700"
                         >
                             Phone
                         </label>
@@ -271,15 +265,13 @@ const MyAccount = ({
                             type="number"
                             id="phone"
                             name="phone"
-                            className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                            className="w-full bg-pink-50 rounded-lg border border-pink-200 focus:border-[#e80071] focus:ring-2 focus:ring-[#e80071]/20 text-base outline-none text-gray-700 py-2 px-4 transition-colors duration-200 ease-in-out shadow-sm"
                         />
                     </div>
-                </div>
-                <div className=" w-1/2">
-                    <div className="mb-4">
+                    <div className="w-full md:w-1/2">
                         <label
                             htmlFor="pin"
-                            className="leading-7 text-sm text-gray-600"
+                            className="block mb-2 text-sm font-medium text-gray-700"
                         >
                             Pin Code
                         </label>
@@ -289,27 +281,25 @@ const MyAccount = ({
                             type="text"
                             id="pin"
                             name="pin"
-                            className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                            className="w-full bg-pink-50 rounded-lg border border-pink-200 focus:border-[#e80071] focus:ring-2 focus:ring-[#e80071]/20 text-base outline-none text-gray-700 py-2 px-4 transition-colors duration-200 ease-in-out shadow-sm"
                         />
                     </div>
                 </div>
-            </div>
-            <button
-                onClick={handleUserSubmit}
-                disabled={disabled || loading}
-                className="flex disabled:cursor-not-allowed disabled:bg-gray-300 disabled:text-gray-500 mr-2 items-center justify-center mt-6 rounded-lg cursor-pointer font-semibold bg-[#ff8080] border-2 border-black py-2 px-8 focus:outline-none hover:bg-[#f05e5e] text-lg ml-5"
-            >
-                {loading ? "Updating..." : "Confirm"}
-            </button>
-            <h2 className="font-semibold text-xl ml-5 mt-12">
-                Change Password
-            </h2>
-            <div className="mx-auto flex my-2">
-                <div className=" w-1/2 px-5">
-                    <div className="mb-4">
+                <button
+                    onClick={handleUserSubmit}
+                    disabled={disabled || loading}
+                    className="w-full md:w-auto flex disabled:cursor-not-allowed disabled:bg-pink-100 disabled:text-pink-300 items-center justify-center mt-4 rounded-full cursor-pointer font-semibold bg-[#e80071] border-2 border-[#e80071] py-2 px-8 focus:outline-none hover:bg-[#c2005a] hover:border-[#c2005a] text-lg text-white shadow-md transition-all duration-200"
+                >
+                    {loading ? "Updating..." : "Confirm"}
+                </button>
+                <h2 className="font-semibold text-2xl text-[#e80071] mt-12 mb-4 text-center tracking-tight">
+                    Change Password
+                </h2>
+                <div className="flex flex-col md:flex-row gap-6 mb-4">
+                    <div className="w-full md:w-1/2">
                         <label
                             htmlFor="password"
-                            className="leading-7 text-sm text-gray-600"
+                            className="block mb-2 text-sm font-medium text-gray-700"
                         >
                             Password
                         </label>
@@ -319,15 +309,13 @@ const MyAccount = ({
                             onChange={handleChange}
                             id="password"
                             name="password"
-                            className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                            className="w-full bg-pink-50 rounded-lg border border-pink-200 focus:border-[#e80071] focus:ring-2 focus:ring-[#e80071]/20 text-base outline-none text-gray-700 py-2 px-4 transition-colors duration-200 ease-in-out shadow-sm"
                         />
                     </div>
-                </div>
-                <div className=" w-1/2">
-                    <div className="mb-4">
+                    <div className="w-full md:w-1/2">
                         <label
                             htmlFor="cpassword"
-                            className="leading-7 text-sm text-gray-600"
+                            className="block mb-2 text-sm font-medium text-gray-700"
                         >
                             Confirm Password
                         </label>
@@ -337,18 +325,18 @@ const MyAccount = ({
                             onChange={handleChange}
                             id="cpassword"
                             name="cpassword"
-                            className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                            className="w-full bg-pink-50 rounded-lg border border-pink-200 focus:border-[#e80071] focus:ring-2 focus:ring-[#e80071]/20 text-base outline-none text-gray-700 py-2 px-4 transition-colors duration-200 ease-in-out shadow-sm"
                         />
                     </div>
                 </div>
+                <button
+                    onClick={handlePasswordSubmit}
+                    disabled={loading || !password || !cpassword}
+                    className="w-full md:w-auto flex disabled:cursor-not-allowed disabled:bg-pink-100 disabled:text-pink-300 items-center justify-center mt-4 rounded-full cursor-pointer font-semibold bg-[#e80071] border-2 border-[#e80071] py-2 px-8 focus:outline-none hover:bg-[#c2005a] hover:border-[#c2005a] text-lg text-white shadow-md transition-all duration-200"
+                >
+                    {loading ? "Updating..." : "Change Password"}
+                </button>
             </div>
-            <button
-                onClick={handlePasswordSubmit}
-                disabled={loading || !password || !cpassword}
-                className="flex disabled:cursor-not-allowed disabled:bg-gray-300 disabled:text-gray-500 mr-2 items-center justify-center mt-6 rounded-lg cursor-pointer font-semibold bg-[#ff8080] border-2 border-black py-2 px-8 focus:outline-none hover:bg-[#f05e5e] text-lg ml-5"
-            >
-                {loading ? "Updating..." : "Change Password"}
-            </button>
         </div>
     );
 };

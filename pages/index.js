@@ -3,6 +3,7 @@ import Link from "next/link";
 import Navbar from "../components/Navbar";
 import Image from "next/image";
 import Footer from "../components/Footer";
+import InfiniteCarousel from "../components/InfiniteCarousel";
 
 export default function Home() {
     return (
@@ -167,59 +168,7 @@ export default function Home() {
                         </div>
                     </div>
 
-                    <div className="flex justify-center">
-                        <div className="carousel carousel-center bg-neutral rounded-box w-full max-w-md md:max-w-4xl lg:max-w-6xl xl:max-w-screen-2xl space-x-4 p-4">
-                            <div className="carousel-item">
-                                <img
-                                    src="/tshirt.png"
-                                    alt="T-Shirt"
-                                    className="rounded-box w-32 md:w-48 lg:w-64 xl:w-80 2xl:w-96"
-                                />
-                            </div>
-                            <div className="carousel-item">
-                                <img
-                                    src="/hoodie.png"
-                                    alt="Hoodie"
-                                    className="rounded-box w-32 md:w-48 lg:w-64 xl:w-80 2xl:w-96"
-                                />
-                            </div>
-                            <div className="carousel-item">
-                                <img
-                                    src="/mug.png"
-                                    alt="Mug"
-                                    className="rounded-box w-32 md:w-48 lg:w-64 xl:w-80 2xl:w-96"
-                                />
-                            </div>
-                            <div className="carousel-item">
-                                <img
-                                    src="/sticker.png"
-                                    alt="Sticker"
-                                    className="rounded-box w-32 md:w-48 lg:w-64 xl:w-80 2xl:w-96"
-                                />
-                            </div>
-                            <div className="carousel-item">
-                                <img
-                                    src="/logo1.png"
-                                    alt="Logo 1"
-                                    className="rounded-box w-32 md:w-48 lg:w-64 xl:w-80 2xl:w-96"
-                                />
-                            </div>
-                            <div className="carousel-item">
-                                <img
-                                    src="/logo2.png"
-                                    alt="Logo 2"
-                                    className="rounded-box w-32 md:w-48 lg:w-64 xl:w-80 2xl:w-96"
-                                />
-                            </div>
-                            <div className="carousel-item">
-                                <img
-                                    src="/window.svg"
-                                    alt="Window"
-                                    className="rounded-box w-32 md:w-48 lg:w-64 xl:w-80 2xl:w-96"
-                                />
-                            </div>
-                        </div>
-                    </div>
+                    <InfiniteCarousel />
                 </div>
             </section>
         </>

@@ -148,7 +148,7 @@ const Orders = () => {
                                             <p className="text-xs text-gray-500">
                                                 Order Date
                                             </p>
-                                            <p className="font-medium">
+                                            <p className="font-medium text-black">
                                                 {formatDate(order.createdAt)}
                                             </p>
                                         </div>
@@ -185,25 +185,25 @@ const Orders = () => {
                                             Customer Information
                                         </h3>
                                         <div className="space-y-1 text-sm">
-                                            <p>
-                                                <span className="font-medium">
+                                            <p className="text-black">
+                                                <span className="font-medium ">
                                                     Name:
                                                 </span>{" "}
                                                 {order.customerInfo?.name}
                                             </p>
-                                            <p>
+                                            <p className="text-black">
                                                 <span className="font-medium">
                                                     Email:
                                                 </span>{" "}
                                                 {order.customerInfo?.email}
                                             </p>
-                                            <p>
+                                            <p className="text-black">
                                                 <span className="font-medium">
                                                     Phone:
                                                 </span>{" "}
                                                 {order.customerInfo?.phone}
                                             </p>
-                                            <p>
+                                            <p className="text-black">
                                                 <span className="font-medium">
                                                     City:
                                                 </span>{" "}
@@ -238,7 +238,7 @@ const Orders = () => {
                                                             )}
                                                         </div>
                                                         <div className="text-right">
-                                                            <span>
+                                                            <span className="text-black">
                                                                 Qty:{" "}
                                                                 {
                                                                     product.quantity
@@ -268,7 +268,7 @@ const Orders = () => {
 
                                 {order.transactionId && (
                                     <div className="mt-4 pt-4 border-t border-gray-200">
-                                        <p className="text-sm">
+                                        <p className="text-sm text-black">
                                             <span className="font-medium">
                                                 Transaction ID:
                                             </span>

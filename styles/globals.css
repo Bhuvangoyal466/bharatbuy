@@ -28,8 +28,22 @@ body {
     line-height: 1.6;
 }
 
+@keyframes slide {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-33.333%);
+    }
+}
+
+.animate-slide {
+    animation: slide 15s linear infinite;
+}
+
 /* Smooth scrolling */
 html {
+    overflow-x: hidden;
     scroll-behavior: smooth;
 }
 
@@ -214,12 +228,24 @@ html {
     padding: 12px 16px;
     transition: all 0.3s ease;
     font-size: 14px;
+    color: black;
+}
+
+/* Autofill cleanup */
+.nykaa-input:-webkit-autofill,
+.nykaa-input:-webkit-autofill:hover,
+.nykaa-input:-webkit-autofill:focus,
+.nykaa-input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0px 1000px white inset !important;
+    box-shadow: 0 0 0px 1000px white inset !important;
+    -webkit-text-fill-color: #000 !important;
+    transition: background-color 5000s ease-in-out 0s; /* Chrome autofill hack */
 }
 
 .nykaa-input:focus {
     outline: none;
     border-color: var(--nykaa-primary);
-    box-shadow: 0 0 0 3px rgba(252, 39, 121, 0.1);
+    /* box-shadow: 0 0 0 3px rgba(252, 39, 121, 0.1); */
 }
 
 /* Loading animations */
