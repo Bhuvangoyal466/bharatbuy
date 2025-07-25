@@ -1,5 +1,23 @@
 {
     "173212": ["Solan", "Himachal Pradesh"],
     "173213": ["Kasauli", "Himachal Pradesh"],
-    "174103": ["Baddi", "Himachal Pradesh"]
+    "174103": ["Baddi", "Himachal Pradesh"],
+    "110001": ["New Delhi", "Delhi"],
+    "400001": ["Mumbai", "Maharashtra"],
+    "560001": ["Bengaluru", "Karnataka"],
+    "600001": ["Chennai", "Tamil Nadu"],
+    "700001": ["Kolkata", "West Bengal"],
+    "500001": ["Hyderabad", "Telangana"],
+    "380001": ["Ahmedabad", "Gujarat"],
+    "302001": ["Jaipur", "Rajasthan"],
+    "751001": ["Bhubaneswar", "Odisha"],
+    "682001": ["Kochi", "Kerala"],
+    "226001": ["Lucknow", "Uttar Pradesh"],
+    "800001": ["Patna", "Bihar"],
+    "160017": ["Chandigarh", "Chandigarh"],
+    "122001": ["Gurgaon", "Haryana"],
+    "144001": ["Jalandhar", "Punjab"],
+    "500081": ["Gachibowli", "Telangana"],
+    "411001": ["Pune", "Maharashtra"],
+    "208001": ["Kanpur", "Uttar Pradesh"]
 }
