@@ -158,7 +158,18 @@ Located in `pages/api/`:
 ---
 
 
+<img width="1299" height="851" alt="Screenshot 2025-07-25 104843" src="https://github.com/user-attachments/assets/fc8c4fa2-6093-4cfe-b31e-a32dca725693" />
+<img width="1396" height="835" alt="Screenshot 2025-07-25 104802" src="https://github.com/user-attachments/assets/afd1c3da-0486-45a2-bfae-002fd7d5b02b" />
+<img width="655" height="874" alt="Screenshot 2025-07-25 104737" src="https://github.com/user-attachments/assets/493f00ef-c270-483a-b87e-05f6aa2b965d" />
+<img width="1393" height="741" alt="Screenshot 2025-07-25 104719" src="https://github.com/user-attachments/assets/185aad4c-dcda-4407-9bd9-f52b993b1b51" />
+<img width="1036" height="798" alt="Screenshot 2025-07-25 104659" src="https://github.com/user-attachments/assets/9a618e80-abad-42ad-a6fd-6bee3eb94603" />
+<img width="637" height="837" alt="Screenshot 2025-07-25 104934" src="https://github.com/user-attachments/assets/3c5f539e-3b7a-4725-a3cc-cdf651f97eb3" />
+<img width="1887" height="853" alt="Screenshot 2025-07-25 104521" src="https://github.com/user-attachments/assets/ef71dcb0-f2a8-4b64-a632-b26c4a31415f" />
+<img width="1892" height="875" alt="Screenshot 2025-07-25 104512" src="https://github.com/user-attachments/assets/dbb924bf-9752-4893-8f4d-bfeb0cc1bd62" />
+
+
 ## 🚢 Deployment
+Check out the deployed project => https://bharatbuy.vercel.app/
 
 
 Deploy easily on [Vercel](https://vercel.com/) or any platform supporting Next.js. See [Next.js deployment documentation](https://nextjs.org/docs/pages/building-your-application/deploying).
